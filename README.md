@@ -1,1 +1,1 @@
- # Hand, Heart, and Soul Project
+Hand, Heart, and Soul Project
