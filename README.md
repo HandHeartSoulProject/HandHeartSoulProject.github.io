@@ -1,2 +1,1 @@
- 
-Hey, welcome to our README!
+ # Hand, Heart, and Soul Project
