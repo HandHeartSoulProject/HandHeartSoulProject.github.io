@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
+import { Database } from "../types/supabase";
 
 const dateOptions: any = { weekday: "short", year: "numeric", month: "numeric", day: "numeric" };
 
 function Events() {
-	const [events, setEvents] = useState<any[]>([]);
+	const [events, setEvents] = useState<Database["public"]["Tables"]["events"]["Row"][]>();
 
 	useEffect(() => {
 		fetchEvents();
@@ -17,7 +18,7 @@ function Events() {
 		else setEvents(events);
 	}
 
-	return (
+	return events ? (
 		<table>
 			<thead>
 				<tr>
@@ -39,6 +40,8 @@ function Events() {
 				})}
 			</tbody>
 		</table>
+	) : (
+		<div>Loading...</div>
 	);
 }
 
