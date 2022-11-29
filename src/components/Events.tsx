@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 
+const dateOptions: any = { weekday: "short", year: "numeric", month: "numeric", day: "numeric" };
+
 function Events() {
 	const [events, setEvents] = useState<any[]>([]);
 
@@ -25,13 +27,16 @@ function Events() {
 				</tr>
 			</thead>
 			<tbody>
-				{events.map(event => (
-					<tr key={event.id}>
-						<td>{event.name}</td>
-						<td>{event.date}</td>
-						<td>{event.num_served}</td>
-					</tr>
-				))}
+				{events.map(event => {
+					const date = new Date(event.date);
+					return (
+						<tr key={event.id}>
+							<td>{event.name}</td>
+							<td>{date.toLocaleDateString(undefined, dateOptions)}</td>
+							<td>{event.num_served}</td>
+						</tr>
+					);
+				})}
 			</tbody>
 		</table>
 	);
