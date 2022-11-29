@@ -1,1 +1,14 @@
-Hand, Heart, and Soul Project
+# Hand, Heart, and Soul Project
+
+This repository was created using [vite](https://vitejs.dev/guide/) with the react-ts template
+
+## How to run the repository locally
+1. Install pnpm globally: `npm install -g pnpm`
+2. Clone the repository onto your computer
+3. Navigate into the folder: `cd Hand-Heart-and-Soul`
+4. Install dependencies: `pnpm install`
+5. Start the development server: `pnpm dev`
+
+## How to [generate types](https://supabase.com/docs/guides/api/generating-types)
+1. Log in to the supabase CLI: `npx supabase login`
+2. Generate the types: `pnpm gen`
