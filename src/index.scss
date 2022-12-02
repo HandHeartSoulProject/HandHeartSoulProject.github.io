@@ -18,6 +18,8 @@
 	--low-alpha: rgb(255 255 255 / 0.05);
 
 	// Other
+	--border-radius: 0.5rem;
+	--inner-border-radius: calc(var(--border-radius) - 1px);
 }
 
 body {
