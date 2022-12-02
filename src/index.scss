@@ -3,17 +3,21 @@
 :root {
 	font-family: "Lato", sans-serif;
 
-	--text: #fff;
-	--bg: rgb(22, 22, 26);
-	--low-alpha: rgba(255, 255, 255, 0.05);
-	--gold: #e6cc92;
-	--maroon: #74343f;
-
 	font-synthesis: none;
 	text-rendering: optimizeLegibility;
 	-webkit-font-smoothing: antialiased;
 	-moz-osx-font-smoothing: grayscale;
 	-webkit-text-size-adjust: 100%;
+
+	// Variables
+	// Colors
+	--text: #fff;
+	--bg: #16161a;
+	--gold: #e6cc92;
+	--maroon: #74343f;
+	--low-alpha: rgb(255 255 255 / 0.05);
+
+	// Other
 }
 
 body {
