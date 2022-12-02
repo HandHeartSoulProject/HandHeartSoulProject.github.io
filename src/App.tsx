@@ -1,12 +1,11 @@
 import "./App.scss";
-import Events from "./components/Events";
+import Login from "./pages/Login"
+import {BrowserRouter, Routes, Route} from 'react-router-dom';
 
 function App() {
 	return (
 		<div className="App">
-			<h1>The Hand, Heart, and Soul Project</h1>
-			<h2>Events</h2>
-			<Events />
+			<Login />
 		</div>
 	);
 }
