@@ -54,3 +54,42 @@ table {
 		border-bottom: none;
 	}
 }
+
+.login {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	text-align: center;
+	gap: 0.75rem;
+
+	div {
+		display: flex;
+		flex-direction: column;
+		gap: 0.25rem;
+	}
+}
+
+button {
+	padding: 0.5rem 1rem;
+	border: none;
+	border-radius: var(--border-radius);
+	background-color: var(--med-alpha);
+	color: var(--text);
+	font-size: 1.15rem;
+	font-weight: 700;
+	cursor: pointer;
+	transition: all 0.2s ease;
+}
+
+button:not(:disabled):hover {
+	background-color: var(--high-alpha);
+}
+
+input {
+	padding: 0.25rem 0.5rem;
+	border: none;
+	border-radius: var(--border-radius);
+	background-color: var(--med-alpha);
+	color: var(--text);
+	font-weight: 700;
+}

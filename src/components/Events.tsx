@@ -18,30 +18,35 @@ function Events() {
 		else setEvents(events);
 	}
 
-	return events ? (
-		<table>
-			<thead>
-				<tr>
-					<th>Event</th>
-					<th>Date</th>
-					<th>Number of People Served</th>
-				</tr>
-			</thead>
-			<tbody>
-				{events.map(event => {
-					const date = new Date(event.date);
-					return (
-						<tr key={event.id}>
-							<td>{event.name}</td>
-							<td>{date.toLocaleDateString(undefined, dateOptions)}</td>
-							<td>{event.num_served}</td>
+	return (
+		<div className="events">
+			<h1>Events</h1>
+			{events ? (
+				<table>
+					<thead>
+						<tr>
+							<th>Event</th>
+							<th>Date</th>
+							<th>Number of People Served</th>
 						</tr>
-					);
-				})}
-			</tbody>
-		</table>
-	) : (
-		<div>Loading...</div>
+					</thead>
+					<tbody>
+						{events.map(event => {
+							const date = new Date(event.date);
+							return (
+								<tr key={event.id}>
+									<td>{event.name}</td>
+									<td>{date.toLocaleDateString(undefined, dateOptions)}</td>
+									<td>{event.num_served}</td>
+								</tr>
+							);
+						})}
+					</tbody>
+				</table>
+			) : (
+				<div>Loading...</div>
+			)}
+		</div>
 	);
 }
 

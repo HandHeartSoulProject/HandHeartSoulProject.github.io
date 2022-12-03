@@ -1,20 +1,27 @@
-import { Link } from 'react-router-dom';
+import { Link } from "react-router-dom";
 
 function Login() {
-    return (
-        <div>
-            <label><b>Username</b></label>
-            <input type="text" placeholder="Enter Username" name="uname" required/>
+	return (
+		<div className="login">
+			<div>
+				<h1>Log In</h1>
+				<label>
+					<b>Username</b>
+				</label>
+				<input type="text" placeholder="Enter Username" name="uname" required />
+			</div>
 
-            <label><b>Password</b></label>
-            <input type="password" placeholder="Enter Password" name="psw" required/>
+			<div>
+				<label>
+					<b>Password</b>
+				</label>
+				<input type="password" placeholder="Enter Password" name="psw" required />
+			</div>
 
-            <Link to="/Events">
-                <button>Login</button>
-            </Link>
-        </div>
-
-        
-    )
+			<Link to="/events">
+				<button>Login</button>
+			</Link>
+		</div>
+	);
 }
 export default Login;
