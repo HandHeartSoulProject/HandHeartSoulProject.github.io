@@ -14,6 +14,9 @@ This repository was created using [vite](https://vitejs.dev/guide/) with the rea
 1. Log in to the supabase CLI: `npx supabase login`
 2. Generate the types: `pnpm gen`
 
-## Running Production build of repository
-1. Run pnpm build to create a build
-2. Run npx serve -s dist to run the build
+## Creating a production build
+1. Run `pnpm build` to create a build
+2. Run `npx serve -s dist` to run the build
+
+## Deploying
+Run `pnpm run deploy` to create a new build & deploy to github pages
