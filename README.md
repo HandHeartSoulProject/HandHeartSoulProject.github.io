@@ -4,19 +4,19 @@ This repository was created using [vite](https://vitejs.dev/guide/) with the rea
 
 ## How to run the repository locally
 1. If not already installed, install node: [https://nodejs.dev/en/download/](https://nodejs.dev/en/download/)
-1. Install pnpm globally: `npm install -g pnpm`
+1. Install yarn globally: `npm install -g yarn`
 2. Clone the repository onto your computer
 3. Navigate into the folder: `cd Hand-Heart-and-Soul`
-4. Install dependencies: `pnpm install`
-5. Start the development server: `pnpm dev`
+4. Install dependencies: `yarn`
+5. Start the development server: `yarn dev`
 
 ## How to [generate types](https://supabase.com/docs/guides/api/generating-types)
 1. Log in to the supabase CLI: `npx supabase login`
-2. Generate the types: `pnpm gen`
+2. Generate the types: `yarn gen`
 
 ## Creating a production build
-1. Run `pnpm build` to create a build
+1. Run `yarn build` to create a build
 2. Run `npx serve -s dist` to run the build
 
 ## Deploying
-Run `pnpm run deploy` to create a new build & deploy to github pages
+Run `yarn run deploy` to create a new build & deploy to github pages
