@@ -37,7 +37,7 @@ function Events() {
 								<tr key={event.id}>
 									<td>{event.name}</td>
 									<td>{date.toLocaleDateString(undefined, dateOptions)}</td>
-									<td>{event.num_served}</td>
+									<td>{event.numServed}</td>
 								</tr>
 							);
 						})}
