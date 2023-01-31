@@ -1,7 +1,4 @@
-# Hand, Heart, and Soul Project
-
-This repository was created using [vite](https://vitejs.dev/guide/) with the react-ts template
-
+# Installation
 ## How to run the repository locally
 1. If not already installed, install node: [https://nodejs.dev/en/download/](https://nodejs.dev/en/download/)
 1. Install yarn globally: `npm install -g yarn`
@@ -20,3 +17,12 @@ This repository was created using [vite](https://vitejs.dev/guide/) with the rea
 
 ## Deploying
 Run `yarn run deploy` to create a new build & deploy to github pages
+
+
+# Release Notes
+## Version 0.1.0
+### New Features
+ - Added authentication screen (currently unfunctional)
+ - Created basic event display table
+### Bug Fixes
+ - N/A
