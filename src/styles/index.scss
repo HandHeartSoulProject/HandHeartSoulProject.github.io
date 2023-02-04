@@ -12,16 +12,16 @@
 	// Variables
 	// Colors
 	--text: #fff;
-	--bg: #16161a;
+	--bg: #090a10;
 	--gold: #e6cc92;
-	--maroon: #74343f;
-	--low-alpha: rgb(255 255 255 / 0.05);
-	--med-alpha: rgb(255 255 255 / 0.1);
-	--high-alpha: rgb(255 255 255 / 0.2);
+	--maroon: #0f0f0f;
+	--low-alpha: rgb(255 255 255 / 0.025);
+	--med-alpha: rgb(255 255 255 / 0.05);
+	--med-high-alpha: rgb(255 255 255 / 0.075);
+	--high-alpha: rgb(255 255 255 / 0.1);
 
 	// Other
 	--border-radius: 0.5rem;
-	--inner-border-radius: calc(var(--border-radius) - 1px);
 }
 
 body {

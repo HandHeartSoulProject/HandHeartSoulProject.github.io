@@ -11,47 +11,37 @@ h1 {
 }
 
 table {
-	border-spacing: 0;
 	border-radius: var(--border-radius);
-	border: 1px solid var(--text);
-
 	background-color: var(--low-alpha);
-
-	th {
-		font-size: 1.15rem;
-		background-color: var(--gold);
-		color: var(--bg);
-
-		&:first-child {
-			border-top-left-radius: var(--inner-border-radius);
-		}
-		&:last-child {
-			border-top-right-radius: var(--inner-border-radius);
-		}
-	}
+	border-collapse: collapse;
+	border-style: hidden;
 
 	td,
 	th {
 		padding: 0.25rem 0.5rem;
-		border: 1px solid var(--text);
+		border: 2px solid var(--med-alpha);
 	}
 
-	tr td:first-child,
-	th:first-child {
-		border-left: none;
+	th {
+		font-size: 1.15rem;
+		padding: 0.5rem;
 	}
 
-	tr:first-child th {
-		border-top: none;
-	}
-
-	tr td:last-child,
-	th:last-child {
-		border-right: none;
-	}
-
-	tr:last-child td {
-		border-bottom: none;
+	tr {
+		&:nth-child(odd) td {
+			background-color: var(--med-alpha);
+		}
+		&:nth-child(even) td {
+			background-color: var(--med-high-alpha);
+		}
+		&:last-child {
+			td:first-child {
+				border-bottom-left-radius: var(--border-radius);
+			}
+			td:last-child {
+				border-bottom-right-radius: var(--border-radius);
+			}
+		}
 	}
 }
 
@@ -86,7 +76,7 @@ button:not(:disabled):hover {
 }
 
 input {
-	padding: 0.25rem 0.5rem;
+	padding: 0.5rem 0.75rem;
 	border: none;
 	border-radius: var(--border-radius);
 	background-color: var(--med-alpha);

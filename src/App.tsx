@@ -1,4 +1,4 @@
-import "./App.scss";
+import "./styles/App.scss";
 import Login from "./pages/Login";
 import Events from "./components/Events";
 import { HashRouter, Routes, Route } from "react-router-dom";
