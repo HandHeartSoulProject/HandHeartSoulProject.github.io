@@ -3,9 +3,14 @@ import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
 
 function Users() {
+	async function getData() {
+		var { data: events, error } = await supabase.from("auth.events").select("*");
 
+		if (error || !events) console.error(error);
+		
+	}
     return (
-        <div></div>
+        <button onClick={getData}>Click me</button>
     )
 }
 
