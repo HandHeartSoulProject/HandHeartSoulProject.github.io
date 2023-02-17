@@ -4,6 +4,11 @@ import { Database } from "../types/supabase";
 import Alert from '@mui/material/Alert';
 
 function CreateUsers() {
+	const roles:{value: string, label:string}[] = [
+	{ value: 'contractor', label: 'Contractor' },
+    { value: 'admin', label: 'Admin' },
+    { value: 'employee', label: 'Employee' }];
+
     const[email, setEmail] = useState("");
 	const[password, setPassword] = useState("")
 	const[role, setRole] = useState("contractor")
@@ -20,7 +25,7 @@ function CreateUsers() {
 			}
 			})
 		if (error || !data) console.error(error);
-		console.log(data)
+		console.log(role)
 	}
 
     return (
@@ -39,6 +44,17 @@ function CreateUsers() {
 				</label>
 				<input type="password" placeholder="Enter Password" name="psw" onChange={e => setPassword(e.target.value)}required />
 			</div>
+
+			<div>
+				<label>
+					<b>User Priveleges</b>
+				</label>
+				<select onChange={e => setRole(e.target.value)}>
+					{roles.map(({ value, label }, index) => <option value={value} >{label}</option>)}
+				</select>
+			</div>
+
+			
 
 			<button onClick={createUser}>CreateUser</button>
 
