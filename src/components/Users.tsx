@@ -1,17 +1,11 @@
-import { useEffect, useState } from "react";
-import { supabase } from "../supabaseClient";
-import { Database } from "../types/supabase";
+import { Link } from "react-router-dom";
 
 function Users() {
-	async function getData() {
-		var { data: events, error } = await supabase.from("auth.events").select("*");
-
-		if (error || !events) console.error(error);
-		
-	}
     return (
-        <button onClick={getData}>Click me</button>
-    )
+		<Link to="/create-users">
+			<button>Add a User</button>
+		</Link>
+	);
 }
 
 export default Users;
