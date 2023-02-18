@@ -2,10 +2,11 @@ import Alert, { AlertColor } from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
 import { supabase } from "../supabaseClient";
+import { userRole } from "../types/userTypes";
 
 function CreateUsers() {
 	// roles for a user, formatted to serve as drop down menu options
-	const roles: { value: string; label: string }[] = [
+	const roles: { value: userRole; label: string }[] = [
 		{ value: "contractor", label: "Contractor" },
 		{ value: "admin", label: "Admin" },
 		{ value: "employee", label: "Employee" }
@@ -13,7 +14,7 @@ function CreateUsers() {
 
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-	const [role, setRole] = useState("contractor");
+	const [role, setRole] = useState<userRole>("contractor");
 	// For reference https://mui.com/material-ui/react-snackbar/#customization
 	const [snackbar, setSnackBar] = useState<{ toggle: boolean; severity: AlertColor; message: string }>({
 		toggle: false,
@@ -80,7 +81,7 @@ function CreateUsers() {
 				<label>
 					<b>User Privileges</b>
 				</label>
-				<select onChange={e => setRole(e.target.value)}>
+				<select onChange={e => setRole(e.target.value as userRole)}>
 					{roles.map(({ value, label }) => (
 						<option value={value}>{label}</option>
 					))}
