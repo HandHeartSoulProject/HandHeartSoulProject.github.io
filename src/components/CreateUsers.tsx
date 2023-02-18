@@ -1,4 +1,4 @@
-import Alert from "@mui/material/Alert";
+import Alert, { AlertColor } from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
 import { supabase } from "../supabaseClient";
@@ -15,13 +15,13 @@ function CreateUsers() {
 	const [password, setPassword] = useState("");
 	const [role, setRole] = useState("contractor");
 	// For reference https://mui.com/material-ui/react-snackbar/#customization
-	const [snackbar, setSnackBar] = useState({
+	const [snackbar, setSnackBar] = useState<{ toggle: boolean; severity: AlertColor; message: string }>({
 		toggle: false,
-		severity: "",
+		severity: "error",
 		message: ""
 	});
 
-	function handleSnackbar(open: boolean, message: string, severity: string) {
+	function handleSnackbar(open: boolean = false, message: string = "", severity: AlertColor = "error") {
 		setSnackBar({
 			toggle: open,
 			severity: severity,
@@ -81,19 +81,19 @@ function CreateUsers() {
 					<b>User Privileges</b>
 				</label>
 				<select onChange={e => setRole(e.target.value)}>
-					{roles.map(({ value, label }, index) => (
+					{roles.map(({ value, label }) => (
 						<option value={value}>{label}</option>
 					))}
 				</select>
 			</div>
 
-			<button onClick={createUser}>CreateUser</button>
+			<button onClick={createUser}>Create User</button>
 
 			<div>
-				<Snackbar open={snackbar.toggle} autoHideDuration={3000} onClose={() => handleSnackbar(false, "", "")}>
+				<Snackbar open={snackbar.toggle} autoHideDuration={3000} onClose={() => handleSnackbar()}>
 					<Alert
-						onClose={() => handleSnackbar(false, "", "")}
-						severity={snackbar.severity} // you may see an error here but i don't care enough to fix it and it still works :)
+						onClose={() => handleSnackbar()}
+						severity={snackbar.severity}
 						variant={"filled"}
 						sx={{ width: "100%" }}
 					>
