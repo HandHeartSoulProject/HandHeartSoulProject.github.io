@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 
 function Users() {
-    return (
+	return (
 		<Link to="/create-users">
 			<button>Add a User</button>
 		</Link>

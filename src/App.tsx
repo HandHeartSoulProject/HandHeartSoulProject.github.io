@@ -13,7 +13,7 @@ function App() {
 					<Route path="/" element={<Login />} />
 					<Route path="/events" element={<Events />} />
 					<Route path="/users" element={<Users />} />
-					<Route path='/create-users' element={<CreateUsers/>}/>
+					<Route path="/create-users" element={<CreateUsers />} />
 				</Routes>
 			</HashRouter>
 		</div>

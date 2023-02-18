@@ -1,7 +1,7 @@
-import { useState, Fragment } from "react";
-import { supabase } from "../supabaseClient";
 import Alert from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
+import { useState } from "react";
+import { supabase } from "../supabaseClient";
 
 function CreateUsers() {
 	// roles for a user, formatted to serve as drop down menu options
@@ -14,7 +14,7 @@ function CreateUsers() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [role, setRole] = useState("contractor");
-	// for reference https://mui.com/material-ui/react-snackbar/#customization
+	// For reference https://mui.com/material-ui/react-snackbar/#customization
 	const [snackbar, setSnackBar] = useState({
 		toggle: false,
 		severity: "",

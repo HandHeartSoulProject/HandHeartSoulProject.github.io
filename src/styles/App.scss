@@ -75,7 +75,8 @@ button:not(:disabled):hover {
 	background-color: var(--high-alpha);
 }
 
-input, select {
+input,
+select {
 	padding: 0.5rem 0.75rem;
 	border: none;
 	border-radius: var(--border-radius);
