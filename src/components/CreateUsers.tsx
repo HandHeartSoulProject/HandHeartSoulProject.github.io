@@ -1,6 +1,7 @@
 import Alert, { AlertColor } from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
+
 import { supabase } from "../supabaseClient";
 import { userRole } from "../types/userTypes";
 
@@ -22,12 +23,15 @@ function CreateUsers() {
 		message: ""
 	});
 
-	function handleSnackbar(open: boolean = false, message: string = "", severity: AlertColor = "error") {
+	function handleSnackbar(open: boolean, severity: AlertColor, message: string) {
 		setSnackBar({
 			toggle: open,
 			severity: severity,
 			message: message
 		});
+	}
+	function closeSnackbar() {
+		handleSnackbar(false, snackbar.severity, snackbar.message);
 	}
 
 	async function createUser() {
@@ -42,9 +46,9 @@ function CreateUsers() {
 		});
 		if (error || !data) {
 			console.error("error");
-			handleSnackbar(true, "Error creating user. Please try again", "error");
+			handleSnackbar(true, "error", "Error creating user. Please try again");
 		} else {
-			handleSnackbar(true, "User added successfully", "success");
+			handleSnackbar(true, "success", "User added successfully");
 		}
 	}
 
@@ -91,13 +95,8 @@ function CreateUsers() {
 			<button onClick={createUser}>Create User</button>
 
 			<div>
-				<Snackbar open={snackbar.toggle} autoHideDuration={3000} onClose={() => handleSnackbar()}>
-					<Alert
-						onClose={() => handleSnackbar()}
-						severity={snackbar.severity}
-						variant={"filled"}
-						sx={{ width: "100%" }}
-					>
+				<Snackbar open={snackbar.toggle} autoHideDuration={3000} onClose={closeSnackbar}>
+					<Alert onClose={closeSnackbar} severity={snackbar.severity} variant={"filled"}>
 						{snackbar.message}
 					</Alert>
 				</Snackbar>

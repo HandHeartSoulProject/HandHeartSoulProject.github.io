@@ -52,7 +52,7 @@ table {
 	text-align: center;
 	gap: 0.75rem;
 
-	div {
+	div:has(input, select) {
 		display: flex;
 		flex-direction: column;
 		gap: 0.25rem;
