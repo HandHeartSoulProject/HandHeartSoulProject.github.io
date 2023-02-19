@@ -2,8 +2,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
 
-import { userRole } from "../types/userTypes";
-
 function UsersTable() {
 	type user = Database["public"]["Tables"]["users"]["Row"];
 	const [users, setUsers] = useState<user[]>();
