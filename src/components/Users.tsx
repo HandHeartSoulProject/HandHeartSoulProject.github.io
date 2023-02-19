@@ -2,9 +2,14 @@ import { Link } from "react-router-dom";
 
 function Users() {
 	return (
-		<Link to="/create-users">
-			<button>Add a User</button>
-		</Link>
+		<div>
+			<Link to="/create-users">
+				<button>Add a User</button>
+			</Link>
+			<Link to="/users-table">
+				<button>View Users</button>
+			</Link>
+		</div>
 	);
 }
 
