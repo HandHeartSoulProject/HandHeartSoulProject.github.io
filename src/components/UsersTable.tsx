@@ -5,7 +5,6 @@ import { Database } from "../types/supabase";
 import { userRole } from "../types/userTypes";
 
 function UsersTable() {
-	var r: userRole[] = ["contractor", "admin"];
 	type user = Database["public"]["Tables"]["users"]["Row"];
 	const [users, setUsers] = useState<user[]>();
 
