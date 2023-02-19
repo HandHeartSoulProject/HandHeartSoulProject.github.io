@@ -110,6 +110,23 @@ export interface Database {
 					numServed?: number;
 				};
 			};
+			users: {
+				Row: {
+					id: number,
+					email: string, 
+					role: string;
+				};
+				Insert: {
+					id: number,
+					email: string, 
+					role: string;
+				};
+				Update: {
+					id: number,
+					email: string, 
+					role: string;
+				};
+			};
 		};
 		Views: {
 			[_ in never]: never;
