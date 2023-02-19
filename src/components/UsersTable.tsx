@@ -5,22 +5,22 @@ import { Database } from "../types/supabase";
 import { userRole } from "../types/userTypes";
 
 function UsersTable() {
-	var r : userRole[] = ['contractor', 'admin'];
-    type user = Database["public"]["Tables"]["users"]["Row"]
-    const [users, setUsers] = useState<user[]>();
+	var r: userRole[] = ["contractor", "admin"];
+	type user = Database["public"]["Tables"]["users"]["Row"];
+	const [users, setUsers] = useState<user[]>();
 
-    useEffect(() => {
-        fetchUsers();
-    }, []);
+	useEffect(() => {
+		fetchUsers();
+	}, []);
 
-    async function fetchUsers() {
-        var { data: users, error } = await supabase.from("users").select("*");
-        console.log(users);
-        if (error || !users) console.error(error);
+	async function fetchUsers() {
+		var { data: users, error } = await supabase.from("users").select("*");
+		console.log(users);
+		if (error || !users) console.error(error);
 		else setUsers(users as user[]);
-    }
-   
-    return (
+	}
+
+	return (
 		<div className="events">
 			<h1>Users</h1>
 			{users ? (
@@ -49,4 +49,4 @@ function UsersTable() {
 	);
 }
 
-export  default UsersTable;
+export default UsersTable;
