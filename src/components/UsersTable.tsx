@@ -12,7 +12,6 @@ function UsersTable() {
 
 	async function fetchUsers() {
 		var { data: users, error } = await supabase.from("users").select("*");
-		console.log(users);
 		if (error || !users) console.error(error);
 		else setUsers(users as user[]);
 	}
