@@ -7,7 +7,7 @@ import { userRole } from "../types/userTypes";
 
 function CreateUsers() {
 	// roles for a user, formatted to serve as drop down menu options
-	const roles: { value: userRole; label: string }[] = [
+	const roles: { value: string; label: string }[] = [
 		{ value: "contractor", label: "Contractor" },
 		{ value: "admin", label: "Admin" },
 		{ value: "employee", label: "Employee" }

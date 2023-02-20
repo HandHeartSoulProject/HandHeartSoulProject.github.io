@@ -1,10 +1,36 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
+import Alert, { AlertColor } from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
+
+import UserModal from "./UserModal";
 
 function UsersTable() {
-	type user = Database["public"]["Tables"]["users"]["Row"];
-	const [users, setUsers] = useState<user[]>();
+	type userInfo = Database["public"]["Tables"]["users"]["Row"];
+	const [users, setUsers] = useState<userInfo[]>();
+	const [selectedUser, setSelectedUser] = useState<userInfo>({
+		id: 0,
+		email: "",
+		role: ""
+	});
+	const [modalStatus, setModalStatus] = useState(false);
+	const [snackbar, setSnackBar] = useState<{ toggle: boolean; severity: AlertColor; message: string }>({
+		toggle: false,
+		severity: "error",
+		message: ""
+	});
+
+	function handleSnackbar(open: boolean, severity: AlertColor, message: string) {
+		setSnackBar({
+			toggle: open,
+			severity: severity,
+			message: message
+		});
+	}
+	function closeSnackbar() {
+		handleSnackbar(false, snackbar.severity, snackbar.message);
+	}
 
 	useEffect(() => {
 		fetchUsers();
@@ -12,8 +38,19 @@ function UsersTable() {
 
 	async function fetchUsers() {
 		var { data: users, error } = await supabase.from("users").select("*");
+		// console.log(users);
 		if (error || !users) console.error(error);
-		else setUsers(users as user[]);
+		else setUsers(users as userInfo[]);
+	}
+
+	function handleSelectedUser(currentUser: userInfo) {
+		toggleModal();
+		setSelectedUser(currentUser);
+	}
+
+	function toggleModal() {
+		setModalStatus(modalStatus => !modalStatus);
+		fetchUsers();
 	}
 
 	return (
@@ -25,6 +62,7 @@ function UsersTable() {
 						<tr>
 							<th>Email</th>
 							<th>Role</th>
+							<th></th>
 						</tr>
 					</thead>
 					<tbody>
@@ -33,6 +71,9 @@ function UsersTable() {
 								<tr key={user.id}>
 									<td>{user.email}</td>
 									<td>{user.role}</td>
+									<td>
+										<button onClick={() => handleSelectedUser(user)}>Edit User</button>
+									</td>
 								</tr>
 							);
 						})}
@@ -41,6 +82,17 @@ function UsersTable() {
 			) : (
 				<div>Loading...</div>
 			)}
+			<UserModal
+				user={selectedUser}
+				modalStatus={modalStatus}
+				toggleModal={toggleModal}
+				handleSnackbar={handleSnackbar}
+			></UserModal>
+			<Snackbar open={snackbar.toggle} autoHideDuration={3000} onClose={closeSnackbar}>
+				<Alert onClose={closeSnackbar} severity={snackbar.severity} variant={"filled"}>
+					{snackbar.message}
+				</Alert>
+			</Snackbar>
 		</div>
 	);
 }
