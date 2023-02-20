@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
+import Alert, { AlertColor } from "@mui/material/Alert";
+import Snackbar from "@mui/material/Snackbar";
 // import { userInfo } from "../types/userTypes";
 
 import UserModal from "./UserModal";
@@ -14,6 +16,22 @@ function UsersTable() {
 		role:''
 	});
 	const [modalStatus, setModalStatus] = useState(false);
+	const [snackbar, setSnackBar] = useState<{ toggle: boolean; severity: AlertColor; message: string }>({
+		toggle: false,
+		severity: "error",
+		message: ""
+	});
+
+	function handleSnackbar(open: boolean, severity: AlertColor, message: string) {
+		setSnackBar({
+			toggle: open,
+			severity: severity,
+			message: message
+		});
+	}
+	function closeSnackbar() {
+		handleSnackbar(false, snackbar.severity, snackbar.message);
+	}
 
 	useEffect(() => {
 		fetchUsers();
@@ -67,7 +85,12 @@ function UsersTable() {
 			) : (
 				<div>Loading...</div>
 			)}
-			<UserModal user = {selectedUser} modalStatus = {modalStatus} toggleModal = {toggleModal}></UserModal>
+			<UserModal user = {selectedUser} modalStatus = {modalStatus} toggleModal = {toggleModal} handleSnackbar={handleSnackbar}></UserModal>
+			<Snackbar open={snackbar.toggle} autoHideDuration={3000} onClose={closeSnackbar}>
+					<Alert onClose={closeSnackbar} severity={snackbar.severity} variant={"filled"}>
+						{snackbar.message}
+					</Alert>
+				</Snackbar>
 		</div>
 	);
 }

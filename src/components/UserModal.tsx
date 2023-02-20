@@ -5,11 +5,18 @@ import Modal from "react-modal";
 import { dropDownRoles } from "../types/userTypes";
 import { userRole } from "../types/userTypes";
 
+import Alert, { AlertColor } from "@mui/material/Alert";
+
 Modal.setAppElement("#root");
 
-function UserModal({ user, modalStatus, toggleModal }) {
+function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 	const [email, setEmail] = useState("");
 	const [role, setRole] = useState<userRole>("contractor");
+	const [snackbar, setSnackBar] = useState<{ toggle: boolean; severity: AlertColor; message: string }>({
+		toggle: false,
+		severity: "error",
+		message: ""
+	});
 
 	const customStyles = {
 		content: {
@@ -26,8 +33,11 @@ function UserModal({ user, modalStatus, toggleModal }) {
 		const { error } = await supabase.from("users").delete().eq("email", user.email);
 		if (error) {
 			console.log(error);
+			handleSnackbar(true, "error", "Error deleting user. Please try again");
+		} else {
+			handleSnackbar(true, "success", "Successfully deleted user.");
+			toggleModal();
 		}
-		toggleModal();
 	}
 
 	async function updateUser() {
@@ -43,8 +53,11 @@ function UserModal({ user, modalStatus, toggleModal }) {
 		if (error) {
 			console.error("error");
 			console.error(error);
+			handleSnackbar(true, "error", "Error updating user. Please try again");
+		} else {
+			handleSnackbar(true, "success", "Successfully updated user.");
+			toggleModal();
 		}
-		toggleModal();
 	}
 
 	useEffect(() => {
