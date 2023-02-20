@@ -3,7 +3,6 @@ import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
 import Alert, { AlertColor } from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
-// import { userInfo } from "../types/userTypes";
 
 import UserModal from "./UserModal";
 
@@ -11,9 +10,9 @@ function UsersTable() {
 	type userInfo = Database["public"]["Tables"]["users"]["Row"];
 	const [users, setUsers] = useState<userInfo[]>();
 	const [selectedUser, setSelectedUser] = useState<userInfo>({
-		id: 0, 
-		email: '', 
-		role:''
+		id: 0,
+		email: "",
+		role: ""
 	});
 	const [modalStatus, setModalStatus] = useState(false);
 	const [snackbar, setSnackBar] = useState<{ toggle: boolean; severity: AlertColor; message: string }>({
@@ -49,8 +48,8 @@ function UsersTable() {
 		setSelectedUser(currentUser);
 	}
 
-	function toggleModal() {	
-		setModalStatus((modalStatus) => !modalStatus);
+	function toggleModal() {
+		setModalStatus(modalStatus => !modalStatus);
 		fetchUsers();
 	}
 
@@ -73,9 +72,7 @@ function UsersTable() {
 									<td>{user.email}</td>
 									<td>{user.role}</td>
 									<td>
-										<button onClick={() => handleSelectedUser(user)}>
-											Edit User
-										</button>
+										<button onClick={() => handleSelectedUser(user)}>Edit User</button>
 									</td>
 								</tr>
 							);
@@ -85,12 +82,17 @@ function UsersTable() {
 			) : (
 				<div>Loading...</div>
 			)}
-			<UserModal user = {selectedUser} modalStatus = {modalStatus} toggleModal = {toggleModal} handleSnackbar={handleSnackbar}></UserModal>
+			<UserModal
+				user={selectedUser}
+				modalStatus={modalStatus}
+				toggleModal={toggleModal}
+				handleSnackbar={handleSnackbar}
+			></UserModal>
 			<Snackbar open={snackbar.toggle} autoHideDuration={3000} onClose={closeSnackbar}>
-					<Alert onClose={closeSnackbar} severity={snackbar.severity} variant={"filled"}>
-						{snackbar.message}
-					</Alert>
-				</Snackbar>
+				<Alert onClose={closeSnackbar} severity={snackbar.severity} variant={"filled"}>
+					{snackbar.message}
+				</Alert>
+			</Snackbar>
 		</div>
 	);
 }

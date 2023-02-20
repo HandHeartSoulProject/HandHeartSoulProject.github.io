@@ -5,7 +5,7 @@ import Modal from "react-modal";
 import { dropDownRoles } from "../types/userTypes";
 import { userRole } from "../types/userTypes";
 
-import Alert, { AlertColor } from "@mui/material/Alert";
+import { AlertColor } from "@mui/material/Alert";
 
 Modal.setAppElement("#root");
 
