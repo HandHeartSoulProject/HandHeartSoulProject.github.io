@@ -8,12 +8,24 @@ Modal.setAppElement("#root");
 
 var test: string = 'admin';
 function UserModal({user, modalStatus, toggleModal}) {
+
+	const customStyles = {
+		content: {
+		  top: '50%',
+		  left: '50%',
+		  right: 'auto',
+		  bottom: 'auto',
+		  marginRight: '-50%',
+		  transform: 'translate(-50%, -50%)',
+		},
+	  };
+
 	async function deleteUser() {
 		//TODO fill out
 	}
 	return (
-		// <Modal isOpen={modalStatus}>
-		<div className="login">
+		<Modal isOpen={modalStatus} outline="None" overlayClassName="Overlay" style={customStyles} contentLabel="Example Modal">
+		<div className="modal" >
 			<div>
 				<h1>User Info</h1>
 				<label>
@@ -31,10 +43,7 @@ function UserModal({user, modalStatus, toggleModal}) {
 						<option value={value} selected={value == user.role}>{label}</option>
 					))}
 
-                {/* <option>1</option>  
-                <option selected={user.role == test}>2</option>   
-                <option>3</option>   
-                <option>4</option>        */}
+                
 				</select>
 			</div>
 
@@ -43,7 +52,7 @@ function UserModal({user, modalStatus, toggleModal}) {
 			<button onClick={deleteUser}> Update User</button>
 		</div>
 
-		// </Modal>
+		</Modal>
 	);
 }
 
