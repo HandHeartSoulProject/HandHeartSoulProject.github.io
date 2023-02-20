@@ -33,6 +33,7 @@ function UsersTable() {
 
 	function toggleModal() {	
 		setModalStatus((modalStatus) => !modalStatus);
+		fetchUsers();
 	}
 
 	return (

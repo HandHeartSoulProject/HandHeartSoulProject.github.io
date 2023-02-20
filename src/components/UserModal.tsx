@@ -21,7 +21,11 @@ function UserModal({user, modalStatus, toggleModal}) {
 	  };
 
 	async function deleteUser() {
-		//TODO fill out
+		const { error } = await supabase.from("users").delete().eq("email", user.email);
+		if (error) {
+			console.log(error);
+		}
+		toggleModal();
 	}
 	return (
 		<Modal isOpen={modalStatus} outline="None" overlayClassName="Overlay" style={customStyles} contentLabel="Example Modal">
