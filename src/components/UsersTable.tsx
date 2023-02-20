@@ -28,10 +28,7 @@ function UsersTable() {
 
 	function handleSelectedUser(currentUser: userInfo) {
 		toggleModal();
-		// console.log(currentUser);
-		// console.log(selectedUser);
 		setSelectedUser(currentUser);
-		// console.log(selectedUser);
 	}
 
 	function toggleModal() {	
