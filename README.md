@@ -20,6 +20,18 @@ Run `yarn run deploy` to create a new build & deploy to github pages
 
 
 # Release Notes
+## Version 0.2.0
+### New Features
+ - Updated events table to use new schema
+ - Added navbar to navigate between pages
+ - Added create users page to create new users
+ - Added users page to view and manage existing users
+   - This uses a customized modal to make edits to a user's email or role
+### Bug Fixes
+ - The updated routing system avoids bugs that would occur with HashRouter (where typing in a different url would sometimes not bring the user to a different page)
+### Known Issues
+ - The events table extends off the page on smaller screens
+
 ## Version 0.1.0
 ### New Features
  - Added authentication screen (currently unfunctional)
