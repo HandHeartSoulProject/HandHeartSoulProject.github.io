@@ -34,7 +34,8 @@ function CreateUsers() {
 		handleSnackbar(false, snackbar.severity, snackbar.message);
 	}
 
-	async function createUser() {
+	async function createUser(e: React.FormEvent<HTMLButtonElement>) {
+		e.preventDefault();
 		const { data, error } = await supabase.auth.signUp({
 			email: email,
 			password: password,
