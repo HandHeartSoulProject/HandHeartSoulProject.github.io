@@ -49,43 +49,38 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 
 	return (
 		<Modal isOpen={modalStatus} className="modal" overlayClassName="modal-overlay">
-			<button onClick={toggleModal} className="close">
-				<CloseIcon />
-			</button>
-
-			<div className="input-group">
-				<label>
-					<b>Username</b>
-				</label>
-				<input
-					type="text"
-					placeholder="Email"
-					name="uname"
-					value={email}
-					onChange={e => setEmail(e.target.value)}
-					required
-				/>
-			</div>
-
-			<div className="input-group">
-				<label>
-					<b>User Privileges</b>
-				</label>
-				<select onChange={e => setRole(e.target.value as userRole)}>
-					{dropDownRoles.map(({ value, label }) => (
-						<option value={value} selected={value == user.role}>
-							{label}
-						</option>
-					))}
-				</select>
-			</div>
-
-			<div className="button-group">
-				<button onClick={deleteUser} className="delete">
-					Delete User
+			<form>
+				<button onClick={toggleModal} className="close">
+					<CloseIcon />
 				</button>
-				<button onClick={updateUser}>Update User</button>
-			</div>
+				<div className="input-group">
+					<label>Username</label>
+					<input
+						type="text"
+						placeholder="Email"
+						name="uname"
+						value={email}
+						onChange={e => setEmail(e.target.value)}
+						required
+					/>
+				</div>
+				<div className="input-group">
+					<label>User Privileges</label>
+					<select onChange={e => setRole(e.target.value as userRole)}>
+						{dropDownRoles.map(({ value, label }) => (
+							<option value={value} selected={value == user.role}>
+								{label}
+							</option>
+						))}
+					</select>
+				</div>
+				<div className="button-group">
+					<button onClick={deleteUser} className="delete">
+						Delete User
+					</button>
+					<button onClick={updateUser}>Update User</button>
+				</div>
+			</form>
 		</Modal>
 	);
 }

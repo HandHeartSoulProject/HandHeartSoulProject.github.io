@@ -53,12 +53,10 @@ function CreateUsers() {
 	}
 
 	return (
-		<div className="login">
+		<form>
 			<h1>Create a new user</h1>
-			<div>
-				<label>
-					<b>Email</b>
-				</label>
+			<div className="input-group">
+				<label>Email</label>
 				<input
 					type="text"
 					placeholder="Enter Username"
@@ -68,10 +66,8 @@ function CreateUsers() {
 				/>
 			</div>
 
-			<div>
-				<label>
-					<b>Password</b>
-				</label>
+			<div className="input-group">
+				<label>Password</label>
 				<input
 					type="password"
 					placeholder="Enter Password"
@@ -81,10 +77,8 @@ function CreateUsers() {
 				/>
 			</div>
 
-			<div>
-				<label>
-					<b>User Privileges</b>
-				</label>
+			<div className="input-group">
+				<label>User Privileges</label>
 				<select onChange={e => setRole(e.target.value as userRole)}>
 					{roles.map(({ value, label }) => (
 						<option value={value}>{label}</option>
@@ -101,7 +95,7 @@ function CreateUsers() {
 					</Alert>
 				</Snackbar>
 			</div>
-		</div>
+		</form>
 	);
 }
 export default CreateUsers;

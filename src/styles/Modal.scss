@@ -2,10 +2,6 @@
 	position: relative;
 	background-color: var(--med-alpha);
 	z-index: 100;
-	display: flex;
-	flex-direction: column;
-	justify-content: center;
-	align-items: center;
 	gap: 1rem;
 	padding: 1rem;
 	border-radius: var(--border-radius);
@@ -20,13 +16,6 @@
 		svg {
 			display: block;
 		}
-	}
-
-	.input-group {
-		display: flex;
-		flex-direction: column;
-		align-items: center;
-		gap: 0.25rem;
 	}
 
 	.button-group {
