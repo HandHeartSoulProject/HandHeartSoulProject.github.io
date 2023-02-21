@@ -38,7 +38,6 @@ function UsersTable() {
 
 	async function fetchUsers() {
 		var { data: users, error } = await supabase.from("users").select("*");
-		// console.log(users);
 		if (error || !users) console.error(error);
 		else setUsers(users as userInfo[]);
 	}
@@ -62,7 +61,7 @@ function UsersTable() {
 						<tr>
 							<th>Email</th>
 							<th>Role</th>
-							<th></th>
+							<th>Action</th>
 						</tr>
 					</thead>
 					<tbody>
