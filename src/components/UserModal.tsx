@@ -17,7 +17,8 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 		setRole(user.role);
 	}, [user]);
 
-	async function deleteUser() {
+	async function deleteUser(e: React.FormEvent<HTMLButtonElement>) {
+		e.preventDefault();
 		const { error } = await supabase.from("users").delete().eq("email", user.email);
 		if (error) {
 			console.log(error);
@@ -28,7 +29,8 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 		}
 	}
 
-	async function updateUser() {
+	async function updateUser(e: React.FormEvent<HTMLButtonElement>) {
+		e.preventDefault();
 		const { error } = await supabase
 			.from("users")
 			.update({
