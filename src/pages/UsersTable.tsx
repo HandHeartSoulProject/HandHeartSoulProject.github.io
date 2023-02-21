@@ -4,7 +4,7 @@ import { Database } from "../types/supabase";
 import Alert, { AlertColor } from "@mui/material/Alert";
 import Snackbar from "@mui/material/Snackbar";
 
-import UserModal from "./UserModal";
+import UserModal from "../components/UserModal";
 
 function UsersTable() {
 	type userInfo = Database["public"]["Tables"]["users"]["Row"];
