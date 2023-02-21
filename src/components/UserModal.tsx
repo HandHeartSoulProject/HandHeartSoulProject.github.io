@@ -54,7 +54,7 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 					<CloseIcon />
 				</button>
 				<div className="input-group">
-					<label>Username</label>
+					<label>Email</label>
 					<input
 						type="text"
 						placeholder="Email"
@@ -65,7 +65,7 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 					/>
 				</div>
 				<div className="input-group">
-					<label>User Privileges</label>
+					<label>User Role</label>
 					<select onChange={e => setRole(e.target.value as userRole)}>
 						{dropDownRoles.map(({ value, label }) => (
 							<option value={value} selected={value == user.role}>

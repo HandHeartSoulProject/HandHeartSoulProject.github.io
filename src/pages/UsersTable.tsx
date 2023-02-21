@@ -69,7 +69,8 @@ function UsersTable() {
 							return (
 								<tr key={user.id}>
 									<td>{user.email}</td>
-									<td>{user.role}</td>
+									{/* Capitilize the first character of the role */}
+									<td>{user.role.charAt(0).toUpperCase() + user.role.slice(1)}</td>
 									<td>
 										<button onClick={() => handleSelectedUser(user)}>Edit User</button>
 									</td>
