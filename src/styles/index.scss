@@ -21,7 +21,10 @@
 	--high-alpha: rgb(255 255 255 / 0.1);
 
 	// Other
+	// For use on longer elements like tables and modals
 	--border-radius: 0.5rem;
+	// For use on smaller elements like buttons and inputs
+	--small-border-radius: 0.25rem;
 }
 
 body {

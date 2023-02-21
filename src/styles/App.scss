@@ -18,7 +18,7 @@ table {
 
 	td,
 	th {
-		padding: 0.25rem 0.5rem;
+		padding: 0.5rem 0.5rem;
 		border: 2px solid var(--med-alpha);
 	}
 
@@ -59,14 +59,10 @@ table {
 	}
 }
 
-.modal {
-	background-color: black;
-}
-
 button {
 	padding: 0.5rem 1rem;
 	border: none;
-	border-radius: var(--border-radius);
+	border-radius: var(--small-border-radius);
 	background-color: var(--med-alpha);
 	color: var(--text);
 	font-size: 1.15rem;
@@ -83,7 +79,7 @@ input,
 select {
 	padding: 0.5rem 0.75rem;
 	border: none;
-	border-radius: var(--border-radius);
+	border-radius: var(--small-border-radius);
 	background-color: var(--med-alpha);
 	color: var(--text);
 	font-weight: 700;
