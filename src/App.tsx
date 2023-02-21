@@ -1,10 +1,10 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 
+import NavLayout from "./components/NavLayout";
 import CreateUsers from "./pages/CreateUsers";
 import Events from "./pages/Events";
-import Users from "./pages/Users";
-import UsersTable from "./pages/UsersTable";
 import Login from "./pages/Login";
+import UsersTable from "./pages/UsersTable";
 import "./styles/App.scss";
 
 function App() {
@@ -12,20 +12,17 @@ function App() {
 		createRoutesFromElements(
 			<>
 				<Route path="/" element={<Login />} />
-				<Route path="events" element={<Events />} />
-				<Route path="users" element={<Users />} />
-				<Route path="create-users" element={<CreateUsers />} />
-				<Route path="users-table" element={<UsersTable />} />
+				<Route path="/" element={<NavLayout />}>
+					<Route path="events" element={<Events />} />
+					<Route path="create-user" element={<CreateUsers />} />
+					<Route path="users" element={<UsersTable />} />
+				</Route>
 			</>
 		),
 		{ basename: "/Hand-Heart-and-Soul/" }
 	);
 
-	return (
-		<div className="App">
-			<RouterProvider router={router} />
-		</div>
-	);
+	return <RouterProvider router={router} />;
 }
 
 export default App;

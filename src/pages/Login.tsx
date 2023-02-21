@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 function Login() {
 	return (
 		<form>
-			<h1>Log In</h1>
+			<h1 style={{ marginTop: "3rem" }}>Log In</h1>
 			<div className="input-group">
 				<label>Username</label>
 				<input type="text" placeholder="Enter Username" name="uname" required />
