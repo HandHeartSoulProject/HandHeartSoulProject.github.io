@@ -1,0 +1,48 @@
+.modal {
+	position: relative;
+	background-color: var(--med-alpha);
+	z-index: 100;
+	gap: 1rem;
+	padding: 1rem;
+	border-radius: var(--border-radius);
+
+	.close {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		padding: 0.1rem;
+		font-size: larger;
+
+		svg {
+			display: block;
+		}
+	}
+
+	.button-group {
+		display: flex;
+		flex-direction: row;
+		gap: 0.5rem;
+	}
+
+	.delete {
+		background-color: red;
+
+		&:hover {
+			background-color: darkred;
+		}
+	}
+}
+
+.modal-overlay {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: rgba(0, 0, 0, 0.5);
+	backdrop-filter: blur(5px);
+	z-index: 100;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}

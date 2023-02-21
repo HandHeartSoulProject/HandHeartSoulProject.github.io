@@ -1,9 +1,9 @@
 import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } from "react-router-dom";
 
-import CreateUsers from "./components/CreateUsers";
-import Events from "./components/Events";
-import Users from "./components/Users";
-import UsersTable from "./components/UsersTable";
+import CreateUsers from "./pages/CreateUsers";
+import Events from "./pages/Events";
+import Users from "./pages/Users";
+import UsersTable from "./pages/UsersTable";
 import Login from "./pages/Login";
 import "./styles/App.scss";
 
