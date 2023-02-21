@@ -1,4 +1,5 @@
 .modal {
+	position: relative;
 	background-color: var(--med-alpha);
 	z-index: 100;
 	display: flex;
@@ -8,6 +9,18 @@
 	gap: 1rem;
 	padding: 1rem;
 	border-radius: var(--border-radius);
+
+	.close {
+		position: absolute;
+		top: 0.5rem;
+		right: 0.5rem;
+		padding: 0.1rem;
+		font-size: larger;
+
+		svg {
+			display: block;
+		}
+	}
 
 	.input-group {
 		display: flex;
@@ -20,6 +33,14 @@
 		display: flex;
 		flex-direction: row;
 		gap: 0.5rem;
+	}
+
+	.delete {
+		background-color: red;
+
+		&:hover {
+			background-color: darkred;
+		}
 	}
 }
 

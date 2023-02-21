@@ -1,3 +1,4 @@
+import CloseIcon from "@mui/icons-material/Close";
 import { useEffect, useState } from "react";
 import Modal from "react-modal";
 
@@ -48,6 +49,10 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 
 	return (
 		<Modal isOpen={modalStatus} className="modal" overlayClassName="modal-overlay">
+			<button onClick={toggleModal} className="close">
+				<CloseIcon />
+			</button>
+
 			<div className="input-group">
 				<label>
 					<b>Username</b>
@@ -76,9 +81,10 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 			</div>
 
 			<div className="button-group">
-				<button onClick={toggleModal}> Close Modal</button>
-				<button onClick={deleteUser}> Delete User</button>
-				<button onClick={updateUser}> Update User</button>
+				<button onClick={deleteUser} className="delete">
+					Delete User
+				</button>
+				<button onClick={updateUser}>Update User</button>
 			</div>
 		</Modal>
 	);
