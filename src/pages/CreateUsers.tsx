@@ -3,16 +3,9 @@ import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
 
 import { supabase } from "../supabaseClient";
-import { userRole } from "../types/userTypes";
+import { userRole, dropDownRoles } from "../types/userTypes";
 
 function CreateUsers() {
-	// roles for a user, formatted to serve as drop down menu options
-	const roles: { value: string; label: string }[] = [
-		{ value: "contractor", label: "Contractor" },
-		{ value: "admin", label: "Admin" },
-		{ value: "employee", label: "Employee" }
-	];
-
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [role, setRole] = useState<userRole>("contractor");
@@ -81,7 +74,7 @@ function CreateUsers() {
 			<div className="input-group">
 				<label>User Privileges</label>
 				<select onChange={e => setRole(e.target.value as userRole)}>
-					{roles.map(({ value, label }) => (
+					{dropDownRoles.map(({ value, label }) => (
 						<option value={value}>{label}</option>
 					))}
 				</select>
