@@ -3,7 +3,7 @@ import Snackbar from "@mui/material/Snackbar";
 import { useState } from "react";
 
 import { supabase } from "../supabaseClient";
-import { userRole, dropDownRoles } from "../types/userTypes";
+import { userRole, dropDownRoles, hhsDomain } from "../types/userTypes";
 
 function CreateUsers() {
 	const [email, setEmail] = useState("");
@@ -30,11 +30,13 @@ function CreateUsers() {
 
 	async function createUser(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
-		if (role === 'contractor' || role === 'employee') {
-			console.log('provelehe')
-			console.log(email.endsWith('@handheartsoulproject.org'))
+		if (role === 'admin' || role === 'employee') {
+			if (!email.endsWith(hhsDomain)) {
+				handleSnackbar(true, "error", "Please use the " + hhsDomain + " when signing up as an employee or admin");
+				return;
+			}
 		}
-		/** 
+		
 		const { data, error } = await supabase.auth.signUp({
 			email: email,
 			password: password,
@@ -50,7 +52,6 @@ function CreateUsers() {
 		} else {
 			handleSnackbar(true, "success", "User added successfully");
 		}
-		*/
 	}
 
 	return (
