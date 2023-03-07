@@ -9,6 +9,7 @@ function CreateUsers() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [role, setRole] = useState<userRole>("contractor");
+	
 	// For reference https://mui.com/material-ui/react-snackbar/#customization
 	const [snackbar, setSnackBar] = useState<{ toggle: boolean; severity: AlertColor; message: string }>({
 		toggle: false,
