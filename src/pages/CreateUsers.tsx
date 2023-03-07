@@ -9,7 +9,7 @@ function CreateUsers() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 	const [role, setRole] = useState<userRole>("contractor");
-	
+
 	// For reference https://mui.com/material-ui/react-snackbar/#customization
 	const [snackbar, setSnackBar] = useState<{ toggle: boolean; severity: AlertColor; message: string }>({
 		toggle: false,
@@ -30,6 +30,11 @@ function CreateUsers() {
 
 	async function createUser(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
+		if (role === 'contractor' || role === 'employee') {
+			console.log('provelehe')
+			console.log(email.endsWith('@handheartsoulproject.org'))
+		}
+		/** 
 		const { data, error } = await supabase.auth.signUp({
 			email: email,
 			password: password,
@@ -45,6 +50,7 @@ function CreateUsers() {
 		} else {
 			handleSnackbar(true, "success", "User added successfully");
 		}
+		*/
 	}
 
 	return (
