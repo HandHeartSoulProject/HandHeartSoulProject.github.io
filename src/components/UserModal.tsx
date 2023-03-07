@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import Modal from "react-modal";
 
 import { supabase } from "../supabaseClient";
-import { dropDownRoles, userRole } from "../types/userTypes";
+import { dropDownRoles, userRole, hhsDomain } from "../types/userTypes";
 import "../styles/Modal.scss";
 
 Modal.setAppElement("#root");
@@ -31,6 +31,13 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 
 	async function updateUser(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
+		if (role === 'admin' || role === 'employee') {
+			if (!email.endsWith(hhsDomain)) {
+				handleSnackbar(true, "error", "Please use the " + hhsDomain + " when changing role to an employee or admin");
+				return;
+			}
+		}
+
 		const { error } = await supabase
 			.from("users")
 			.update({
