@@ -4,7 +4,7 @@ import { Database } from "../types/supabase";
 
 const dateOptions: any = { weekday: "short", year: "numeric", month: "numeric", day: "numeric" };
 
-function childrensEvents() {
+function ChildrensEvents() {
 	type eventType = Database["public"]["Tables"]["events_v2"]["Row"];
 	const [events, setEvents] = useState<eventType[]>();
 
@@ -75,4 +75,4 @@ function childrensEvents() {
 	);
 }
 
-export default childrensEvents;
+export default ChildrensEvents;

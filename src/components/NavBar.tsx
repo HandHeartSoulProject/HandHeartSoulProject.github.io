@@ -14,6 +14,9 @@ function NavBar() {
 				<NavLink to="communityEvents" className={activeClass}>
 					Community Events
 				</NavLink>
+				<NavLink to="childrensEvents" className={activeClass}>
+					Childrens Events
+				</NavLink>
 				<NavLink to="create-user" className={activeClass}>
 					Create User
 				</NavLink>
