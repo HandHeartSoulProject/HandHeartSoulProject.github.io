@@ -14,7 +14,7 @@ function Login() {
 				<input type="password" placeholder="Enter Password" name="psw" required />
 			</div>
 
-			<Link to="events">
+			<Link to="communityEvents">
 				<button>Login</button>
 			</Link>
 		</form>
