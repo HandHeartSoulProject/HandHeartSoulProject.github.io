@@ -11,8 +11,11 @@ function NavBar() {
 		<nav>
 			<div className="links">
 				<img src={logo} alt="Hand, Heart, and Soul" className="logo" />
-				<NavLink to="events" className={activeClass}>
-					Events
+				<NavLink to="communityEvents" className={activeClass}>
+					Community Events
+				</NavLink>
+				<NavLink to="childrensEvents" className={activeClass}>
+					Childrens Events
 				</NavLink>
 				<NavLink to="create-user" className={activeClass}>
 					Create User

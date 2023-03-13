@@ -2,7 +2,8 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 
 import NavLayout from "./components/NavLayout";
 import CreateUsers from "./pages/CreateUsers";
-import Events from "./pages/Events";
+import CommunityEvents from "./pages/CommunityEvents";
+import ChildrensEvents from "./pages/ChildrensEvents";
 import Login from "./pages/Login";
 import UsersTable from "./pages/UsersTable";
 import "./styles/App.scss";
@@ -13,7 +14,8 @@ function App() {
 			<>
 				<Route path="/" element={<Login />} />
 				<Route path="/" element={<NavLayout />}>
-					<Route path="events" element={<Events />} />
+					<Route path="communityEvents" element={<CommunityEvents />} />
+					<Route path="childrensEvents" element={<ChildrensEvents />} />
 					<Route path="create-user" element={<CreateUsers />} />
 					<Route path="users" element={<UsersTable />} />
 				</Route>
