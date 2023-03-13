@@ -55,7 +55,6 @@ function ChildrensEvents() {
 									<td>{event.start_time}</td>
 									<td>{event.end_time}</td>
 									<td>{event.activity_description}</td>
-									
 								</tr>
 							);
 						})}
