@@ -112,19 +112,60 @@ export interface Database {
 			};
 			users: {
 				Row: {
-					id: number,
-					email: string, 
+					id: number;
+					email: string;
 					role: string;
 				};
 				Insert: {
-					id: number,
-					email: string, 
+					id: number;
+					email: string;
 					role: string;
 				};
 				Update: {
-					id: number,
-					email: string, 
+					id: number;
+					email: string;
 					role: string;
+				};
+			};
+			events_v2: {
+				Row: {
+					id: number;
+					created_by: string;
+					time_created: string;
+					activity_description: string;
+					num_adults: number;
+					num_children: number;
+					location: string;
+					date: string;
+					start_time: string;
+					end_time: string;
+					name: string;
+				};
+				Insert: {
+					id: number;
+					created_by: string;
+					time_created: string;
+					activity_description: string;
+					num_adults: number;
+					num_children: number;
+					location: string;
+					date: string;
+					start_time: string;
+					end_time: string;
+					name: string;
+				};
+				Update: {
+					id: number;
+					created_by: string;
+					time_created: string;
+					activity_description: string;
+					num_adults: number;
+					num_children: number;
+					location: string;
+					date: string;
+					start_time: string;
+					end_time: string;
+					name: string;
 				};
 			};
 		};
