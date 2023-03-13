@@ -13,7 +13,7 @@ function ChildrensEvents() {
 	}, []);
 
 	async function fetchEvents() {
-		var { data: events, error } = await supabase.from("events_v2").select("*, type (name)");
+		var { data: events, error } = await supabase.from("events_v2").select("*");
 
 		if (error || !events) console.error(error);
 		else setEvents(events as eventType[]);
@@ -21,22 +21,18 @@ function ChildrensEvents() {
 
 	return (
 		<div className="events">
-			<h1>Events</h1>
+			<h1>Childrens Events</h1>
 			{events ? (
 				<table>
 					<thead>
 						<tr>
 							<th>Event</th>
-							<th>Type</th>
-							<th>Presenter(s)</th>
+							<th># of Adults</th>
+							<th># of Children</th>
 							<th>Location</th>
-							<th>Virtual</th>
 							<th>Date</th>
-							<th>Hours</th>
-							<th># of Children Served</th>
-							<th># of Adults Served</th>
-							<th>Pounds of Food</th>
-							<th>Food Description</th>
+							<th>Start Time</th>
+							<th>End Time</th>
 							<th>Description</th>
 						</tr>
 					</thead>
@@ -52,17 +48,14 @@ function ChildrensEvents() {
 							return (
 								<tr key={event.id}>
 									<td>{event.name}</td>
-									<td>{event.type.name}</td>
-									<td>{event.presenter}</td>
+									<td>{event.num_adults}</td>
+									<td>{event.num_children}</td>
 									<td>{event.location}</td>
-									<td>{event.virtual ? "Yes" : "No"}</td>
 									<td>{date.toLocaleDateString(undefined, dateOptions)}</td>
-									<td>{event.hours}</td>
-									<td>{event.numChildren}</td>
-									<td>{event.numAdults}</td>
-									<td>{event.foodPounds}</td>
-									<td>{event.foodDescription}</td>
-									<td>{event.description}</td>
+									<td>{event.start_time}</td>
+									<td>{event.end_time}</td>
+									<td>{event.activity_description}</td>
+									
 								</tr>
 							);
 						})}
