@@ -5,7 +5,7 @@ import { Database } from "../types/supabase";
 const dateOptions: any = { weekday: "short", year: "numeric", month: "numeric", day: "numeric" };
 
 function ChildrensEvents() {
-	type eventType = Database["public"]["Tables"]["events_v2"]["Row"];
+	type eventType = Database["public"]["Tables"]["childrenEvents"]["Row"];
 	const [events, setEvents] = useState<eventType[]>();
 
 	useEffect(() => {
@@ -13,7 +13,7 @@ function ChildrensEvents() {
 	}, []);
 
 	async function fetchEvents() {
-		var { data: events, error } = await supabase.from("events_v2").select("*");
+		var { data: events, error } = await supabase.from("childrenEvents").select("*");
 
 		if (error || !events) console.error(error);
 		else setEvents(events as eventType[]);
@@ -48,13 +48,13 @@ function ChildrensEvents() {
 							return (
 								<tr key={event.id}>
 									<td>{event.name}</td>
-									<td>{event.num_adults}</td>
-									<td>{event.num_children}</td>
+									<td>{event.numAdults}</td>
+									<td>{event.numChildren}</td>
 									<td>{event.location}</td>
 									<td>{date.toLocaleDateString(undefined, dateOptions)}</td>
-									<td>{event.start_time}</td>
-									<td>{event.end_time}</td>
-									<td>{event.activity_description}</td>
+									<td>{event.startTime}</td>
+									<td>{event.endTime}</td>
+									<td>{event.activityDescription}</td>
 								</tr>
 							);
 						})}

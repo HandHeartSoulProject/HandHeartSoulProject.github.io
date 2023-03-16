@@ -5,7 +5,7 @@ import { Database } from "../types/supabase";
 const dateOptions: any = { weekday: "short", year: "numeric", month: "numeric", day: "numeric" };
 
 function CommunityEvents() {
-	type eventType = Database["public"]["Tables"]["events"]["Row"] & {
+	type eventType = Database["public"]["Tables"]["communityEvents"]["Row"] & {
 		type: { name: Database["public"]["Tables"]["eventTypes"]["Row"]["name"] };
 	};
 	const [events, setEvents] = useState<eventType[]>();
@@ -15,7 +15,7 @@ function CommunityEvents() {
 	}, []);
 
 	async function fetchEvents() {
-		var { data: events, error } = await supabase.from("events").select("*, type (name)");
+		var { data: events, error } = await supabase.from("communityEvents").select("*, type (name)");
 
 		if (error || !events) console.error(error);
 		else setEvents(events as eventType[]);
