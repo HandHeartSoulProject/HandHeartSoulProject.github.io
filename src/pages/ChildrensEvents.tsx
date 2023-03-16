@@ -54,7 +54,7 @@ function ChildrensEvents() {
 									<td>{date.toLocaleDateString(undefined, dateOptions)}</td>
 									<td>{event.startTime}</td>
 									<td>{event.endTime}</td>
-									<td>{event.activityDescription}</td>
+									<td>{event.description}</td>
 								</tr>
 							);
 						})}

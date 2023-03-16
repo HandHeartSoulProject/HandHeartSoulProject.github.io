@@ -11,9 +11,10 @@ export interface Database {
     Tables: {
       childrenEvents: {
         Row: {
-          activityDescription: string
+          createdAt: string
           createdBy: string | null
           date: string
+          description: string | null
           endTime: string
           id: number
           location: string | null
@@ -21,12 +22,12 @@ export interface Database {
           numAdults: number
           numChildren: number
           startTime: string
-          timeCreated: string
         }
         Insert: {
-          activityDescription: string
+          createdAt?: string
           createdBy?: string | null
           date: string
+          description?: string | null
           endTime: string
           id?: number
           location?: string | null
@@ -34,12 +35,12 @@ export interface Database {
           numAdults: number
           numChildren: number
           startTime: string
-          timeCreated: string
         }
         Update: {
-          activityDescription?: string
+          createdAt?: string
           createdBy?: string | null
           date?: string
+          description?: string | null
           endTime?: string
           id?: number
           location?: string | null
@@ -47,7 +48,6 @@ export interface Database {
           numAdults?: number
           numChildren?: number
           startTime?: string
-          timeCreated?: string
         }
       }
       communityEvents: {
