@@ -20,6 +20,15 @@ Run `yarn run deploy` to create a new build & deploy to github pages
 
 
 # Release Notes
+## Version 0.3.0
+### New Features
+ - Added new events table to allow users to see both childrens and community events
+ - Added user input feedback to allow only email users with hhs domains to take employee/admin roles
+### Bug Fixes
+ - Changed some styling issues and changed theme
+### Known Issues
+ - There are still some future fixes that we need to implement to protect the database schema
+ 
 ## Version 0.2.0
 ### New Features
  - Updated events table to use new schema
