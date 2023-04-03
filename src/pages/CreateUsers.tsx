@@ -30,13 +30,17 @@ function CreateUsers() {
 
 	async function createUser(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
-		if (role === 'admin' || role === 'employee') {
+		if (role === "admin" || role === "employee") {
 			if (!email.endsWith(hhsDomain)) {
-				handleSnackbar(true, "error", "Please use the " + hhsDomain + " when signing up as an employee or admin");
+				handleSnackbar(
+					true,
+					"error",
+					"Please use the " + hhsDomain + " when signing up as an employee or admin"
+				);
 				return;
 			}
 		}
-		
+
 		const { data, error } = await supabase.auth.signUp({
 			email: email,
 			password: password,
