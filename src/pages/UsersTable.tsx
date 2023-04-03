@@ -10,7 +10,7 @@ function UsersTable() {
 	type userInfo = Database["public"]["Tables"]["users"]["Row"];
 	const [users, setUsers] = useState<userInfo[]>();
 	const [selectedUser, setSelectedUser] = useState<userInfo>({
-		id: 0,
+		id: "",
 		email: "",
 		role: ""
 	});
