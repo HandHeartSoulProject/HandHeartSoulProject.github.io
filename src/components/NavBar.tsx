@@ -23,6 +23,9 @@ function NavBar() {
 				<NavLink to="users" className={activeClass}>
 					Users
 				</NavLink>
+				<NavLink to="vis" className={activeClass}>
+					Data Visualization
+				</NavLink>
 			</div>
 			<button className="sign-out">
 				<Link to="/">Sign Out</Link>
