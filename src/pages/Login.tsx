@@ -1,12 +1,32 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { supabase } from "../supabaseClient";
+import Snackbar from "@mui/material/Snackbar";
+import Alert, { AlertColor } from "@mui/material/Alert";
 
 function Login() {
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
 
 	const navigate = useNavigate();
+
+	// For reference https://mui.com/material-ui/react-snackbar/#customization
+	const [snackbar, setSnackBar] = useState<{ toggle: boolean; severity: AlertColor; message: string }>({
+		toggle: false,
+		severity: "error",
+		message: ""
+	});
+
+	function handleSnackbar(open: boolean, severity: AlertColor, message: string) {
+		setSnackBar({
+			toggle: open,
+			severity: severity,
+			message: message
+		});
+	}
+	function closeSnackbar() {
+		handleSnackbar(false, snackbar.severity, snackbar.message);
+	}
 
 	async function loginWithAuthentication(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
@@ -20,6 +40,7 @@ function Login() {
 
 		if (error) {
 			console.error(error);
+			handleSnackbar(true, "error", "Invalid Credentials");
 			return;
 		}
 		console.log(data);
@@ -51,9 +72,14 @@ function Login() {
 				/>
 			</div>
 
-			{/* <Link to="communityEvents"> */}
 			<button onClick={loginWithAuthentication}>Login</button>
-			{/* </Link> */}
+			<div>
+				<Snackbar open={snackbar.toggle} autoHideDuration={3000} onClose={closeSnackbar}>
+					<Alert onClose={closeSnackbar} severity={snackbar.severity} variant={"filled"}>
+						{snackbar.message}
+					</Alert>
+				</Snackbar>
+			</div>
 		</form>
 	);
 }
