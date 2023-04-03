@@ -40,7 +40,7 @@ function Login() {
 
 		if (error) {
 			console.error(error);
-			handleSnackbar(true, "error", "Invalid Credentials");
+			handleSnackbar(true, "error", "Invalid Credentials. Username or password is incorrect.");
 			return;
 		}
 		console.log(data);
