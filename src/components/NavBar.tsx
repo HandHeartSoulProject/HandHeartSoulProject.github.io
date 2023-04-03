@@ -3,9 +3,14 @@ import { NavLink, NavLinkProps } from "react-router-dom";
 import "../styles/Nav.scss";
 import logo from "../assets/logo.webp";
 import { Link } from "react-router-dom";
+import { supabase } from "../supabaseClient";
 
 function NavBar() {
 	const activeClass = ({ isActive }: { isActive: boolean }) => (isActive ? "active" : undefined);
+
+	async function signOut() {
+		const { error } = await supabase.auth.signOut()
+	}
 
 	return (
 		<nav>
@@ -24,7 +29,7 @@ function NavBar() {
 					Users
 				</NavLink>
 			</div>
-			<button className="sign-out">
+			<button onClick={signOut} className="sign-out">
 				<Link to="/">Sign Out</Link>
 			</button>
 		</nav>
