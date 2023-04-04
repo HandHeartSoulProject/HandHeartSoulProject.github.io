@@ -1,17 +1,21 @@
 import { VictoryTheme, VictoryThemeDefinition } from "victory";
 
+const width = 800;
+
 export const customVictoryTheme: VictoryThemeDefinition = {
 	...VictoryTheme.grayscale,
 	...{
 		chart: {
-			domainPadding: 25
+			domainPadding: width / 10,
+			width
 		},
 		bar: {
 			style: {
 				data: {
 					fill: "var(--gold)"
 				}
-			}
+			},
+			width
 		},
 		axis: {
 			style: {
@@ -28,18 +32,19 @@ export const customVictoryTheme: VictoryThemeDefinition = {
 				ticks: {
 					padding: 10
 				}
-			}
+			},
+			width
 		},
 		legend: {
 			style: {
 				title: {
-					fontSize: 20,
+					fontSize: width / 28,
 					fontFamily: "inherit",
 					fill: "var(--text)"
 				}
 			},
 			centerTitle: true,
-			x: 225,
+			x: width / 2,
 			y: 10
 		}
 	}

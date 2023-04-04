@@ -86,7 +86,9 @@ function DataVis() {
 
 			<div className="chart-wrapper">
 				<VictoryChart theme={customVictoryTheme}>
-					<VictoryLegend title={dropDownEventTypes[currEventType]} />
+					<VictoryLegend
+						title={`${eventTypeOptions[currEventType][dataField]} in ${dropDownEventTypes[currEventType]}s`}
+					/>
 					<VictoryBar data={data} x="month" y="numAdults" cornerRadius={2.5} />
 				</VictoryChart>
 			</div>
