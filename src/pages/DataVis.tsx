@@ -73,58 +73,6 @@ function DataVis() {
 
 			<h1>{currEventType}</h1>
 			<h1>{dataField}</h1>
-
-			{childrenData ? (
-				<table>
-					<thead>
-						<tr>
-							<th># of Adults</th>
-							<th># of Children</th>
-						</tr>
-					</thead>
-					<tbody>
-						{childrenData.map(event => {
-							const date = new Date(event.date);
-							// Adjust the date to account for the timezone offset
-							// When JS reads in a date in ISO format, it automatically applies the local timezone offset
-							// In the case of EST, this makes the date 5 hours behind, casuing the previous day to be shown
-							return (
-								<tr key={event.id}>
-									<td>{event.numAdults}</td>
-									<td>{event.numChildren}</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-			) : (
-				<div>Loading...</div>
-			)}
-
-			{communityData ? (
-				<table>
-					<thead>
-						<tr>
-							<th># of Children Served</th>
-							<th># of Adults Served</th>
-							<th>Pounds of Food</th>
-						</tr>
-					</thead>
-					<tbody>
-						{communityData.map(event => {
-							return (
-								<tr key={event.id}>
-									<td>{event.numChildren}</td>
-									<td>{event.numAdults}</td>
-									<td>{event.foodPounds}</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-			) : (
-				<div>Loading...</div>
-			)}
 		</div>
 	);
 }
