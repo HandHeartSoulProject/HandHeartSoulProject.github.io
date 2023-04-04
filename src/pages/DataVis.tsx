@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 
+import { VictoryBar, VictoryChart, VictoryLegend, VictoryTheme } from "victory";
 import { supabase } from "../supabaseClient";
 import {
 	childrensFields,
@@ -9,6 +10,7 @@ import {
 	eventTypeOptions,
 	visField
 } from "../types/eventTypes";
+import { customVictoryTheme } from "../styles/ChartStyles";
 
 function DataVis() {
 	const [currEventType, setCurrEventType] = useState<eventType>("communityEvent");
@@ -41,8 +43,15 @@ function DataVis() {
 			}
 		}
 
-		fetchEventData();
+		// fetchEventData();
 	}, []);
+
+	const data = [
+		{ month: "Jan", numAdults: 13 },
+		{ month: "Feb", numAdults: 15 },
+		{ month: "Mar", numAdults: 18 },
+		{ month: "Apr", numAdults: 20 }
+	];
 
 	return (
 		<div>
@@ -54,7 +63,7 @@ function DataVis() {
 					setCurrEventType(e.target.value as eventType);
 				}}
 			>
-				{dropDownEventTypes.map(({ value, label }) => (
+				{Object.entries(dropDownEventTypes).map(([value, label]) => (
 					<option key={value} value={value}>
 						{label}
 					</option>
@@ -66,12 +75,17 @@ function DataVis() {
 					setDataField(e.target.value as visField);
 				}}
 			>
-				{eventTypeOptions[currEventType].map(({ value, label }) => (
+				{Object.entries(eventTypeOptions[currEventType]).map(([value, label]) => (
 					<option key={value} value={value}>
 						{label}
 					</option>
 				))}
 			</select>
+
+			<VictoryChart theme={customVictoryTheme}>
+				<VictoryLegend title={dropDownEventTypes[currEventType]} />
+				<VictoryBar data={data} x="month" y="numAdults" cornerRadius={2.5} />
+			</VictoryChart>
 		</div>
 	);
 }
