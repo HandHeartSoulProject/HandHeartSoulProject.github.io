@@ -11,7 +11,7 @@ import {
 } from "../types/eventTypes";
 
 function DataVis() {
-	const [currEventType, setCurrEventType] = useState<eventType>("childrenEvent");
+	const [currEventType, setCurrEventType] = useState<eventType>("communityEvent");
 	const [dataField, setDataField] = useState<visField>("numAdults");
 	// const [timePeriod, setTimePeriod] = useState();
 	// const [currentEventType, setCurrentEventType] = useState<eventType>(); // add new state variable
@@ -26,6 +26,7 @@ function DataVis() {
 				console.error(childrenError);
 			} else {
 				setChildrenData(childrenEvents);
+				console.log("Children's Events: ", childrenEvents);
 			}
 
 			let { data: communityEvents, error: communityError } = await supabase
@@ -36,6 +37,7 @@ function DataVis() {
 				console.error(communityError);
 			} else {
 				setCommunityData(communityEvents);
+				console.log("Community Events: ", communityEvents);
 			}
 		}
 
@@ -44,7 +46,7 @@ function DataVis() {
 
 	return (
 		<div>
-			<h1>Data Visualization Tab</h1>
+			<h1>Data Visualization</h1>
 
 			<select
 				onChange={e => {
@@ -70,9 +72,6 @@ function DataVis() {
 					</option>
 				))}
 			</select>
-
-			<h1>{currEventType}</h1>
-			<h1>{dataField}</h1>
 		</div>
 	);
 }
