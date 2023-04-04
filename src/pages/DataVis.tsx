@@ -47,12 +47,20 @@ function DataVis() {
 		// fetchEventData();
 	}, []);
 
-	const data = [
-		{ month: "Jan", numAdults: 13 },
-		{ month: "Feb", numAdults: 15 },
-		{ month: "Mar", numAdults: 18 },
-		{ month: "Apr", numAdults: 20 }
-	];
+	const data: Record<eventType, { month: string; numAdults: number; numChildren: number; foodPounds?: number }[]> = {
+		communityEvent: [
+			{ month: "Jan", numAdults: 43, numChildren: 60, foodPounds: 204 },
+			{ month: "Feb", numAdults: 32, numChildren: 70, foodPounds: 150 },
+			{ month: "Mar", numAdults: 60, numChildren: 40, foodPounds: 110 },
+			{ month: "Apr", numAdults: 6, numChildren: 8, foodPounds: 23 }
+		],
+		childrenEvent: [
+			{ month: "Jan", numAdults: 78, numChildren: 80 },
+			{ month: "Feb", numAdults: 122, numChildren: 72 },
+			{ month: "Mar", numAdults: 111, numChildren: 133 },
+			{ month: "Apr", numAdults: 8, numChildren: 11 }
+		]
+	};
 
 	return (
 		<div className="data-vis">
@@ -89,7 +97,7 @@ function DataVis() {
 					<VictoryLegend
 						title={`${eventTypeOptions[currEventType][dataField]} in ${dropDownEventTypes[currEventType]}s`}
 					/>
-					<VictoryBar data={data} x="month" y="numAdults" cornerRadius={2.5} />
+					<VictoryBar data={data[currEventType]} x="month" y={dataField} cornerRadius={2.5} />
 				</VictoryChart>
 			</div>
 		</div>
