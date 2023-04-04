@@ -1,22 +1,20 @@
 import { useEffect, useState } from "react";
 
 import { supabase } from "../supabaseClient";
-import { dropDownEventTypes, dropDownEventTypes2, dropDownEventTypes3, eventType, visField } from "../types/eventTypes";
-import { Database } from "../types/supabase";
+import {
+	childrensFields,
+	communityFields,
+	dropDownEventTypes,
+	eventType,
+	eventTypeOptions,
+	visField
+} from "../types/eventTypes";
 
 function DataVis() {
-	const [eventField, setEventField] = useState<eventType>("childrenEvent"); // Stores the eventType
-	const [dataField, setDataField] = useState<visField>("numAdults"); // update initial value and type
+	const [currEventType, setCurrEventType] = useState<eventType>("childrenEvent");
+	const [dataField, setDataField] = useState<visField>("numAdults");
 	// const [timePeriod, setTimePeriod] = useState();
 	// const [currentEventType, setCurrentEventType] = useState<eventType>(); // add new state variable
-
-	const dropDownOptions: Record<eventType, { value: visField; label: string }[]> = {
-		communityEvent: dropDownEventTypes3,
-		childrenEvent: dropDownEventTypes2
-	};
-
-	type communityFields = Database["public"]["Tables"]["communityEvents"]["Row"];
-	type childrensFields = Database["public"]["Tables"]["childrenEvents"]["Row"];
 
 	const [childrenData, setChildrenData] = useState<childrensFields[]>();
 	const [communityData, setCommunityData] = useState<communityFields[]>();
@@ -29,6 +27,7 @@ function DataVis() {
 			} else {
 				setChildrenData(childrenEvents);
 			}
+
 			let { data: communityEvents, error: communityError } = await supabase
 				.from("communityEvents")
 				.select("*, type (name)");
@@ -50,7 +49,7 @@ function DataVis() {
 			<select
 				onChange={e => {
 					e.preventDefault();
-					setEventField(e.target.value as eventType);
+					setCurrEventType(e.target.value as eventType);
 				}}
 			>
 				{dropDownEventTypes.map(({ value, label }) => (
@@ -65,14 +64,14 @@ function DataVis() {
 					setDataField(e.target.value as visField);
 				}}
 			>
-				{dropDownOptions[eventField].map(({ value, label }) => (
+				{eventTypeOptions[currEventType].map(({ value, label }) => (
 					<option key={value} value={value}>
 						{label}
 					</option>
 				))}
 			</select>
 
-			<h1>{eventField}</h1>
+			<h1>{currEventType}</h1>
 			<h1>{dataField}</h1>
 
 			{childrenData ? (
