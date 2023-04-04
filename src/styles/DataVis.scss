@@ -1,0 +1,19 @@
+.data-vis {
+	.options {
+		display: flex;
+		flex-direction: row;
+		justify-content: center;
+		align-items: center;
+		gap: 1rem;
+
+		background-color: var(--low-alpha);
+		margin-bottom: 1rem;
+		padding: 1rem;
+		border-radius: var(--border-radius);
+	}
+	.chart-wrapper {
+		background-color: var(--low-alpha);
+		padding-top: 0.5rem;
+		border-radius: var(--border-radius);
+	}
+}

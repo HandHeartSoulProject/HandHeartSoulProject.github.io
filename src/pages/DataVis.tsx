@@ -1,22 +1,23 @@
 import { useEffect, useState } from "react";
+import { VictoryBar, VictoryChart, VictoryLegend, VictoryTheme } from "victory";
 
 import { supabase } from "../supabaseClient";
-import { dropDownEventTypes, dropDownEventTypes2, dropDownEventTypes3, eventType, visField } from "../types/eventTypes";
-import { Database } from "../types/supabase";
+import {
+	childrensFields,
+	communityFields,
+	dropDownEventTypes,
+	eventType,
+	eventTypeOptions,
+	visField
+} from "../types/eventTypes";
+import { customVictoryTheme } from "../styles/ChartStyles";
+import "../styles/DataVis.scss";
 
 function DataVis() {
-	const [eventField, setEventField] = useState<eventType>("childrenEvent"); // Stores the eventType
-	const [dataField, setDataField] = useState<visField>("numAdults"); // update initial value and type
+	const [currEventType, setCurrEventType] = useState<eventType>("communityEvent");
+	const [dataField, setDataField] = useState<visField>("numAdults");
 	// const [timePeriod, setTimePeriod] = useState();
 	// const [currentEventType, setCurrentEventType] = useState<eventType>(); // add new state variable
-
-	const dropDownOptions: Record<eventType, { value: visField; label: string }[]> = {
-		communityEvent: dropDownEventTypes3,
-		childrenEvent: dropDownEventTypes2
-	};
-
-	type communityFields = Database["public"]["Tables"]["communityEvents"]["Row"];
-	type childrensFields = Database["public"]["Tables"]["childrenEvents"]["Row"];
 
 	const [childrenData, setChildrenData] = useState<childrensFields[]>();
 	const [communityData, setCommunityData] = useState<communityFields[]>();
@@ -28,7 +29,9 @@ function DataVis() {
 				console.error(childrenError);
 			} else {
 				setChildrenData(childrenEvents);
+				console.log("Children's Events: ", childrenEvents);
 			}
+
 			let { data: communityEvents, error: communityError } = await supabase
 				.from("communityEvents")
 				.select("*, type (name)");
@@ -37,95 +40,66 @@ function DataVis() {
 				console.error(communityError);
 			} else {
 				setCommunityData(communityEvents);
+				console.log("Community Events: ", communityEvents);
 			}
 		}
 
-		fetchEventData();
+		// fetchEventData();
 	}, []);
 
+	const data: Record<eventType, { month: string; numAdults: number; numChildren: number; foodPounds?: number }[]> = {
+		communityEvent: [
+			{ month: "Jan", numAdults: 43, numChildren: 60, foodPounds: 204 },
+			{ month: "Feb", numAdults: 32, numChildren: 70, foodPounds: 150 },
+			{ month: "Mar", numAdults: 60, numChildren: 40, foodPounds: 110 },
+			{ month: "Apr", numAdults: 6, numChildren: 8, foodPounds: 23 }
+		],
+		childrenEvent: [
+			{ month: "Jan", numAdults: 78, numChildren: 80 },
+			{ month: "Feb", numAdults: 122, numChildren: 72 },
+			{ month: "Mar", numAdults: 111, numChildren: 133 },
+			{ month: "Apr", numAdults: 8, numChildren: 11 }
+		]
+	};
+
 	return (
-		<div>
-			<h1>Data Visualization Tab</h1>
+		<div className="data-vis">
+			<h1>Data Visualization</h1>
 
-			<select
-				onChange={e => {
-					e.preventDefault();
-					setEventField(e.target.value as eventType);
-				}}
-			>
-				{dropDownEventTypes.map(({ value, label }) => (
-					<option key={value} value={value}>
-						{label}
-					</option>
-				))}
-			</select>
+			<div className="options">
+				<select
+					onChange={e => {
+						e.preventDefault();
+						setCurrEventType(e.target.value as eventType);
+					}}
+				>
+					{Object.entries(dropDownEventTypes).map(([value, label]) => (
+						<option key={value} value={value}>
+							{label}
+						</option>
+					))}
+				</select>
+				<select
+					onChange={e => {
+						setDataField(e.target.value as visField);
+					}}
+				>
+					{Object.entries(eventTypeOptions[currEventType]).map(([value, label]) => (
+						<option key={value} value={value}>
+							{label}
+						</option>
+					))}
+				</select>
+			</div>
 
-			<select
-				onChange={e => {
-					setDataField(e.target.value as visField);
-				}}
-			>
-				{dropDownOptions[eventField].map(({ value, label }) => (
-					<option key={value} value={value}>
-						{label}
-					</option>
-				))}
-			</select>
-
-			<h1>{eventField}</h1>
-			<h1>{dataField}</h1>
-
-			{childrenData ? (
-				<table>
-					<thead>
-						<tr>
-							<th># of Adults</th>
-							<th># of Children</th>
-						</tr>
-					</thead>
-					<tbody>
-						{childrenData.map(event => {
-							const date = new Date(event.date);
-							// Adjust the date to account for the timezone offset
-							// When JS reads in a date in ISO format, it automatically applies the local timezone offset
-							// In the case of EST, this makes the date 5 hours behind, casuing the previous day to be shown
-							return (
-								<tr key={event.id}>
-									<td>{event.numAdults}</td>
-									<td>{event.numChildren}</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-			) : (
-				<div>Loading...</div>
-			)}
-
-			{communityData ? (
-				<table>
-					<thead>
-						<tr>
-							<th># of Children Served</th>
-							<th># of Adults Served</th>
-							<th>Pounds of Food</th>
-						</tr>
-					</thead>
-					<tbody>
-						{communityData.map(event => {
-							return (
-								<tr key={event.id}>
-									<td>{event.numChildren}</td>
-									<td>{event.numAdults}</td>
-									<td>{event.foodPounds}</td>
-								</tr>
-							);
-						})}
-					</tbody>
-				</table>
-			) : (
-				<div>Loading...</div>
-			)}
+			<div className="chart-wrapper">
+				<VictoryChart theme={customVictoryTheme}>
+					<VictoryLegend
+						title={`${eventTypeOptions[currEventType][dataField]} in ${dropDownEventTypes[currEventType]}s`}
+					/>
+					<VictoryBar data={data[currEventType]} x="month" y={dataField} cornerRadius={2.5} />
+				</VictoryChart>
+			</div>
 		</div>
 	);
 }
