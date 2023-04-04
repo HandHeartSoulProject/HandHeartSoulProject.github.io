@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-
 import { VictoryBar, VictoryChart, VictoryLegend, VictoryTheme } from "victory";
+
 import { supabase } from "../supabaseClient";
 import {
 	childrensFields,
@@ -11,6 +11,7 @@ import {
 	visField
 } from "../types/eventTypes";
 import { customVictoryTheme } from "../styles/ChartStyles";
+import "../styles/DataVis.scss";
 
 function DataVis() {
 	const [currEventType, setCurrEventType] = useState<eventType>("communityEvent");
@@ -54,38 +55,41 @@ function DataVis() {
 	];
 
 	return (
-		<div>
+		<div className="data-vis">
 			<h1>Data Visualization</h1>
 
-			<select
-				onChange={e => {
-					e.preventDefault();
-					setCurrEventType(e.target.value as eventType);
-				}}
-			>
-				{Object.entries(dropDownEventTypes).map(([value, label]) => (
-					<option key={value} value={value}>
-						{label}
-					</option>
-				))}
-			</select>
+			<div className="options">
+				<select
+					onChange={e => {
+						e.preventDefault();
+						setCurrEventType(e.target.value as eventType);
+					}}
+				>
+					{Object.entries(dropDownEventTypes).map(([value, label]) => (
+						<option key={value} value={value}>
+							{label}
+						</option>
+					))}
+				</select>
+				<select
+					onChange={e => {
+						setDataField(e.target.value as visField);
+					}}
+				>
+					{Object.entries(eventTypeOptions[currEventType]).map(([value, label]) => (
+						<option key={value} value={value}>
+							{label}
+						</option>
+					))}
+				</select>
+			</div>
 
-			<select
-				onChange={e => {
-					setDataField(e.target.value as visField);
-				}}
-			>
-				{Object.entries(eventTypeOptions[currEventType]).map(([value, label]) => (
-					<option key={value} value={value}>
-						{label}
-					</option>
-				))}
-			</select>
-
-			<VictoryChart theme={customVictoryTheme}>
-				<VictoryLegend title={dropDownEventTypes[currEventType]} />
-				<VictoryBar data={data} x="month" y="numAdults" cornerRadius={2.5} />
-			</VictoryChart>
+			<div className="chart-wrapper">
+				<VictoryChart theme={customVictoryTheme}>
+					<VictoryLegend title={dropDownEventTypes[currEventType]} />
+					<VictoryBar data={data} x="month" y="numAdults" cornerRadius={2.5} />
+				</VictoryChart>
+			</div>
 		</div>
 	);
 }
