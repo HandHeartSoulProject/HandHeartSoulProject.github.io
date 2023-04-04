@@ -1,46 +1,48 @@
-import { useState, useEffect } from "react";
-import {
-	dropDownEventTypes,
-	eventType,
-	visFields,
-	dropDownEventTypes2,
-	dropDownEventTypes3
-} from "../types/eventTypes";
-import { Database } from "../types/supabase";
+import { useEffect, useState } from "react";
+
 import { supabase } from "../supabaseClient";
+import { dropDownEventTypes, dropDownEventTypes2, dropDownEventTypes3, eventType, visField } from "../types/eventTypes";
+import { Database } from "../types/supabase";
 
 function DataVis() {
 	const [eventField, setEventField] = useState<eventType>("childrenEvent"); // Stores the eventType
-	const [dataField, setDataField] = useState<visFields>("numAdults"); // update initial value and type
-	const [timePeriod, setTimePeriod] = useState("time");
-	const [currentEventType, setCurrentEventType] = useState<eventType>(); // add new state variable
+	const [dataField, setDataField] = useState<visField>("numAdults"); // update initial value and type
+	// const [timePeriod, setTimePeriod] = useState();
+	// const [currentEventType, setCurrentEventType] = useState<eventType>(); // add new state variable
 
-	const dropDownOptions = { communityEvent: dropDownEventTypes3, childrenEvent: dropDownEventTypes2 };
-
-	// Data for communityEvents and ChildrenEvents
-	type communityFields = Database["public"]["Tables"]["communityEvents"]["Row"] & {
-		type: { name: Database["public"]["Tables"]["eventTypes"]["Row"]["name"] };
+	const dropDownOptions: Record<eventType, { value: visField; label: string }[]> = {
+		communityEvent: dropDownEventTypes3,
+		childrenEvent: dropDownEventTypes2
 	};
+
+	type communityFields = Database["public"]["Tables"]["communityEvents"]["Row"];
 	type childrensFields = Database["public"]["Tables"]["childrenEvents"]["Row"];
 
-	// Code dealing with data loading from database
 	const [childrenData, setChildrenData] = useState<childrensFields[]>();
 	const [communityData, setCommunityData] = useState<communityFields[]>();
 
-	async function fetchEventData() {
-		var { data: childrenEvents, error } = await supabase.from("childrenEvents").select("*"); // Change this to account for eventType
-		var { data: communityEvents, error } = await supabase.from("communityEvents").select("*, type (name)");
-		if (error || !childrenEvents || !communityEvents) console.error(error);
-		else {
-			setChildrenData(childrenEvents as childrensFields[]);
-			setCommunityData(communityEvents as communityFields[]);
-		}
-	}
-
 	useEffect(() => {
+		async function fetchEventData() {
+			let { data: childrenEvents, error: childrenError } = await supabase.from("childrenEvents").select("*"); // Change this to account for eventType
+			if (childrenError || !childrenEvents) {
+				console.error(childrenError);
+			} else {
+				setChildrenData(childrenEvents);
+			}
+			let { data: communityEvents, error: communityError } = await supabase
+				.from("communityEvents")
+				.select("*, type (name)");
+
+			if (communityError || !communityEvents) {
+				console.error(communityError);
+			} else {
+				setCommunityData(communityEvents);
+			}
+		}
+
 		fetchEventData();
-		console.log("get");
 	}, []);
+
 	return (
 		<div>
 			<h1>Data Visualization Tab</h1>
@@ -60,7 +62,7 @@ function DataVis() {
 
 			<select
 				onChange={e => {
-					setDataField(e.target.value as visFields);
+					setDataField(e.target.value as visField);
 				}}
 			>
 				{dropDownOptions[eventField].map(({ value, label }) => (
