@@ -20,6 +20,15 @@ Run `yarn run deploy` to create a new build & deploy to github pages
 
 
 # Release Notes
+## Version 0.4.0
+### New Features
+ - Added restrictions to the admin portal to only allow admins or employees to view all data
+ - Added data visualization tab to allow users to view data in a more visual way
+### Bug Fixes
+ - Fixed a few typescript errors by increasing verbosity of type definitions
+### Known Issues
+ - When switching from community events to children's events in the data visualization tab, if food pounds is selected an error will occur
+
 ## Version 0.3.0
 ### New Features
  - Added new events table to allow users to see both childrens and community events
