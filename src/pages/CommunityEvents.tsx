@@ -1,5 +1,6 @@
 import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { useEffect, useState } from "react";
+import { CSVLink } from "react-csv";
 
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
@@ -27,9 +28,15 @@ function CommunityEvents() {
 		<div className="events">
 			<div className="title">
 				<h1>Community Events</h1>
-				<button className="export" disabled={!events}>
-					<FileDownloadIcon /> Export CSV
-				</button>
+				<CSVLink
+					data={events ? events.map(event => ({ ...event, type: event.type.name })) : ""}
+					filename="community-events.csv"
+				>
+					<button className="export" disabled={!events}>
+						<FileDownloadIcon />
+						Export CSV
+					</button>
+				</CSVLink>
 			</div>
 			<table>
 				<thead>

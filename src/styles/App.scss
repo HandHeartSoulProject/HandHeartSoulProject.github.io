@@ -110,6 +110,11 @@ select {
 	text-align: center;
 	gap: 1rem;
 
+	a {
+		text-decoration: none;
+		color: inherit;
+	}
+
 	button.export {
 		display: flex;
 		align-items: center;
