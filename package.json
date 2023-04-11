@@ -21,6 +21,7 @@
 		"@types/node": "^18.11.9",
 		"gh-pages": "^4.0.0",
 		"react": "^18.2.0",
+		"react-csv": "^2.2.2",
 		"react-dom": "^18.2.0",
 		"react-modal": "^3.16.1",
 		"react-router-dom": "^6.4.4",
