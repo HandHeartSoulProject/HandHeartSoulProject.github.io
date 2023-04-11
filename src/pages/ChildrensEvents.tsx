@@ -26,7 +26,10 @@ function ChildrensEvents() {
 		<div className="events">
 			<div className="title">
 				<h1>Children's Events</h1>
-				<CSVLink data={events || ""} filename="childrens-events.csv">
+				<CSVLink
+					data={events || ""}
+					filename={`childrens-events-${new Date().toISOString().replace(/T.*/, "")}.csv`}
+				>
 					<button className="export" disabled={!events}>
 						<FileDownloadIcon />
 						Export CSV

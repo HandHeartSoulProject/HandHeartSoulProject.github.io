@@ -30,7 +30,7 @@ function CommunityEvents() {
 				<h1>Community Events</h1>
 				<CSVLink
 					data={events ? events.map(event => ({ ...event, type: event.type.name })) : ""}
-					filename="community-events.csv"
+					filename={`community-events-${new Date().toISOString().replace(/T.*/, "")}.csv`}
 				>
 					<button className="export" disabled={!events}>
 						<FileDownloadIcon />
