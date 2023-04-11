@@ -45,6 +45,11 @@ table {
 			}
 		}
 	}
+
+	.loading {
+		text-align: center;
+		font-size: 1.25rem;
+	}
 }
 
 form {
@@ -76,10 +81,15 @@ button {
 	font-weight: 700;
 	cursor: pointer;
 	transition: all 0.2s ease;
-}
 
-button:not(:disabled):hover {
-	background-color: var(--high-alpha);
+	&:disabled {
+		color: var(--high-alpha);
+		cursor: default;
+	}
+
+	&:not(:disabled):hover {
+		background-color: var(--high-alpha);
+	}
 }
 
 input,
@@ -89,4 +99,22 @@ select {
 	border-radius: var(--small-border-radius);
 	background-color: var(--med-alpha);
 	color: var(--text);
+}
+
+// Events Screen
+.events .title {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: space-between;
+	text-align: center;
+	gap: 1rem;
+
+	button.export {
+		display: flex;
+		align-items: center;
+		gap: 0.5rem;
+
+		padding: 0.5rem;
+	}
 }

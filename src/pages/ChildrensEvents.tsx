@@ -1,4 +1,6 @@
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { useEffect, useState } from "react";
+
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
 
@@ -21,23 +23,28 @@ function ChildrensEvents() {
 
 	return (
 		<div className="events">
-			<h1>Childrens Events</h1>
-			{events ? (
-				<table>
-					<thead>
-						<tr>
-							<th>Event</th>
-							<th># of Adults</th>
-							<th># of Children</th>
-							<th>Location</th>
-							<th>Date</th>
-							<th>Start Time</th>
-							<th>End Time</th>
-							<th>Description</th>
-						</tr>
-					</thead>
-					<tbody>
-						{events.map(event => {
+			<div className="title">
+				<h1>Children's Events</h1>
+				<button className="export" disabled={!events}>
+					<FileDownloadIcon /> Export CSV
+				</button>
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<th>Event</th>
+						<th># of Adults</th>
+						<th># of Children</th>
+						<th>Location</th>
+						<th>Date</th>
+						<th>Start Time</th>
+						<th>End Time</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					{events ? (
+						events.map(event => {
 							const date = new Date(event.date);
 							// Adjust the date to account for the timezone offset
 							// When JS reads in a date in ISO format, it automatically applies the local timezone offset
@@ -57,12 +64,16 @@ function ChildrensEvents() {
 									<td>{event.description}</td>
 								</tr>
 							);
-						})}
-					</tbody>
-				</table>
-			) : (
-				<div>Loading...</div>
-			)}
+						})
+					) : (
+						<tr>
+							<td colSpan={999} className="loading">
+								Loading...
+							</td>
+						</tr>
+					)}
+				</tbody>
+			</table>
 		</div>
 	);
 }
