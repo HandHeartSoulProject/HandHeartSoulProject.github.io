@@ -19,6 +19,10 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 
 	async function deleteUser(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
+		if (!confirm("Are you sure you want to delete this user?")) {
+			return;
+		}
+
 		const { error } = await supabase.from("users").delete().eq("email", user.email);
 		if (error) {
 			console.log(error);
@@ -31,9 +35,14 @@ function UserModal({ user, modalStatus, toggleModal, handleSnackbar }) {
 
 	async function updateUser(e: React.FormEvent<HTMLButtonElement>) {
 		e.preventDefault();
-		if (role === 'admin' || role === 'employee') {
+
+		if (role === "admin" || role === "employee") {
 			if (!email.endsWith(hhsDomain)) {
-				handleSnackbar(true, "error", "Please use the " + hhsDomain + " when changing role to an employee or admin");
+				handleSnackbar(
+					true,
+					"error",
+					"Only users with emails ending in " + hhsDomain + " may be made an employee or admin"
+				);
 				return;
 			}
 		}
