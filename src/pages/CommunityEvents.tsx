@@ -1,4 +1,7 @@
+import FileDownloadIcon from "@mui/icons-material/FileDownload";
 import { useEffect, useState } from "react";
+import { CSVLink } from "react-csv";
+
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
 
@@ -23,27 +26,38 @@ function CommunityEvents() {
 
 	return (
 		<div className="events">
-			<h1>Community Events</h1>
-			{events ? (
-				<table>
-					<thead>
-						<tr>
-							<th>Event</th>
-							<th>Type</th>
-							<th>Presenter(s)</th>
-							<th>Location</th>
-							<th>Virtual</th>
-							<th>Date</th>
-							<th>Hours</th>
-							<th># of Children Served</th>
-							<th># of Adults Served</th>
-							<th>Pounds of Food</th>
-							<th>Food Description</th>
-							<th>Description</th>
-						</tr>
-					</thead>
-					<tbody>
-						{events.map(event => {
+			<div className="title">
+				<h1>Community Events</h1>
+				<CSVLink
+					data={events ? events.map(event => ({ ...event, type: event.type.name })) : ""}
+					filename={`community-events-${new Date().toISOString().replace(/T.*/, "")}.csv`}
+				>
+					<button className="export" disabled={!events}>
+						<FileDownloadIcon />
+						Export CSV
+					</button>
+				</CSVLink>
+			</div>
+			<table>
+				<thead>
+					<tr>
+						<th>Event</th>
+						<th>Type</th>
+						<th>Presenter(s)</th>
+						<th>Location</th>
+						<th>Virtual</th>
+						<th>Date</th>
+						<th>Hours</th>
+						<th># of Children Served</th>
+						<th># of Adults Served</th>
+						<th>Pounds of Food</th>
+						<th>Food Description</th>
+						<th>Description</th>
+					</tr>
+				</thead>
+				<tbody>
+					{events ? (
+						events.map(event => {
 							const date = new Date(event.date);
 							// Adjust the date to account for the timezone offset
 							// When JS reads in a date in ISO format, it automatically applies the local timezone offset
@@ -67,12 +81,16 @@ function CommunityEvents() {
 									<td>{event.description}</td>
 								</tr>
 							);
-						})}
-					</tbody>
-				</table>
-			) : (
-				<div>Loading...</div>
-			)}
+						})
+					) : (
+						<tr>
+							<td colSpan={999} className="loading">
+								Loading...
+							</td>
+						</tr>
+					)}
+				</tbody>
+			</table>
 		</div>
 	);
 }
