@@ -1,6 +1,7 @@
 import { Delete, FileDownload } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
+import { ClipLoader } from "react-spinners";
 
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
@@ -102,7 +103,7 @@ function CommunityEvents() {
 													<Delete />
 												</button>
 											) : (
-												<div>Loading</div>
+												<ClipLoader size={20} color="red" />
 											)}
 										</div>
 									</td>
