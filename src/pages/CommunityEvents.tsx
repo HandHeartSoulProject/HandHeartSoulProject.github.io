@@ -34,10 +34,8 @@ function CommunityEvents() {
 		const { error } = await supabase.from("communityEvents").delete().match({ id });
 
 		if (error) console.error(error);
-		else {
-			setEvents(events?.filter(event => event.id != id));
-			setLoadingDelete(loadingDelete.filter(eventId => eventId != id));
-		}
+		else setEvents(events?.filter(event => event.id != id));
+		setLoadingDelete(loadingDelete.filter(eventId => eventId != id));
 	}
 
 	return (

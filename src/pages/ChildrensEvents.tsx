@@ -32,10 +32,8 @@ function ChildrensEvents() {
 		const { error } = await supabase.from("childrenEvents").delete().match({ id });
 
 		if (error) console.error(error);
-		else {
-			setEvents(events?.filter(event => event.id != id));
-			setLoadingDelete(loadingDelete.filter(eventId => eventId != id));
-		}
+		else setEvents(events?.filter(event => event.id != id));
+		setLoadingDelete(loadingDelete.filter(eventId => eventId != id));
 	}
 
 	return (
