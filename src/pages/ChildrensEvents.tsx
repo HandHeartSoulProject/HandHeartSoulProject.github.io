@@ -5,6 +5,7 @@ import { ClipLoader } from "react-spinners";
 
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
+import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 
 const dateOptions: any = { weekday: "short", year: "numeric", month: "numeric", day: "numeric" };
 
@@ -16,8 +17,10 @@ function ChildrensEvents() {
 		async function fetchEvents() {
 			let { data: events, error } = await supabase.from("childrenEvents").select("*");
 
-			if (error || !events) console.error(error);
-			else setEvents(events as eventType[]);
+			if (error || !events) {
+				console.error(error);
+				setSnackBar({ toggle: true, severity: "error", message: "Failed to fetch events" });
+			} else setEvents(events as eventType[]);
 		}
 
 		fetchEvents();
@@ -31,10 +34,21 @@ function ChildrensEvents() {
 		setLoadingDelete([...loadingDelete, id]);
 		const { error } = await supabase.from("childrenEvents").delete().match({ id });
 
-		if (error) console.error(error);
-		else setEvents(events?.filter(event => event.id != id));
+		if (error) {
+			console.error(error);
+			setSnackBar({ toggle: true, severity: "error", message: "Failed to delete event" });
+		} else {
+			setEvents(events?.filter(event => event.id != id));
+			setSnackBar({ toggle: true, severity: "success", message: "Event deleted" });
+		}
 		setLoadingDelete(loadingDelete.filter(eventId => eventId != id));
 	}
+
+	const [snackbar, setSnackBar] = useState<snackbarType>({
+		toggle: false,
+		severity: "error",
+		message: ""
+	});
 
 	return (
 		<div className="events">
@@ -107,6 +121,8 @@ function ChildrensEvents() {
 					)}
 				</tbody>
 			</table>
+
+			<CustomSnackbar snackbar={snackbar} setSnackbar={setSnackBar} />
 		</div>
 	);
 }
