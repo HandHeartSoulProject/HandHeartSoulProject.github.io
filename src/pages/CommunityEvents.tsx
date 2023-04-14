@@ -5,6 +5,8 @@ import { ClipLoader } from "react-spinners";
 
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
+import { Alert, AlertColor, Snackbar } from "@mui/material";
+import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 
 const dateOptions: any = { weekday: "short", year: "numeric", month: "numeric", day: "numeric" };
 
@@ -18,8 +20,10 @@ function CommunityEvents() {
 		async function fetchEvents() {
 			const { data: events, error } = await supabase.from("communityEvents").select("*, type (name)");
 
-			if (error || !events) console.error(error);
-			else setEvents(events as eventType[]);
+			if (error || !events) {
+				console.error(error);
+				setSnackBar({ toggle: true, severity: "error", message: "Failed to fetch events" });
+			} else setEvents(events as eventType[]);
 		}
 
 		fetchEvents();
@@ -33,10 +37,21 @@ function CommunityEvents() {
 		setLoadingDelete([...loadingDelete, id]);
 		const { error } = await supabase.from("communityEvents").delete().match({ id });
 
-		if (error) console.error(error);
-		else setEvents(events?.filter(event => event.id != id));
+		if (error) {
+			console.error(error);
+			setSnackBar({ toggle: true, severity: "error", message: "Failed to delete event" });
+		} else {
+			setEvents(events?.filter(event => event.id != id));
+			setSnackBar({ toggle: true, severity: "success", message: "Event deleted" });
+		}
 		setLoadingDelete(loadingDelete.filter(eventId => eventId != id));
 	}
+
+	const [snackbar, setSnackBar] = useState<snackbarType>({
+		toggle: false,
+		severity: "error",
+		message: ""
+	});
 
 	return (
 		<div className="events">
@@ -117,6 +132,8 @@ function CommunityEvents() {
 					)}
 				</tbody>
 			</table>
+
+			<CustomSnackbar snackbar={snackbar} setSnackbar={setSnackBar} />
 		</div>
 	);
 }
