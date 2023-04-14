@@ -1,6 +1,7 @@
-import FileDownloadIcon from "@mui/icons-material/FileDownload";
+import { Delete, FileDownload } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
+import { ClipLoader } from "react-spinners";
 
 import { supabase } from "../supabaseClient";
 import { Database } from "../types/supabase";
@@ -12,14 +13,29 @@ function ChildrensEvents() {
 	const [events, setEvents] = useState<eventType[]>();
 
 	useEffect(() => {
+		async function fetchEvents() {
+			let { data: events, error } = await supabase.from("childrenEvents").select("*");
+
+			if (error || !events) console.error(error);
+			else setEvents(events as eventType[]);
+		}
+
 		fetchEvents();
 	}, []);
 
-	async function fetchEvents() {
-		var { data: events, error } = await supabase.from("childrenEvents").select("*");
+	/** Stores an array of IDs representing the events awaiting deletion */
+	const [loadingDelete, setLoadingDelete] = useState<eventType["id"][]>([]);
+	async function deleteEvent(id: eventType["id"]) {
+		if (id in loadingDelete) return;
 
-		if (error || !events) console.error(error);
-		else setEvents(events as eventType[]);
+		setLoadingDelete([...loadingDelete, id]);
+		const { error } = await supabase.from("childrenEvents").delete().match({ id });
+
+		if (error) console.error(error);
+		else {
+			setEvents(events?.filter(event => event.id != id));
+			setLoadingDelete(loadingDelete.filter(eventId => eventId != id));
+		}
 	}
 
 	return (
@@ -31,7 +47,7 @@ function ChildrensEvents() {
 					filename={`childrens-events-${new Date().toISOString().replace(/T.*/, "")}.csv`}
 				>
 					<button className="export" disabled={!events}>
-						<FileDownloadIcon />
+						<FileDownload />
 						Export CSV
 					</button>
 				</CSVLink>
@@ -47,6 +63,7 @@ function ChildrensEvents() {
 						<th>Start Time</th>
 						<th>End Time</th>
 						<th>Description</th>
+						<th>Action</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -69,6 +86,17 @@ function ChildrensEvents() {
 									<td>{event.startTime}</td>
 									<td>{event.endTime}</td>
 									<td>{event.description}</td>
+									<td>
+										<div className="action-cell">
+											{!loadingDelete.includes(event.id) ? (
+												<button className="delete-icon" onClick={() => deleteEvent(event.id)}>
+													<Delete />
+												</button>
+											) : (
+												<ClipLoader size={20} color="red" />
+											)}
+										</div>
+									</td>
 								</tr>
 							);
 						})
