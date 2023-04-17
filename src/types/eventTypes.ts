@@ -1,6 +1,10 @@
 import { Database } from "./supabase";
 
 export type eventType = "communityEvent" | "childrenEvent";
+export type communityEventType = Database["public"]["Tables"]["communityEvents"]["Row"] & {
+	type: { name: Database["public"]["Tables"]["eventTypes"]["Row"]["name"] };
+};
+export type childrenEventType = Database["public"]["Tables"]["childrenEvents"]["Row"];
 export const hhsDomain = "@handheartsoulproject.org";
 export const dropDownEventTypes: Record<eventType, string> = {
 	communityEvent: "Community Event",
@@ -25,4 +29,11 @@ const childrenEventOptions: Record<Exclude<visField, "foodPounds">, string> = {
 export const eventTypeOptions: Record<eventType, typeof communityEventOptions | typeof childrenEventOptions> = {
 	communityEvent: communityEventOptions,
 	childrenEvent: childrenEventOptions
+};
+
+export const dateDisplayOptions: any = {
+	weekday: "short",
+	year: "numeric",
+	month: "numeric",
+	day: "numeric"
 };

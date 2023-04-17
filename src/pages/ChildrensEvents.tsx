@@ -3,15 +3,12 @@ import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
 import { ClipLoader } from "react-spinners";
 
-import { supabase } from "../supabaseClient";
-import { Database } from "../types/supabase";
 import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
-
-const dateOptions: any = { weekday: "short", year: "numeric", month: "numeric", day: "numeric" };
+import { supabase } from "../supabaseClient";
+import { childrenEventType, dateDisplayOptions } from "../types/eventTypes";
 
 function ChildrensEvents() {
-	type eventType = Database["public"]["Tables"]["childrenEvents"]["Row"];
-	const [events, setEvents] = useState<eventType[]>();
+	const [events, setEvents] = useState<childrenEventType[]>();
 
 	useEffect(() => {
 		async function fetchEvents() {
@@ -20,15 +17,15 @@ function ChildrensEvents() {
 			if (error || !events) {
 				console.error(error);
 				setSnackBar({ toggle: true, severity: "error", message: "Failed to fetch events" });
-			} else setEvents(events as eventType[]);
+			} else setEvents(events as childrenEventType[]);
 		}
 
 		fetchEvents();
 	}, []);
 
 	/** Stores an array of IDs representing the events awaiting deletion */
-	const [loadingDelete, setLoadingDelete] = useState<eventType["id"][]>([]);
-	async function deleteEvent(id: eventType["id"]) {
+	const [loadingDelete, setLoadingDelete] = useState<childrenEventType["id"][]>([]);
+	async function deleteEvent(id: childrenEventType["id"]) {
 		if (id in loadingDelete) return;
 
 		setLoadingDelete([...loadingDelete, id]);
@@ -94,7 +91,7 @@ function ChildrensEvents() {
 									<td>{event.numAdults}</td>
 									<td>{event.numChildren}</td>
 									<td>{event.location}</td>
-									<td>{date.toLocaleDateString(undefined, dateOptions)}</td>
+									<td>{date.toLocaleDateString(undefined, dateDisplayOptions)}</td>
 									<td>{event.startTime}</td>
 									<td>{event.endTime}</td>
 									<td>{event.description}</td>
