@@ -38,17 +38,19 @@ function EventTypes() {
 				</thead>
 				<tbody>
 					{types ? (
-						types.map(type => (
-							<EventTypeRow
-								key={type.id}
-								eventType={type}
-								removeEventType={() => setTypes(types?.filter(t => t.id != type.id))}
-								updateEventType={updatedEventType => {
-									setTypes(types?.map(t => (t.id == type.id ? updatedEventType : t)));
-								}}
-								setSnackBar={setSnackBar}
-							/>
-						))
+						types
+							.sort((typeA, typeB) => typeA.id - typeB.id)
+							.map(type => (
+								<EventTypeRow
+									key={type.id}
+									eventType={type}
+									removeEventType={() => setTypes(types?.filter(t => t.id != type.id))}
+									updateEventType={updatedEventType => {
+										setTypes(types?.map(t => (t.id == type.id ? updatedEventType : t)));
+									}}
+									setSnackBar={setSnackBar}
+								/>
+							))
 					) : (
 						<tr>
 							<td colSpan={999} className="loading">

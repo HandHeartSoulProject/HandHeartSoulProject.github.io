@@ -105,6 +105,10 @@ span[contenteditable] {
 }
 
 .table-layout {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
 	.title {
 		display: flex;
 		flex-direction: row;
@@ -112,6 +116,7 @@ span[contenteditable] {
 		justify-content: space-between;
 		text-align: center;
 		gap: 1rem;
+		width: 100%;
 
 		a {
 			text-decoration: none;
