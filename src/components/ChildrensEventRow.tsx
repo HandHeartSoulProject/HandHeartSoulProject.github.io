@@ -3,9 +3,10 @@ import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 import { supabase } from "../supabaseClient";
-import { childrenEventType, formatDateString } from "../types/eventTypes";
+import { childrenEventType } from "../types/eventTypes";
 import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
 import { snackbarType } from "./CustomSnackbar";
+import { formatDateString, objectsEqual } from "../util";
 
 function ChildrensEventRow({
 	event,
@@ -46,7 +47,7 @@ function ChildrensEventRow({
 		setEditing(true);
 	}
 	function stopEditing() {
-		if (event != editedEvent && !confirm("Are you sure you want to discard your changes?")) return;
+		if (!objectsEqual(event, editedEvent) && !confirm("Are you sure you want to discard your changes?")) return;
 
 		setEditing(false);
 		setEditedEvent(event);

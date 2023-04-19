@@ -2,10 +2,11 @@ import { Check, Close, Delete } from "@mui/icons-material";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
-import { communityEventType, formatDateString } from "../types/eventTypes";
-import { snackbarType } from "./CustomSnackbar";
 import { supabase } from "../supabaseClient";
+import { communityEventType } from "../types/eventTypes";
+import { formatDateString, objectsEqual } from "../util";
 import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
+import { snackbarType } from "./CustomSnackbar";
 
 function CommunityEventRow({
 	event,
@@ -46,7 +47,7 @@ function CommunityEventRow({
 		setEditing(true);
 	}
 	function stopEditing() {
-		if (event != editedEvent && !confirm("Are you sure you want to discard your changes?")) return;
+		if (!objectsEqual(event, editedEvent) && !confirm("Are you sure you want to discard your changes?")) return;
 
 		setEditing(false);
 		setEditedEvent(event);
