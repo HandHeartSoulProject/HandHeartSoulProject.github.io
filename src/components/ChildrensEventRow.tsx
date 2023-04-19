@@ -23,7 +23,7 @@ function ChildrensEventRow({
 	async function deleteEvent() {
 		if (loadingDelete) return;
 
-		if (!confirm("Are you sure you want to delete this event? This action cannot be undone.")) return;
+		if (!confirm(`Are you sure you want to delete "${event.name}"? This action cannot be undone.`)) return;
 
 		setLoadingDelete(true);
 		const { error } = await supabase.from("childrenEvents").delete().eq("id", event.id);
