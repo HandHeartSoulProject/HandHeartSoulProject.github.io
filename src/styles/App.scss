@@ -93,12 +93,15 @@ button {
 }
 
 input,
-select {
+select,
+textarea,
+span[contenteditable] {
 	padding: 0.5rem;
 	border: none;
 	border-radius: var(--small-border-radius);
 	background-color: var(--med-alpha);
 	color: var(--text);
+	font-family: inherit;
 }
 
 // Events Screen
@@ -159,4 +162,19 @@ select {
 			}
 		}
 	}
+
+	textarea {
+		min-width: 80px;
+		max-width: 250px;
+		min-height: 15px;
+		height: fit-content;
+
+		text-align: center;
+	}
+}
+
+.width-machine {
+	position: absolute;
+	visibility: hidden;
+	pointer-events: none;
 }

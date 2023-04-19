@@ -1,10 +1,11 @@
-import { Check, Delete } from "@mui/icons-material";
+import { Check, Close, Delete } from "@mui/icons-material";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 import { communityEventType, dateDisplayOptions } from "../types/eventTypes";
 import { snackbarType } from "./CustomSnackbar";
 import { supabase } from "../supabaseClient";
+import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
 
 function CommunityEventRow({
 	event,
@@ -49,10 +50,15 @@ function CommunityEventRow({
 	}
 
 	const [editing, setEditing] = useState(false);
+	const [editedEvent, setEditedEvent] = useState<communityEventType>(event);
 	function detectClick(e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) {
 		e.stopPropagation();
 		if (e.detail != 2 || editing) return;
 		setEditing(true);
+	}
+	function stopEditing() {
+		setEditing(false);
+		setEditedEvent(event);
 	}
 
 	return !editing ? (
@@ -83,24 +89,80 @@ function CommunityEventRow({
 		</tr>
 	) : (
 		<tr key={event.id}>
-			<td>{event.name}</td>
+			<td>
+				<textarea
+					onChange={e => setEditedEvent({ ...editedEvent, name: e.target.value })}
+					value={editedEvent.name}
+				/>
+			</td>
 			<td>{event.type.name}</td>
-			<td>{event.presenter}</td>
-			<td>{event.location}</td>
-			<td>{event.virtual ? "Yes" : "No"}</td>
+			<td>
+				<textarea
+					onChange={e => setEditedEvent({ ...editedEvent, presenter: e.target.value })}
+					value={editedEvent.presenter || ""}
+				/>
+			</td>
+			<td>
+				<textarea
+					onChange={e => setEditedEvent({ ...editedEvent, location: e.target.value })}
+					value={editedEvent.location || ""}
+				/>
+			</td>
+			<td>
+				<input
+					type="checkbox"
+					checked={editedEvent.virtual}
+					onChange={e => setEditedEvent({ ...editedEvent, virtual: e.target.checked })}
+				/>
+			</td>
 			<td>{date.toLocaleDateString(undefined, dateDisplayOptions)}</td>
-			<td>{event.hours}</td>
-			<td>{event.numChildren}</td>
-			<td>{event.numAdults}</td>
-			<td>{event.foodPounds}</td>
-			<td>{event.foodDescription}</td>
-			<td>{event.description}</td>
+			<td>
+				<AdaptiveWidthNumericInput
+					value={editedEvent.hours}
+					onChange={value => setEditedEvent({ ...editedEvent, hours: value })}
+				/>
+			</td>
+			<td>
+				<AdaptiveWidthNumericInput
+					value={editedEvent.numChildren}
+					onChange={value => setEditedEvent({ ...editedEvent, numChildren: value })}
+				/>
+			</td>
+			<td>
+				<AdaptiveWidthNumericInput
+					value={editedEvent.numAdults}
+					onChange={value => setEditedEvent({ ...editedEvent, numAdults: value })}
+				/>
+			</td>
+			<td>
+				<AdaptiveWidthNumericInput
+					value={editedEvent.foodPounds}
+					onChange={value => setEditedEvent({ ...editedEvent, foodPounds: value })}
+				/>
+			</td>
+			<td>
+				<textarea
+					value={editedEvent.foodDescription || ""}
+					onChange={e => setEditedEvent({ ...editedEvent, foodDescription: e.target.value })}
+				/>
+			</td>
+			<td>
+				<textarea
+					value={editedEvent.description || ""}
+					onChange={e => setEditedEvent({ ...editedEvent, description: e.target.value })}
+				/>
+			</td>
 			<td>
 				<div className="action-cell">
 					{!loadingSave ? (
-						<button className="save-icon" onClick={() => saveEvent()}>
-							<Check />
-						</button>
+						<>
+							<button className="delete-icon" onClick={() => stopEditing()}>
+								<Close />
+							</button>
+							<button className="save-icon" onClick={() => saveEvent()}>
+								<Check />
+							</button>
+						</>
 					) : (
 						<ClipLoader size={20} color="lime" />
 					)}
