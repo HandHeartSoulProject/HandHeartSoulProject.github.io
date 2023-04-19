@@ -9,7 +9,6 @@ import { childrenEventType } from "../types/eventTypes";
 
 function ChildrensEvents() {
 	const [events, setEvents] = useState<childrenEventType[]>();
-
 	useEffect(() => {
 		async function fetchEvents() {
 			let { data: events, error } = await supabase.from("childrenEvents").select("*");
@@ -22,24 +21,6 @@ function ChildrensEvents() {
 
 		fetchEvents();
 	}, []);
-
-	/** Stores an array of IDs representing the events awaiting deletion */
-	const [loadingDelete, setLoadingDelete] = useState<childrenEventType["id"][]>([]);
-	async function deleteEvent(id: childrenEventType["id"]) {
-		if (id in loadingDelete) return;
-
-		setLoadingDelete([...loadingDelete, id]);
-		const { error } = await supabase.from("childrenEvents").delete().eq("id", id);
-
-		if (error) {
-			console.error(error);
-			setSnackBar({ toggle: true, severity: "error", message: "Failed to delete event" });
-		} else {
-			setEvents(events?.filter(event => event.id != id));
-			setSnackBar({ toggle: true, severity: "success", message: "Event deleted" });
-		}
-		setLoadingDelete(loadingDelete.filter(eventId => eventId != id));
-	}
 
 	const [snackbar, setSnackBar] = useState<snackbarType>({
 		toggle: false,
