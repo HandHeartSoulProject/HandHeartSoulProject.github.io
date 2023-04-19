@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { supabase } from "../supabaseClient";
 import { ClipLoader } from "react-spinners";
@@ -42,6 +42,8 @@ function EventTypeRow({
 		setLoadingDelete(false);
 	}
 
+	const [editing, setEditing] = useState(false);
+	const [editedEventType, setEditedEventType] = useState(eventType);
 	function detectClick(e: React.MouseEvent<HTMLTableRowElement, MouseEvent>) {
 		e.stopPropagation();
 		if (e.detail != 2 || editing) return;
@@ -56,8 +58,11 @@ function EventTypeRow({
 		setEditedEventType(eventType);
 	}
 
-	const [editing, setEditing] = useState(false);
-	const [editedEventType, setEditedEventType] = useState(eventType);
+	const [saveDisabled, setSaveDisabled] = useState(true);
+	useEffect(() => {
+		setSaveDisabled(objectsEqual(eventType, editedEventType));
+	}, [editedEventType]);
+
 	const [loadingSave, setLoadingSave] = useState(false);
 	async function saveEventType() {
 		if (loadingSave) return;
@@ -111,7 +116,7 @@ function EventTypeRow({
 							<button className="delete-icon" onClick={() => stopEditing()}>
 								<Close />
 							</button>
-							<button className="save-icon" onClick={() => saveEventType()}>
+							<button className="save-icon" onClick={() => saveEventType()} disabled={saveDisabled}>
 								<Check />
 							</button>
 						</>

@@ -1,5 +1,5 @@
 import { Check, Close, Delete } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 import { supabase } from "../supabaseClient";
@@ -53,6 +53,11 @@ function CommunityEventRow({
 		setEditedEvent(event);
 	}
 
+	const [saveDisabled, setSaveDisabled] = useState(true);
+	useEffect(() => {
+		setSaveDisabled(objectsEqual(event, editedEvent));
+	}, [editedEvent]);
+
 	const [loadingSave, setLoadingSave] = useState(false);
 	async function saveEvent() {
 		if (loadingSave) return;
@@ -60,7 +65,6 @@ function CommunityEventRow({
 		const tempEvent = {
 			...editedEvent,
 			type: editedEvent.type.id
-			// hours: Number.isNaN(editedEvent.hours) ? null : editedEvent.hours,
 		};
 
 		setLoadingSave(true);
@@ -178,7 +182,7 @@ function CommunityEventRow({
 							<button className="delete-icon" onClick={() => stopEditing()}>
 								<Close />
 							</button>
-							<button className="save-icon" onClick={() => saveEvent()}>
+							<button className="save-icon" onClick={() => saveEvent()} disabled={saveDisabled}>
 								<Check />
 							</button>
 						</>

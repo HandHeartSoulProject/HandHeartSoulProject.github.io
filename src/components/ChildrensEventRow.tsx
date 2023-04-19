@@ -1,5 +1,5 @@
 import { Check, Close, Delete } from "@mui/icons-material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ClipLoader } from "react-spinners";
 
 import { supabase } from "../supabaseClient";
@@ -52,6 +52,11 @@ function ChildrensEventRow({
 		setEditing(false);
 		setEditedEvent(event);
 	}
+
+	const [saveDisabled, setSaveDisabled] = useState(true);
+	useEffect(() => {
+		setSaveDisabled(objectsEqual(event, editedEvent));
+	}, [editedEvent]);
 
 	const [loadingSave, setLoadingSave] = useState(false);
 	async function saveEvent() {
@@ -138,7 +143,7 @@ function ChildrensEventRow({
 							<button className="delete-icon" onClick={() => stopEditing()}>
 								<Close />
 							</button>
-							<button className="save-icon" onClick={() => saveEvent()}>
+							<button className="save-icon" onClick={() => saveEvent()} disabled={saveDisabled}>
 								<Check />
 							</button>
 						</>

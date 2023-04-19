@@ -162,7 +162,13 @@ span[contenteditable] {
 	.delete-icon {
 		background-color: var(--warning);
 
-		&:hover {
+		&:disabled {
+			cursor: default;
+			background-color: var(--high-alpha);
+			color: var(--bg);
+		}
+
+		&:not(:disabled):hover {
 			background-color: var(--warning-hover);
 		}
 	}
@@ -171,7 +177,12 @@ span[contenteditable] {
 		background-color: var(--success);
 		color: var(--bg);
 
-		&:hover {
+		&:disabled {
+			cursor: default;
+			background-color: var(--high-alpha);
+		}
+
+		&:not(:disabled):hover {
 			background-color: var(--success-hover);
 		}
 	}
