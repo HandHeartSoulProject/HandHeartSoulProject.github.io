@@ -7,6 +7,7 @@ import { childrenEventType } from "../types/eventTypes";
 import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
 import { snackbarType } from "./CustomSnackbar";
 import { formatDateString, objectsEqual } from "../util";
+import ActionButtons from "./ActionButtons";
 
 function ChildrensEventRow({
 	event,
@@ -90,15 +91,15 @@ function ChildrensEventRow({
 			<td>{event.endTime}</td>
 			<td>{event.description}</td>
 			<td>
-				<div className="action-cell">
-					{!loadingDelete ? (
-						<button className="delete-icon" onClick={() => deleteEvent()}>
-							<Delete />
-						</button>
-					) : (
-						<ClipLoader size={20} color="var(--warning)" />
-					)}
-				</div>
+				<ActionButtons
+					editing={editing}
+					loadingSave={loadingSave}
+					loadingDelete={loadingDelete}
+					saveDisabled={saveDisabled}
+					stopEditing={stopEditing}
+					saveData={saveEvent}
+					deleteData={deleteEvent}
+				/>
 			</td>
 		</tr>
 	) : (
@@ -137,20 +138,15 @@ function ChildrensEventRow({
 				/>
 			</td>
 			<td>
-				<div className="action-cell">
-					{!loadingSave ? (
-						<>
-							<button className="delete-icon" onClick={() => stopEditing()}>
-								<Close />
-							</button>
-							<button className="save-icon" onClick={() => saveEvent()} disabled={saveDisabled}>
-								<Check />
-							</button>
-						</>
-					) : (
-						<ClipLoader size={20} color="var(--success)" />
-					)}
-				</div>
+				<ActionButtons
+					editing={editing}
+					loadingSave={loadingSave}
+					loadingDelete={loadingDelete}
+					saveDisabled={saveDisabled}
+					stopEditing={stopEditing}
+					saveData={saveEvent}
+					deleteData={deleteEvent}
+				/>
 			</td>
 		</tr>
 	);

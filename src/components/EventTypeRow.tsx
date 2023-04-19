@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
 
 import { supabase } from "../supabaseClient";
-import { ClipLoader } from "react-spinners";
-import { Check, Close, Delete } from "@mui/icons-material";
 import { communityEventTypeType } from "../types/eventTypes";
-import { snackbarType } from "./CustomSnackbar";
 import { objectsEqual } from "../util";
+import ActionButtons from "./ActionButtons";
+import { snackbarType } from "./CustomSnackbar";
 
 function EventTypeRow({
 	eventType,
@@ -84,46 +83,29 @@ function EventTypeRow({
 		setLoadingSave(false);
 	}
 
-	return !editing ? (
+	return (
 		<tr key={eventType.id} onClick={detectClick}>
-			<td>{eventType.name}</td>
+			<td>
+				{!editing ? (
+					eventType.name
+				) : (
+					<textarea
+						value={editedEventType.name}
+						onChange={e => setEditedEventType({ ...editedEventType, name: e.target.value })}
+					/>
+				)}
+			</td>
 			<td>{eventType.id}</td>
 			<td>
-				<div className="action-cell">
-					{!loadingDelete ? (
-						<button className="delete-icon" onClick={() => deleteEventType()}>
-							<Delete />
-						</button>
-					) : (
-						<ClipLoader size={20} color="var(--warning)" />
-					)}
-				</div>
-			</td>
-		</tr>
-	) : (
-		<tr key={eventType.id}>
-			<td>
-				<textarea
-					value={editedEventType.name}
-					onChange={e => setEditedEventType({ ...editedEventType, name: e.target.value })}
+				<ActionButtons
+					editing={editing}
+					loadingSave={loadingSave}
+					loadingDelete={loadingDelete}
+					saveDisabled={saveDisabled}
+					stopEditing={stopEditing}
+					saveData={saveEventType}
+					deleteData={deleteEventType}
 				/>
-			</td>
-			<td>{eventType.id}</td>
-			<td>
-				<div className="action-cell">
-					{!loadingSave ? (
-						<>
-							<button className="delete-icon" onClick={() => stopEditing()}>
-								<Close />
-							</button>
-							<button className="save-icon" onClick={() => saveEventType()} disabled={saveDisabled}>
-								<Check />
-							</button>
-						</>
-					) : (
-						<ClipLoader size={20} color="var(--success)" />
-					)}
-				</div>
 			</td>
 		</tr>
 	);

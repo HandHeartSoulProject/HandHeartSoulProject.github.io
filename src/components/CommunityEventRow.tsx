@@ -7,6 +7,7 @@ import { communityEventType } from "../types/eventTypes";
 import { formatDateString, objectsEqual } from "../util";
 import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
 import { snackbarType } from "./CustomSnackbar";
+import ActionButtons from "./ActionButtons";
 
 function CommunityEventRow({
 	event,
@@ -99,15 +100,15 @@ function CommunityEventRow({
 			<td>{event.foodDescription}</td>
 			<td>{event.description}</td>
 			<td>
-				<div className="action-cell">
-					{!loadingDelete ? (
-						<button className="delete-icon" onClick={() => deleteEvent()}>
-							<Delete />
-						</button>
-					) : (
-						<ClipLoader size={20} color="var(--warning)" />
-					)}
-				</div>
+				<ActionButtons
+					editing={editing}
+					loadingSave={loadingSave}
+					loadingDelete={loadingDelete}
+					saveDisabled={saveDisabled}
+					stopEditing={stopEditing}
+					saveData={saveEvent}
+					deleteData={deleteEvent}
+				/>
 			</td>
 		</tr>
 	) : (
@@ -176,20 +177,15 @@ function CommunityEventRow({
 				/>
 			</td>
 			<td>
-				<div className="action-cell">
-					{!loadingSave ? (
-						<>
-							<button className="delete-icon" onClick={() => stopEditing()}>
-								<Close />
-							</button>
-							<button className="save-icon" onClick={() => saveEvent()} disabled={saveDisabled}>
-								<Check />
-							</button>
-						</>
-					) : (
-						<ClipLoader size={20} color="var(--success)" />
-					)}
-				</div>
+				<ActionButtons
+					editing={editing}
+					loadingSave={loadingSave}
+					loadingDelete={loadingDelete}
+					saveDisabled={saveDisabled}
+					stopEditing={stopEditing}
+					saveData={saveEvent}
+					deleteData={deleteEvent}
+				/>
 			</td>
 		</tr>
 	);
