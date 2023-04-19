@@ -1,11 +1,11 @@
-import { Delete, FileDownload } from "@mui/icons-material";
+import { FileDownload } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
-import { ClipLoader } from "react-spinners";
 
+import ChildrensEventRow from "../components/ChildrensEventRow";
 import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 import { supabase } from "../supabaseClient";
-import { childrenEventType, dateDisplayOptions } from "../types/eventTypes";
+import { childrenEventType } from "../types/eventTypes";
 
 function ChildrensEvents() {
 	const [events, setEvents] = useState<childrenEventType[]>();
@@ -29,7 +29,7 @@ function ChildrensEvents() {
 		if (id in loadingDelete) return;
 
 		setLoadingDelete([...loadingDelete, id]);
-		const { error } = await supabase.from("childrenEvents").delete().match({ id });
+		const { error } = await supabase.from("childrenEvents").delete().eq("id", id);
 
 		if (error) {
 			console.error(error);
@@ -77,38 +77,17 @@ function ChildrensEvents() {
 				</thead>
 				<tbody>
 					{events ? (
-						events.map(event => {
-							const date = new Date(event.date);
-							// Adjust the date to account for the timezone offset
-							// When JS reads in a date in ISO format, it automatically applies the local timezone offset
-							// In the case of EST, this makes the date 5 hours behind, casuing the previous day to be shown
-							if (date.getTimezoneOffset() != 0) {
-								date.setHours(date.getHours() + date.getTimezoneOffset() / 60);
-							}
-							return (
-								<tr key={event.id}>
-									<td>{event.name}</td>
-									<td>{event.numAdults}</td>
-									<td>{event.numChildren}</td>
-									<td>{event.location}</td>
-									<td>{date.toLocaleDateString(undefined, dateDisplayOptions)}</td>
-									<td>{event.startTime}</td>
-									<td>{event.endTime}</td>
-									<td>{event.description}</td>
-									<td>
-										<div className="action-cell">
-											{!loadingDelete.includes(event.id) ? (
-												<button className="delete-icon" onClick={() => deleteEvent(event.id)}>
-													<Delete />
-												</button>
-											) : (
-												<ClipLoader size={20} color="var(--warning)" />
-											)}
-										</div>
-									</td>
-								</tr>
-							);
-						})
+						events.map(event => (
+							<ChildrensEventRow
+								key={event.id}
+								event={event}
+								removeEvent={() => setEvents(events?.filter(e => e.id != event.id))}
+								updateEvent={updatedEvent => {
+									setEvents(events?.map(e => (e.id == event.id ? updatedEvent : e)));
+								}}
+								setSnackBar={setSnackBar}
+							/>
+						))
 					) : (
 						<tr>
 							<td colSpan={999} className="loading">

@@ -5,7 +5,7 @@ function AdaptiveWidthNumericInput({
 	onChange
 }: {
 	value: number | null;
-	onChange: (text: number) => void;
+	onChange: (value: number) => void;
 	noNeg?: boolean;
 }) {
 	const [width, setWidth] = useState(0);
@@ -24,7 +24,7 @@ function AdaptiveWidthNumericInput({
 	return (
 		<span>
 			<span className="width-machine" ref={span} aria-hidden>
-				{value}
+				{value?.toString()}
 			</span>
 			<input
 				type="number"
