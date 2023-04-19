@@ -93,12 +93,15 @@ button {
 }
 
 input,
-select {
+select,
+textarea,
+span[contenteditable] {
 	padding: 0.5rem;
 	border: none;
 	border-radius: var(--small-border-radius);
 	background-color: var(--med-alpha);
 	color: var(--text);
+	font-family: inherit;
 }
 
 // Events Screen
@@ -132,17 +135,46 @@ select {
 		justify-content: center;
 		gap: 0.5rem;
 
-		.delete-icon {
+		.delete-icon,
+		.save-icon {
 			width: fit-content;
 			padding: 0.25rem;
+			padding-bottom: 0;
 			border-radius: var(--small-border-radius);
-			background-color: red;
 			transition: all 0.2s ease;
 			cursor: pointer;
+		}
+
+		.delete-icon {
+			background-color: var(--warning);
 
 			&:hover {
-				background-color: rgb(158, 0, 0);
+				background-color: var(--warning-hover);
+			}
+		}
+
+		.save-icon {
+			background-color: var(--success);
+			color: var(--bg);
+
+			&:hover {
+				background-color: var(--success-hover);
 			}
 		}
 	}
+
+	textarea {
+		min-width: 80px;
+		max-width: 250px;
+		min-height: 15px;
+		height: fit-content;
+
+		text-align: center;
+	}
+}
+
+.width-machine {
+	position: absolute;
+	visibility: hidden;
+	pointer-events: none;
 }
