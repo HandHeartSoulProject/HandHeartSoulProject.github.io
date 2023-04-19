@@ -46,7 +46,7 @@ function ChildrensEventRow({
 		setEditing(true);
 	}
 	function stopEditing() {
-		if (!confirm("Are you sure you want to discard your changes?")) return;
+		if (event != editedEvent && !confirm("Are you sure you want to discard your changes?")) return;
 
 		setEditing(false);
 		setEditedEvent(event);
