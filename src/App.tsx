@@ -7,7 +7,7 @@ import CreateUsers from "./pages/CreateUsers";
 import DataVis from "./pages/DataVis";
 import EventTypes from "./pages/EventTypes";
 import Login from "./pages/Login";
-import UsersTable from "./pages/UsersTable";
+import Users from "./pages/Users";
 import "./styles/App.scss";
 
 function App() {
@@ -20,7 +20,7 @@ function App() {
 					<Route path="childrens-events" element={<ChildrensEvents />} />
 					<Route path="event-types" element={<EventTypes />} />
 					<Route path="create-user" element={<CreateUsers />} />
-					<Route path="users" element={<UsersTable />} />
+					<Route path="users" element={<Users />} />
 					<Route path="vis" element={<DataVis />} />
 				</Route>
 			</>
