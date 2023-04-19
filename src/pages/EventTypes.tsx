@@ -26,7 +26,7 @@ function EventTypes() {
 	});
 
 	return (
-		<div>
+		<div className="table-layout">
 			<h1>Community Event Types</h1>
 			<table>
 				<thead>
@@ -37,17 +37,25 @@ function EventTypes() {
 					</tr>
 				</thead>
 				<tbody>
-					{types?.map(type => (
-						<EventTypeRow
-							key={type.id}
-							eventType={type}
-							removeEventType={() => setTypes(types?.filter(t => t.id != type.id))}
-							updateEventType={updatedEventType => {
-								setTypes(types?.map(t => (t.id == type.id ? updatedEventType : t)));
-							}}
-							setSnackBar={setSnackBar}
-						/>
-					))}
+					{types ? (
+						types.map(type => (
+							<EventTypeRow
+								key={type.id}
+								eventType={type}
+								removeEventType={() => setTypes(types?.filter(t => t.id != type.id))}
+								updateEventType={updatedEventType => {
+									setTypes(types?.map(t => (t.id == type.id ? updatedEventType : t)));
+								}}
+								setSnackBar={setSnackBar}
+							/>
+						))
+					) : (
+						<tr>
+							<td colSpan={999} className="loading">
+								Loading...
+							</td>
+						</tr>
+					)}
 				</tbody>
 			</table>
 

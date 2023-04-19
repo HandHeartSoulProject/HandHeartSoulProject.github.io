@@ -104,8 +104,7 @@ span[contenteditable] {
 	font-family: inherit;
 }
 
-// Events Screen
-.events {
+.table-layout {
 	.title {
 		display: flex;
 		flex-direction: row;
@@ -128,41 +127,6 @@ span[contenteditable] {
 		}
 	}
 
-	.action-cell {
-		display: flex;
-		flex-direction: row;
-		align-items: center;
-		justify-content: center;
-		gap: 0.5rem;
-
-		.delete-icon,
-		.save-icon {
-			width: fit-content;
-			padding: 0.25rem;
-			padding-bottom: 0;
-			border-radius: var(--small-border-radius);
-			transition: all 0.2s ease;
-			cursor: pointer;
-		}
-
-		.delete-icon {
-			background-color: var(--warning);
-
-			&:hover {
-				background-color: var(--warning-hover);
-			}
-		}
-
-		.save-icon {
-			background-color: var(--success);
-			color: var(--bg);
-
-			&:hover {
-				background-color: var(--success-hover);
-			}
-		}
-	}
-
 	textarea {
 		min-width: 80px;
 		max-width: 250px;
@@ -170,6 +134,41 @@ span[contenteditable] {
 		height: fit-content;
 
 		text-align: center;
+	}
+}
+
+.action-cell {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	justify-content: center;
+	gap: 0.5rem;
+
+	.delete-icon,
+	.save-icon {
+		width: fit-content;
+		padding: 0.25rem;
+		padding-bottom: 0;
+		border-radius: var(--small-border-radius);
+		transition: all 0.2s ease;
+		cursor: pointer;
+	}
+
+	.delete-icon {
+		background-color: var(--warning);
+
+		&:hover {
+			background-color: var(--warning-hover);
+		}
+	}
+
+	.save-icon {
+		background-color: var(--success);
+		color: var(--bg);
+
+		&:hover {
+			background-color: var(--success-hover);
+		}
 	}
 }
 
