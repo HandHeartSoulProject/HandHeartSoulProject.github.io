@@ -25,10 +25,10 @@
 	}
 
 	.delete {
-		background-color: red;
+		background-color: var(--warning);
 
 		&:hover {
-			background-color: darkred;
+			background-color: var(--warning-hover);
 		}
 	}
 }

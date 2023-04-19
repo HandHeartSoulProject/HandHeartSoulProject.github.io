@@ -102,7 +102,7 @@ function ChildrensEvents() {
 													<Delete />
 												</button>
 											) : (
-												<ClipLoader size={20} color="red" />
+												<ClipLoader size={20} color="var(--warning)" />
 											)}
 										</div>
 									</td>

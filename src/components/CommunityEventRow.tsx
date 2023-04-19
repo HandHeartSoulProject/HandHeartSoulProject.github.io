@@ -82,7 +82,7 @@ function CommunityEventRow({
 							<Delete />
 						</button>
 					) : (
-						<ClipLoader size={20} color="red" />
+						<ClipLoader size={20} color="var(--warning)" />
 					)}
 				</div>
 			</td>
@@ -164,7 +164,7 @@ function CommunityEventRow({
 							</button>
 						</>
 					) : (
-						<ClipLoader size={20} color="lime" />
+						<ClipLoader size={20} color="var(--success)" />
 					)}
 				</div>
 			</td>
