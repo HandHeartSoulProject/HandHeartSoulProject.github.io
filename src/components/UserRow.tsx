@@ -74,7 +74,7 @@ function UserRow({
 		}
 
 		setLoadingSave(true);
-		const { data, error } = await supabase.from("users").update(user).eq("id", user.id).select("*");
+		const { data, error } = await supabase.from("users").update(editedUser).eq("id", user.id).select("*");
 		if (error || !data || data.length == 0) {
 			console.error(error);
 			setSnackBar({ toggle: true, severity: "error", message: "Failed to save user changes" });
