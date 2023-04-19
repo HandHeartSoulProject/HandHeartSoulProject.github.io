@@ -13,7 +13,7 @@ function CommunityEvents() {
 
 	useEffect(() => {
 		async function fetchEvents() {
-			const { data: events, error } = await supabase.from("communityEvents").select("*, type (name)");
+			const { data: events, error } = await supabase.from("communityEvents").select("*, type (id, name)");
 
 			if (error || !events) {
 				console.error(error);
@@ -68,8 +68,11 @@ function CommunityEvents() {
 							<CommunityEventRow
 								key={event.id}
 								event={event}
-								setSnackBar={setSnackBar}
 								removeEvent={() => setEvents(events?.filter(e => e.id != event.id))}
+								updateEvent={updatedEvent => {
+									setEvents(events?.map(e => (e.id == event.id ? updatedEvent : e)));
+								}}
+								setSnackBar={setSnackBar}
 							/>
 						))
 					) : (

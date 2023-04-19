@@ -2,7 +2,7 @@ import { Database } from "./supabase";
 
 export type eventType = "communityEvent" | "childrenEvent";
 export type communityEventType = Database["public"]["Tables"]["communityEvents"]["Row"] & {
-	type: { name: Database["public"]["Tables"]["eventTypes"]["Row"]["name"] };
+	type: Database["public"]["Tables"]["eventTypes"]["Row"];
 };
 export type childrenEventType = Database["public"]["Tables"]["childrenEvents"]["Row"];
 export const hhsDomain = "@handheartsoulproject.org";

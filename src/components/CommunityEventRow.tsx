@@ -10,11 +10,13 @@ import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
 function CommunityEventRow({
 	event,
 	removeEvent,
+	updateEvent,
 	setSnackBar
 }: {
 	event: communityEventType;
-	setSnackBar: React.Dispatch<React.SetStateAction<snackbarType>>;
 	removeEvent: () => void;
+	updateEvent: (event: communityEventType) => void;
+	setSnackBar: React.Dispatch<React.SetStateAction<snackbarType>>;
 }) {
 	/** Adjust the date to account for the timezone offset
 		When JS reads in a date in ISO format, it automatically applies the local timezone offset
@@ -30,7 +32,7 @@ function CommunityEventRow({
 		if (loadingDelete) return;
 
 		setLoadingDelete(true);
-		const { error } = await supabase.from("communityEvents").delete().match({ id: event.id });
+		const { error } = await supabase.from("communityEvents").delete().eq("id", event.id);
 
 		if (error) {
 			console.error(error);
@@ -40,13 +42,6 @@ function CommunityEventRow({
 			removeEvent();
 		}
 		setLoadingDelete(false);
-	}
-
-	const [loadingSave, setLoadingSave] = useState(false);
-	async function saveEvent() {
-		if (loadingSave) return;
-
-		setLoadingSave(true);
 	}
 
 	const [editing, setEditing] = useState(false);
@@ -59,6 +54,33 @@ function CommunityEventRow({
 	function stopEditing() {
 		setEditing(false);
 		setEditedEvent(event);
+	}
+
+	const [loadingSave, setLoadingSave] = useState(false);
+	async function saveEvent() {
+		if (loadingSave) return;
+
+		const tempEvent = {
+			...editedEvent,
+			type: editedEvent.type.id
+			// hours: Number.isNaN(editedEvent.hours) ? null : editedEvent.hours,
+		};
+
+		setLoadingSave(true);
+		const { data, error } = await supabase
+			.from("communityEvents")
+			.update(tempEvent)
+			.eq("id", event.id)
+			.select("*, type(id, name)");
+		if (error || !data || data.length == 0) {
+			console.error(error);
+			setSnackBar({ toggle: true, severity: "error", message: "Failed to save event changes" });
+		} else {
+			setSnackBar({ toggle: true, severity: "success", message: "Event changes saved" });
+			setEditing(false);
+			updateEvent(data[0] as communityEventType);
+		}
+		setLoadingSave(false);
 	}
 
 	return !editing ? (
