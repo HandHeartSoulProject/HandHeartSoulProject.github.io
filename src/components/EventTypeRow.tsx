@@ -60,7 +60,7 @@ function EventTypeRow({
 	const [saveDisabled, setSaveDisabled] = useState(true);
 	useEffect(() => {
 		setSaveDisabled(objectsEqual(eventType, editedEventType));
-	}, [editedEventType]);
+	}, [eventType, editedEventType]);
 
 	const [loadingSave, setLoadingSave] = useState(false);
 	async function saveEventType() {

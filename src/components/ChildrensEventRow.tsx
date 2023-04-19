@@ -48,6 +48,8 @@ function ChildrensEventRow({
 		setEditing(true);
 	}
 	function stopEditing() {
+		console.log(event, editedEvent, objectsEqual(event, editedEvent));
+
 		if (!objectsEqual(event, editedEvent) && !confirm("Are you sure you want to discard your changes?")) return;
 
 		setEditing(false);
@@ -57,7 +59,7 @@ function ChildrensEventRow({
 	const [saveDisabled, setSaveDisabled] = useState(true);
 	useEffect(() => {
 		setSaveDisabled(objectsEqual(event, editedEvent));
-	}, [editedEvent]);
+	}, [event, editedEvent]);
 
 	const [loadingSave, setLoadingSave] = useState(false);
 	async function saveEvent() {

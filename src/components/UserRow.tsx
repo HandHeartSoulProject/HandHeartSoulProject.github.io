@@ -56,7 +56,7 @@ function UserRow({
 	const [saveDisabled, setSaveDisabled] = useState(true);
 	useEffect(() => {
 		setSaveDisabled(objectsEqual(user, editedUser));
-	}, [editedUser]);
+	}, [user, editedUser]);
 
 	const [loadingSave, setLoadingSave] = useState(false);
 	async function saveUser() {

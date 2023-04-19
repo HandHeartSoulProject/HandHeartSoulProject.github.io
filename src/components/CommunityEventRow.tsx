@@ -57,7 +57,7 @@ function CommunityEventRow({
 	const [saveDisabled, setSaveDisabled] = useState(true);
 	useEffect(() => {
 		setSaveDisabled(objectsEqual(event, editedEvent));
-	}, [editedEvent]);
+	}, [event, editedEvent]);
 
 	const [loadingSave, setLoadingSave] = useState(false);
 	async function saveEvent() {
