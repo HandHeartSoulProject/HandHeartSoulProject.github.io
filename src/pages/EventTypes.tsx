@@ -1,11 +1,9 @@
 import { useEffect, useState } from "react";
 
-import { supabase } from "../supabaseClient";
-import { communityEventType, communityEventTypeType } from "../types/eventTypes";
-import { Delete } from "@mui/icons-material";
-import { ClipLoader } from "react-spinners";
 import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 import EventTypeRow from "../components/EventTypeRow";
+import { supabase } from "../supabaseClient";
+import { communityEventTypeType } from "../types/eventTypes";
 
 function EventTypes() {
 	const [types, setTypes] = useState<communityEventTypeType[]>();
