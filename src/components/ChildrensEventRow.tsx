@@ -2,10 +2,10 @@ import { Check, Close, Delete } from "@mui/icons-material";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
-import { childrenEventType, dateDisplayOptions } from "../types/eventTypes";
-import { snackbarType } from "./CustomSnackbar";
 import { supabase } from "../supabaseClient";
+import { childrenEventType, formatDateString } from "../types/eventTypes";
 import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
+import { snackbarType } from "./CustomSnackbar";
 
 function ChildrensEventRow({
 	event,
@@ -18,14 +18,6 @@ function ChildrensEventRow({
 	updateEvent: (event: childrenEventType) => void;
 	setSnackBar: React.Dispatch<React.SetStateAction<snackbarType>>;
 }) {
-	/** Adjust the date to account for the timezone offset
-		When JS reads in a date in ISO format, it automatically applies the local timezone offset
-		In the case of EST, this makes the date 5 hours behind, casuing the previous day to be shown */
-	const date = new Date(event.date);
-	if (date.getTimezoneOffset() != 0) {
-		date.setHours(date.getHours() + date.getTimezoneOffset() / 60);
-	}
-
 	/** Stores an array of IDs representing the events awaiting deletion */
 	const [loadingDelete, setLoadingDelete] = useState(false);
 	async function deleteEvent() {
@@ -87,7 +79,7 @@ function ChildrensEventRow({
 			<td>{event.numAdults}</td>
 			<td>{event.numChildren}</td>
 			<td>{event.location}</td>
-			<td>{date.toLocaleDateString(undefined, dateDisplayOptions)}</td>
+			<td>{formatDateString(event.date)}</td>
 			<td>{event.startTime}</td>
 			<td>{event.endTime}</td>
 			<td>{event.description}</td>
@@ -129,9 +121,9 @@ function ChildrensEventRow({
 					onChange={e => setEditedEvent({ ...editedEvent, location: e.target.value })}
 				/>
 			</td>
-			<td>{date.toLocaleDateString(undefined, dateDisplayOptions)}</td>
-			<td>{event.startTime}</td>
-			<td>{event.endTime}</td>
+			<td>{formatDateString(editedEvent.date)}</td>
+			<td>{editedEvent.startTime}</td>
+			<td>{editedEvent.endTime}</td>
 			<td>
 				<textarea
 					value={editedEvent.description || ""}

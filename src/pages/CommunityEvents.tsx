@@ -1,12 +1,11 @@
-import { Delete, FileDownload } from "@mui/icons-material";
+import { FileDownload } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { CSVLink } from "react-csv";
-import { ClipLoader } from "react-spinners";
 
+import CommunityEventRow from "../components/CommunityEventRow";
 import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 import { supabase } from "../supabaseClient";
-import { communityEventType, dateDisplayOptions } from "../types/eventTypes";
-import CommunityEventRow from "../components/CommunityEventRow";
+import { communityEventType } from "../types/eventTypes";
 
 function CommunityEvents() {
 	const [events, setEvents] = useState<communityEventType[]>();

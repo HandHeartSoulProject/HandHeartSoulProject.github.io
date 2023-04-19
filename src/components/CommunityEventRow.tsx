@@ -2,7 +2,7 @@ import { Check, Close, Delete } from "@mui/icons-material";
 import { useState } from "react";
 import { ClipLoader } from "react-spinners";
 
-import { communityEventType, dateDisplayOptions } from "../types/eventTypes";
+import { communityEventType, formatDateString } from "../types/eventTypes";
 import { snackbarType } from "./CustomSnackbar";
 import { supabase } from "../supabaseClient";
 import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
@@ -18,14 +18,6 @@ function CommunityEventRow({
 	updateEvent: (event: communityEventType) => void;
 	setSnackBar: React.Dispatch<React.SetStateAction<snackbarType>>;
 }) {
-	/** Adjust the date to account for the timezone offset
-		When JS reads in a date in ISO format, it automatically applies the local timezone offset
-		In the case of EST, this makes the date 5 hours behind, casuing the previous day to be shown */
-	const date = new Date(event.date);
-	if (date.getTimezoneOffset() != 0) {
-		date.setHours(date.getHours() + date.getTimezoneOffset() / 60);
-	}
-
 	/** Stores an array of IDs representing the events awaiting deletion */
 	const [loadingDelete, setLoadingDelete] = useState(false);
 	async function deleteEvent() {
@@ -94,7 +86,7 @@ function CommunityEventRow({
 			<td>{event.presenter}</td>
 			<td>{event.location}</td>
 			<td>{event.virtual ? "Yes" : "No"}</td>
-			<td>{date.toLocaleDateString(undefined, dateDisplayOptions)}</td>
+			<td>{formatDateString(event.date)}</td>
 			<td>{event.hours}</td>
 			<td>{event.numChildren}</td>
 			<td>{event.numAdults}</td>
@@ -121,7 +113,7 @@ function CommunityEventRow({
 					value={editedEvent.name}
 				/>
 			</td>
-			<td>{event.type.name}</td>
+			<td>{editedEvent.type.name}</td>
 			<td>
 				<textarea
 					onChange={e => setEditedEvent({ ...editedEvent, presenter: e.target.value })}
@@ -141,7 +133,7 @@ function CommunityEventRow({
 					onChange={e => setEditedEvent({ ...editedEvent, virtual: e.target.checked })}
 				/>
 			</td>
-			<td>{date.toLocaleDateString(undefined, dateDisplayOptions)}</td>
+			<td>{formatDateString(editedEvent.date)}</td>
 			<td>
 				<AdaptiveWidthNumericInput
 					value={editedEvent.hours}
