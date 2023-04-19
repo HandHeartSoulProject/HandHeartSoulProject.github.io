@@ -53,7 +53,7 @@ function UsersTable() {
 	}
 
 	return (
-		<div className="events">
+		<div className="table-layout">
 			<h1>Users</h1>
 			{users ? (
 				<table>

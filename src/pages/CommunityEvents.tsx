@@ -30,7 +30,7 @@ function CommunityEvents() {
 	});
 
 	return (
-		<div className="events">
+		<div className="table-layout">
 			<div className="title">
 				<h1>Community Events</h1>
 				<CSVLink

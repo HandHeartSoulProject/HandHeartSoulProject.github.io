@@ -44,7 +44,7 @@ function Login() {
 			return;
 		}
 		console.log(data);
-		navigate("/communityEvents");
+		navigate("/community-events");
 	}
 
 	return (

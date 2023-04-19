@@ -1,8 +1,7 @@
-import { NavLink, NavLinkProps } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
-import "../styles/Nav.scss";
 import logo from "../assets/logo.webp";
-import { Link } from "react-router-dom";
+import "../styles/Nav.scss";
 import { supabase } from "../supabaseClient";
 
 function NavBar() {
@@ -10,17 +9,21 @@ function NavBar() {
 
 	async function signOut() {
 		const { error } = await supabase.auth.signOut();
+		if (error) console.error(error);
 	}
 
 	return (
 		<nav>
 			<div className="links">
 				<img src={logo} alt="Hand, Heart, and Soul" className="logo" />
-				<NavLink to="communityEvents" className={activeClass}>
+				<NavLink to="community-events" className={activeClass}>
 					Community Events
 				</NavLink>
-				<NavLink to="childrensEvents" className={activeClass}>
+				<NavLink to="childrens-events" className={activeClass}>
 					Childrens Events
+				</NavLink>
+				<NavLink to="event-types" className={activeClass}>
+					Event Types
 				</NavLink>
 				<NavLink to="create-user" className={activeClass}>
 					Create User
