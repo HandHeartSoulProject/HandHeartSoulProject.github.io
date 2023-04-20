@@ -1,9 +1,8 @@
-import { FileDownload } from "@mui/icons-material";
 import { useEffect, useState } from "react";
-import { CSVLink } from "react-csv";
 
 import ChildrensEventRow from "../components/ChildrensEventRow";
 import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
+import ExportCSVButton from "../components/ExportCSVButton";
 import { supabase } from "../supabaseClient";
 import { childrenEventType } from "../types/eventTypes";
 
@@ -32,15 +31,7 @@ function ChildrensEvents() {
 		<div className="table-layout">
 			<div className="title">
 				<h1>Children's Events</h1>
-				<CSVLink
-					data={events || ""}
-					filename={`childrens-events-${new Date().toISOString().replace(/T.*/, "")}.csv`}
-				>
-					<button className="export" disabled={!events}>
-						<FileDownload />
-						Export CSV
-					</button>
-				</CSVLink>
+				<ExportCSVButton data={events} />
 			</div>
 			<table>
 				<thead>
