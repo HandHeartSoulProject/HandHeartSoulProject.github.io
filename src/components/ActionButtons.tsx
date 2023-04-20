@@ -23,10 +23,19 @@ function ActionButtons({
 			{editing ? (
 				!loadingSave ? (
 					<>
-						<button className="delete-icon" onClick={() => stopEditing()}>
+						<button
+							className="delete-icon"
+							onClick={() => stopEditing()}
+							title={saveDisabled ? "Stop editing (no changes made)" : "Discard changes"}
+						>
 							<Close />
 						</button>
-						<button className="save-icon" onClick={() => saveData()} disabled={saveDisabled}>
+						<button
+							className="save-icon"
+							onClick={() => saveData()}
+							disabled={saveDisabled}
+							title={saveDisabled ? "Must make changes before saving" : "Save changes"}
+						>
 							<Check />
 						</button>
 					</>
@@ -34,7 +43,7 @@ function ActionButtons({
 					<ClipLoader size={20} color="var(--success)" />
 				)
 			) : !loadingDelete ? (
-				<button className="delete-icon" onClick={() => deleteData()}>
+				<button className="delete-icon" onClick={() => deleteData()} title="Delete">
 					<Delete />
 				</button>
 			) : (
