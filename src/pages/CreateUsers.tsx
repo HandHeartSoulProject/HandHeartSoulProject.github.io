@@ -86,7 +86,7 @@ function CreateUsers() {
 			<div className="input-group">
 				<label>User Privileges</label>
 				<select onChange={e => setRole(e.target.value as userRole)}>
-					{dropDownRoles.map(({ value, label }) => (
+					{Object.entries(dropDownRoles).map(([value, label]) => (
 						<option value={value}>{label}</option>
 					))}
 				</select>
