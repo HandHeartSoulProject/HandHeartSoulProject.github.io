@@ -58,17 +58,19 @@ function ChildrensEvents() {
 				</thead>
 				<tbody>
 					{events ? (
-						events.map(event => (
-							<ChildrensEventRow
-								key={event.id}
-								event={event}
-								removeEvent={() => setEvents(events?.filter(e => e.id != event.id))}
-								updateEvent={updatedEvent => {
-									setEvents(events?.map(e => (e.id == event.id ? updatedEvent : e)));
-								}}
-								setSnackBar={setSnackBar}
-							/>
-						))
+						events
+							.sort((eventA, eventB) => eventB.date.localeCompare(eventA.date))
+							.map(event => (
+								<ChildrensEventRow
+									key={event.id}
+									event={event}
+									removeEvent={() => setEvents(events?.filter(e => e.id != event.id))}
+									updateEvent={updatedEvent => {
+										setEvents(events?.map(e => (e.id == event.id ? updatedEvent : e)));
+									}}
+									setSnackBar={setSnackBar}
+								/>
+							))
 					) : (
 						<tr>
 							<td colSpan={999} className="loading">
