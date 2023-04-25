@@ -136,6 +136,8 @@ function DataTableRow({
 							/>
 						);
 					}
+				} else if (typeof dataPoint[field.name] === "boolean") {
+					content = content ? "Yes" : "No";
 				}
 
 				return <td key={field.name.toString()}>{content}</td>;
