@@ -22,9 +22,6 @@ function NavBar() {
 				<NavLink to="childrens-events" className={activeClass}>
 					Childrens Events
 				</NavLink>
-				<NavLink to="event-types" className={activeClass}>
-					Event Types
-				</NavLink>
 				<NavLink to="create-user" className={activeClass}>
 					Create User
 				</NavLink>

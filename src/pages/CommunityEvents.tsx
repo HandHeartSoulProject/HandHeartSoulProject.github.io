@@ -5,6 +5,7 @@ import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 import ExportCSVButton from "../components/ExportCSVButton";
 import { supabase } from "../supabaseClient";
 import { communityEventType } from "../types/eventTypes";
+import { Link } from "react-router-dom";
 
 function CommunityEvents() {
 	const [events, setEvents] = useState<communityEventType[]>();
@@ -32,7 +33,12 @@ function CommunityEvents() {
 		<div className="table-layout">
 			<div className="title">
 				<h1>Community Events</h1>
-				<ExportCSVButton data={events} />
+				<div className="right">
+					<Link to="/community-event-types">
+						<button>Types</button>
+					</Link>
+					<ExportCSVButton data={events} />
+				</div>
 			</div>
 			<table>
 				<thead>

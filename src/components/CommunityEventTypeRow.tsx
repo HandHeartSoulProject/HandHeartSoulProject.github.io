@@ -6,7 +6,7 @@ import { objectsEqual } from "../util";
 import ActionButtons from "./ActionButtons";
 import { snackbarType } from "./CustomSnackbar";
 
-function EventTypeRow({
+function CommunityEventTypeRow({
 	eventType,
 	removeEventType,
 	updateEventType,
@@ -30,7 +30,7 @@ function EventTypeRow({
 		}
 
 		setLoadingDelete(true);
-		const { error } = await supabase.from("eventTypes").delete().eq("id", eventType.id);
+		const { error } = await supabase.from("communityEventTypes").delete().eq("id", eventType.id);
 		if (error) {
 			console.error(error);
 			setSnackBar({ toggle: true, severity: "error", message: "Failed to delete event type" });
@@ -68,7 +68,7 @@ function EventTypeRow({
 
 		setLoadingSave(true);
 		const { data, error } = await supabase
-			.from("eventTypes")
+			.from("communityEventTypes")
 			.update({ name: editedEventType.name })
 			.eq("id", eventType.id)
 			.select("*");
@@ -111,4 +111,4 @@ function EventTypeRow({
 	);
 }
 
-export default EventTypeRow;
+export default CommunityEventTypeRow;

@@ -1,11 +1,11 @@
 import { useEffect, useState } from "react";
 
 import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
-import EventTypeRow from "../components/EventTypeRow";
+import CommunityEventTypeRow from "../components/CommunityEventTypeRow";
 import { supabase } from "../supabaseClient";
 import { communityEventTypeType } from "../types/eventTypes";
 
-function EventTypes() {
+function CommunityEventTypes() {
 	const [types, setTypes] = useState<communityEventTypeType[]>();
 	useEffect(() => {
 		async function fetchTypes() {
@@ -41,7 +41,7 @@ function EventTypes() {
 						types
 							.sort((typeA, typeB) => typeA.id - typeB.id)
 							.map(type => (
-								<EventTypeRow
+								<CommunityEventTypeRow
 									key={type.id}
 									eventType={type}
 									removeEventType={() => setTypes(types?.filter(t => t.id != type.id))}
@@ -66,4 +66,4 @@ function EventTypes() {
 	);
 }
 
-export default EventTypes;
+export default CommunityEventTypes;

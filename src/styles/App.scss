@@ -118,17 +118,24 @@ span[contenteditable] {
 		gap: 1rem;
 		width: 100%;
 
-		a {
-			text-decoration: none;
-			color: inherit;
-		}
-
-		button.export {
+		.right {
 			display: flex;
+			flex-direction: row;
 			align-items: center;
-			gap: 0.5rem;
+			gap: 1rem;
 
-			padding: 0.5rem;
+			a {
+				text-decoration: none;
+				color: inherit;
+			}
+
+			button.export {
+				display: flex;
+				align-items: center;
+				gap: 0.5rem;
+
+				padding: 0.5rem;
+			}
 		}
 	}
 
