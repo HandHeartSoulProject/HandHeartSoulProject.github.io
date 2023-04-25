@@ -9,7 +9,7 @@ function EventTypes() {
 	const [types, setTypes] = useState<communityEventTypeType[]>();
 	useEffect(() => {
 		async function fetchTypes() {
-			const { data: types, error } = await supabase.from("eventTypes").select("*");
+			const { data: types, error } = await supabase.from("communityEventTypes").select("*");
 			if (error) {
 				console.error(error);
 				setSnackBar({ toggle: true, severity: "error", message: "Failed to fetch event types" });
