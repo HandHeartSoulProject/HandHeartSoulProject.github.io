@@ -14,7 +14,6 @@ function DataTableRow({
 	table,
 	tableSelection,
 	dataName,
-	deleteConfirmMessageField,
 	removeDataPoint,
 	updateDataPoint,
 	setSnackBar
@@ -24,7 +23,6 @@ function DataTableRow({
 	table: dataTable;
 	tableSelection: string;
 	dataName: string;
-	deleteConfirmMessageField: string;
 	removeDataPoint: () => void;
 	updateDataPoint: (dataPoint: communityEventType) => void;
 	setSnackBar: React.Dispatch<React.SetStateAction<snackbarType>>;
@@ -35,7 +33,9 @@ function DataTableRow({
 
 		if (
 			!confirm(
-				`Are you sure you want to delete "${dataPoint[deleteConfirmMessageField]}"? This action CANNOT be undone.`
+				`Are you sure you want to delete "${
+					dataPoint[table === "users" ? "email" : "name"]
+				}"? This action CANNOT be undone.`
 			)
 		)
 			return;

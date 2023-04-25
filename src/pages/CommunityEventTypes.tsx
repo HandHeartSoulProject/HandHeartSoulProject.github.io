@@ -15,15 +15,7 @@ function CommunityEventTypes() {
 		}
 	];
 
-	return (
-		<DataTable
-			fields={fields}
-			table={table}
-			dataName="event type"
-			deleteConfirmMessageField="name"
-			title="Community Event Types"
-		/>
-	);
+	return <DataTable fields={fields} table={table} dataName="event type" title="Community Event Types" />;
 }
 
 export default CommunityEventTypes;

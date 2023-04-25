@@ -79,7 +79,6 @@ function CommunityEvents() {
 			table={table}
 			tableSelection="*, type (id, name)"
 			dataName="community event"
-			deleteConfirmMessageField="name"
 			title="Community Events"
 			links={links}
 			showExport

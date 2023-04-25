@@ -12,7 +12,6 @@ function DataTable({
 	table,
 	tableSelection = "*",
 	dataName,
-	deleteConfirmMessageField,
 	title,
 	links = [],
 	showExport = false,
@@ -31,10 +30,6 @@ function DataTable({
 	 * This should be the singular, lowercase form of the type of data being displayed. (e.g. "event", "event type", "user", etc.)
 	 */
 	dataName: string;
-	/**
-	 * The name of the field to display in the confirmation message when deleting a data point. (e.g. "name", "id", "email", etc.)
-	 */
-	deleteConfirmMessageField: string;
 	/**
 	 * Title to display at the top of the page
 	 */
@@ -117,7 +112,6 @@ function DataTable({
 									table={table}
 									tableSelection={tableSelection}
 									dataName={dataName}
-									deleteConfirmMessageField={deleteConfirmMessageField}
 									removeDataPoint={() => setData(data?.filter(dp => dp.id != dataPoint.id))}
 									updateDataPoint={updatedDataPoint => {
 										setData(data?.map(dp => (dp.id == dataPoint.id ? updatedDataPoint : dp)));

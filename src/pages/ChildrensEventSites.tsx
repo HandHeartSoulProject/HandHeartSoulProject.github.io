@@ -15,15 +15,7 @@ function ChildrensEventSites() {
 		}
 	];
 
-	return (
-		<DataTable
-			fields={fields}
-			table={table}
-			dataName="event site"
-			deleteConfirmMessageField="name"
-			title="Children's Event Sites"
-		/>
-	);
+	return <DataTable fields={fields} table={table} dataName="event site" title="Children's Event Sites" />;
 }
 
 export default ChildrensEventSites;

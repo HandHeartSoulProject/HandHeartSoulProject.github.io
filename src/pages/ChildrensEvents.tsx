@@ -66,7 +66,6 @@ function ChildrensEvents() {
 			table={table}
 			tableSelection="*, type(id, name), site(id, name)"
 			dataName="children's event"
-			deleteConfirmMessageField="name"
 			title="Children's Events"
 			links={links}
 			showExport

@@ -15,15 +15,7 @@ function ChildrensEventTypes() {
 		}
 	];
 
-	return (
-		<DataTable
-			fields={fields}
-			table={table}
-			dataName="event type"
-			deleteConfirmMessageField="name"
-			title="Children's Event Types"
-		/>
-	);
+	return <DataTable fields={fields} table={table} dataName="event type" title="Children's Event Types" />;
 }
 
 export default ChildrensEventTypes;
