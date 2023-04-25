@@ -9,6 +9,8 @@ export type childrenEventType = Database["public"]["Tables"]["childrenEvents"]["
 	site: Database["public"]["Tables"]["childrenEventSites"]["Row"];
 };
 export type communityEventTypeType = Database["public"]["Tables"]["communityEventTypes"]["Row"];
+export type childrensEventTypeType = Database["public"]["Tables"]["childrenEventTypes"]["Row"];
+export type childrensEventSiteType = Database["public"]["Tables"]["childrenEventSites"]["Row"];
 export const hhsDomain = "@handheartsoulproject.org";
 export const dropDownEventTypes: Record<eventType, string> = {
 	communityEvent: "Community Event",

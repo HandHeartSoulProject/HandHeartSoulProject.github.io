@@ -5,6 +5,7 @@ import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 import ExportCSVButton from "../components/ExportCSVButton";
 import { supabase } from "../supabaseClient";
 import { childrenEventType } from "../types/eventTypes";
+import { Link } from "react-router-dom";
 
 function ChildrensEvents() {
 	const [events, setEvents] = useState<childrenEventType[]>();
@@ -33,7 +34,12 @@ function ChildrensEvents() {
 		<div className="table-layout">
 			<div className="title">
 				<h1>Children's Events</h1>
-				<ExportCSVButton data={events} />
+				<div className="right">
+					<Link to="/childrens-event-types">
+						<button>Types</button>
+					</Link>
+					<ExportCSVButton data={events} />
+				</div>
 			</div>
 			<table>
 				<thead>
