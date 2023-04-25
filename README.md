@@ -1,11 +1,14 @@
 # Installation
 ## How to run the repository locally
-1. If not already installed, install node: [https://nodejs.dev/en/download/](https://nodejs.dev/en/download/)
-1. Install yarn globally: `npm install -g yarn`
-2. Clone the repository onto your computer
-3. Navigate into the folder: `cd Hand-Heart-and-Soul`
-4. Install dependencies: `yarn`
-5. Start the development server: `yarn dev`
+1. Open the terminal application
+2. If not already installed, [install git](https://github.com/git-guides/install-git)
+3. If not already installed, [install node](https://nodejs.dev/en/download/)
+4. In terminal, navigate to the folder you want to clone the repository into: `cd {folder path}`. To view a list of files & folders in the current directory, run `ls` on Mac/Linux or `dir` on Windows
+5. Clone the repository onto your computer: `git clone {repository url}.git`
+6. Navigate into the folder: `cd Hand-Heart-and-Soul`
+7. Install yarn globally: `npm install -g yarn`
+8. Install dependencies: `yarn`
+9. Start the development server: `yarn dev`
 
 ## How to [generate types](https://supabase.com/docs/guides/api/generating-types)
 1. Log in to the supabase CLI: `npx supabase login`
@@ -16,8 +19,12 @@
 2. Run `npx serve -s dist` to run the build
 
 ## Deploying
-Run `yarn run deploy` to create a new build & deploy to github pages
+ - To configure github pages, go to the settings tab of the repository. Then underneath Code and Automation, select the Pages tab on the left. You can configure a custom domain (along with other settings) there.
+ - Run `yarn run deploy` to build fresh & deploy to github pages
 
+## Troubleshooting
+ - If you have the dependencies installed but the project still won't run, try deleting the node_modules folder and running `yarn` again
+ - When in doubt, try googling the error and there will often be a Stack Overflow post with the solution
 
 # Release Notes
 ## Version 0.4.0
