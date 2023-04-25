@@ -8,3 +8,7 @@ export interface dataField<Table extends dataTable> {
 	isDate?: boolean;
 	nestedField?: string;
 }
+export interface dataTableLink {
+	to: string;
+	text: string;
+}

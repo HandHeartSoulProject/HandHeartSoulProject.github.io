@@ -2,15 +2,20 @@ import { useEffect, useState } from "react";
 
 import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 import { supabase } from "../supabaseClient";
-import { dataField, dataTable } from "../types/dataTableTypes";
+import { dataField, dataTable, dataTableLink } from "../types/dataTableTypes";
 import DataTableRow from "./DataTableRow";
+import { Link } from "react-router-dom";
+import ExportCSVButton from "./ExportCSVButton";
 
 function DataTable({
 	fields,
 	table,
 	tableSelection = "*",
 	dataName,
-	deleteConfirmMessageField
+	deleteConfirmMessageField,
+	title,
+	links = [],
+	showExport = false
 }: {
 	fields: dataField<any>[];
 	/**
@@ -29,6 +34,18 @@ function DataTable({
 	 * The name of the field to display in the confirmation message when deleting a data point. (e.g. "name", "id", "email", etc.)
 	 */
 	deleteConfirmMessageField: string;
+	/**
+	 * Title to display at the top of the page
+	 */
+	title: string;
+	/**
+	 * Links to display at the top of the page
+	 */
+	links?: dataTableLink[];
+	/**
+	 * Whether or not to display the export button
+	 */
+	showExport?: boolean;
 }) {
 	const [data, setData] = useState<any>();
 
@@ -52,7 +69,20 @@ function DataTable({
 	});
 
 	return (
-		<>
+		<div className="table-layout">
+			<div className={showExport || links.length ? "title" : ""}>
+				<h1>{title}</h1>
+
+				<div className="right">
+					{links.map(link => (
+						<Link key={link.text} to={link.to}>
+							<button>{link.text}</button>
+						</Link>
+					))}
+					{showExport && <ExportCSVButton data={data} />}
+				</div>
+			</div>
+
 			<table>
 				<thead>
 					<tr>
@@ -103,7 +133,7 @@ function DataTable({
 			</table>
 
 			<CustomSnackbar snackbar={snackbar} setSnackbar={setSnackBar} />
-		</>
+		</div>
 	);
 }
 

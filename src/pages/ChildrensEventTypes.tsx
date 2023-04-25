@@ -16,10 +16,13 @@ function ChildrensEventTypes() {
 	];
 
 	return (
-		<div className="table-layout">
-			<h1>Children's Event Types</h1>
-			<DataTable fields={fields} table={table} dataName="event type" deleteConfirmMessageField="name" />
-		</div>
+		<DataTable
+			fields={fields}
+			table={table}
+			dataName="event type"
+			deleteConfirmMessageField="name"
+			title="Children's Event Types"
+		/>
 	);
 }
 

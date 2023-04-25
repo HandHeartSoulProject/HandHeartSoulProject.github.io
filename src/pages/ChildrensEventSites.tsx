@@ -16,10 +16,13 @@ function ChildrensEventSites() {
 	];
 
 	return (
-		<div className="table-layout">
-			<h1>Children's Event Sites</h1>
-			<DataTable fields={fields} table={table} dataName="event site" deleteConfirmMessageField="name" />
-		</div>
+		<DataTable
+			fields={fields}
+			table={table}
+			dataName="event site"
+			deleteConfirmMessageField="name"
+			title="Children's Event Sites"
+		/>
 	);
 }
 

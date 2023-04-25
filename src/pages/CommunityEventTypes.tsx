@@ -16,10 +16,13 @@ function CommunityEventTypes() {
 	];
 
 	return (
-		<div className="table-layout">
-			<h1>Community Event Types</h1>
-			<DataTable fields={fields} table={table} dataName="event type" deleteConfirmMessageField="name" />
-		</div>
+		<DataTable
+			fields={fields}
+			table={table}
+			dataName="event type"
+			deleteConfirmMessageField="name"
+			title="Community Event Types"
+		/>
 	);
 }
 
