@@ -36,10 +36,10 @@
  - Created pages to view, edit, and delete types of community and children's events and sites for children's events
  - Added ability to export data as csv
 ### Bug Fixes
- - During development, many bugs were addressed:
-   - Typescript errors were fixed by increasing verbosity of type definitions
-   - Routing errors were fixed by standardizing the routing system
-   - Authentication errors were fixed with a combination of improvements to local checks and supabase checks
+During development, many bugs were addressed:
+ - Typescript errors were fixed by increasing verbosity of type definitions
+ - Routing errors were fixed by standardizing the routing system
+ - Authentication errors were fixed with a combination of improvements to local checks and supabase checks
 ### Known Issues
  - Not all fields can be edited (such as event type & date)
  - Events cannot be created in the admin portal
