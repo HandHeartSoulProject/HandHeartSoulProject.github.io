@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 
 import { supabase } from "../supabaseClient";
-import { dataField } from "../types/dataTableTypes";
+import { dataField, dataTable } from "../types/dataTableTypes";
 import { communityEventType } from "../types/eventTypes";
+import { Database } from "../types/supabase";
 import { capitalize, formatDateString, objectsEqual } from "../util";
 import ActionButtons from "./ActionButtons";
 import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
@@ -20,8 +21,8 @@ function DataTableRow({
 	setSnackBar
 }: {
 	dataPoint: any;
-	fields: dataField[];
-	table: string;
+	fields: dataField<any>[];
+	table: dataTable;
 	tableSelection: string;
 	dataName: string;
 	deleteConfirmMessageField: string;
@@ -137,7 +138,7 @@ function DataTableRow({
 					}
 				}
 
-				return <td key={field.name}>{content}</td>;
+				return <td key={field.name.toString()}>{content}</td>;
 			})}
 			<td>
 				<ActionButtons

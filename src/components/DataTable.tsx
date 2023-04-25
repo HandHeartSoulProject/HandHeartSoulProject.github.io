@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 
 import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 import { supabase } from "../supabaseClient";
-import { dataField } from "../types/dataTableTypes";
+import { dataField, dataTable } from "../types/dataTableTypes";
 import DataTableRow from "./DataTableRow";
-import { Database } from "../types/supabase";
 
 function DataTable({
 	fields,
@@ -13,11 +12,11 @@ function DataTable({
 	dataName,
 	deleteConfirmMessageField
 }: {
-	fields: dataField[];
+	fields: dataField<any>[];
 	/**
 	 * Name of the database table to fetch data from.
 	 */
-	table: keyof Database["public"]["Tables"];
+	table: dataTable;
 	/**
 	 * What to select from the table (what goes in the .select() function). Defaults to *
 	 */

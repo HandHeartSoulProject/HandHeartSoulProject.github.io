@@ -1,8 +1,9 @@
 import DataTable from "../components/DataTable";
-import { dataField } from "../types/dataTableTypes";
+import { dataField, dataTable } from "../types/dataTableTypes";
 
 function ChildrensEventTypes() {
-	const fields: dataField[] = [
+	const table: dataTable = "childrenEventTypes";
+	const fields: dataField<typeof table>[] = [
 		{
 			header: "Event Type Name",
 			name: "name",
@@ -17,12 +18,7 @@ function ChildrensEventTypes() {
 	return (
 		<div className="table-layout">
 			<h1>Children's Event Types</h1>
-			<DataTable
-				fields={fields}
-				table="childrenEventTypes"
-				dataName="event type"
-				deleteConfirmMessageField="name"
-			/>
+			<DataTable fields={fields} table={table} dataName="event type" deleteConfirmMessageField="name" />
 		</div>
 	);
 }
