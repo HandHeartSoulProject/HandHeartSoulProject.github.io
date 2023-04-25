@@ -7,8 +7,9 @@ import { capitalize, formatDateString, objectsEqual } from "../util";
 import ActionButtons from "./ActionButtons";
 import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
 import { snackbarType } from "./CustomSnackbar";
+import { Database } from "../types/supabase";
 
-function DataTableRow({
+function DataTableRow<Table extends dataTable>({
 	dataPoint,
 	fields,
 	table,
@@ -19,8 +20,8 @@ function DataTableRow({
 	setSnackBar
 }: {
 	dataPoint: any;
-	fields: dataField<any>[];
-	table: dataTable;
+	fields: dataField<Table>[];
+	table: Table;
 	tableSelection: string;
 	dataName: string;
 	removeDataPoint: () => void;

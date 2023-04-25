@@ -7,7 +7,7 @@ import DataTableRow from "./DataTableRow";
 import { Link } from "react-router-dom";
 import ExportCSVButton from "./ExportCSVButton";
 
-function DataTable({
+function DataTable<Table extends dataTable>({
 	fields,
 	table,
 	tableSelection = "*",
@@ -17,11 +17,11 @@ function DataTable({
 	showExport = false,
 	sortBy = "id"
 }: {
-	fields: dataField<any>[];
+	fields: dataField<Table>[];
 	/**
 	 * Name of the database table to fetch data from.
 	 */
-	table: dataTable;
+	table: Table;
 	/**
 	 * What to select from the table (what goes in the .select() function). Defaults to *
 	 */
