@@ -11,7 +11,6 @@ export interface Database {
 					description: string | null;
 					endTime: string;
 					id: number;
-					location: string | null;
 					name: string;
 					numAdults: number;
 					numChildren: number;
@@ -26,7 +25,6 @@ export interface Database {
 					description?: string | null;
 					endTime: string;
 					id?: number;
-					location?: string | null;
 					name: string;
 					numAdults: number;
 					numChildren: number;
@@ -41,7 +39,6 @@ export interface Database {
 					description?: string | null;
 					endTime?: string;
 					id?: number;
-					location?: string | null;
 					name?: string;
 					numAdults?: number;
 					numChildren?: number;

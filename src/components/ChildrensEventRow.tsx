@@ -87,7 +87,6 @@ function ChildrensEventRow({
 			<td>{event.name}</td>
 			<td>{event.numAdults}</td>
 			<td>{event.numChildren}</td>
-			<td>{event.location}</td>
 			<td>{formatDateString(event.date)}</td>
 			<td>{event.startTime}</td>
 			<td>{event.endTime}</td>
@@ -122,12 +121,6 @@ function ChildrensEventRow({
 				<AdaptiveWidthNumericInput
 					value={editedEvent.numChildren}
 					onChange={value => setEditedEvent({ ...editedEvent, numChildren: value })}
-				/>
-			</td>
-			<td>
-				<textarea
-					value={editedEvent.location || ""}
-					onChange={e => setEditedEvent({ ...editedEvent, location: e.target.value })}
 				/>
 			</td>
 			<td>{formatDateString(editedEvent.date)}</td>

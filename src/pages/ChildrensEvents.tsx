@@ -39,7 +39,6 @@ function ChildrensEvents() {
 						<th>Event</th>
 						<th># of Adults</th>
 						<th># of Children</th>
-						<th>Location</th>
 						<th>Date</th>
 						<th>Start Time</th>
 						<th>End Time</th>
