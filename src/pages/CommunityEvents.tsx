@@ -80,7 +80,7 @@ function CommunityEvents() {
 			tableSelection="*, type (id, name)"
 			dataName="community event"
 			deleteConfirmMessageField="name"
-			title="Community Event Types"
+			title="Community Events"
 			links={links}
 			showExport
 		/>
