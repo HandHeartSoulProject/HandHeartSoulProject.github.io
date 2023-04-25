@@ -3,7 +3,6 @@ import { useEffect, useState } from "react";
 import { supabase } from "../supabaseClient";
 import { dataField, dataTable } from "../types/dataTableTypes";
 import { communityEventType } from "../types/eventTypes";
-import { Database } from "../types/supabase";
 import { capitalize, formatDateString, objectsEqual } from "../util";
 import ActionButtons from "./ActionButtons";
 import AdaptiveWidthNumericInput from "./AdaptiveWidthNumericInput";
