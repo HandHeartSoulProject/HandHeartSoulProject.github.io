@@ -114,7 +114,7 @@ export interface Database {
 					virtual?: boolean;
 				};
 			};
-			eventTypes: {
+			communityEventTypes: {
 				Row: {
 					createdAt: string | null;
 					id: number;
