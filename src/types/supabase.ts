@@ -14,9 +14,9 @@ export interface Database {
 					name: string;
 					numAdults: number;
 					numChildren: number;
-					site: number | null;
+					site: number;
 					startTime: string;
-					type: number | null;
+					type: number;
 				};
 				Insert: {
 					createdAt?: string;
@@ -28,9 +28,9 @@ export interface Database {
 					name: string;
 					numAdults: number;
 					numChildren: number;
-					site?: number | null;
+					site: number;
 					startTime: string;
-					type?: number | null;
+					type: number;
 				};
 				Update: {
 					createdAt?: string;
@@ -42,23 +42,37 @@ export interface Database {
 					name?: string;
 					numAdults?: number;
 					numChildren?: number;
-					site?: number | null;
+					site?: number;
 					startTime?: string;
-					type?: number | null;
+					type?: number;
+				};
+			};
+			childrenEventSites: {
+				Row: {
+					id: number;
+					name: string;
+				};
+				Insert: {
+					id?: number;
+					name: string;
+				};
+				Update: {
+					id?: number;
+					name?: string;
 				};
 			};
 			childrenEventTypes: {
 				Row: {
 					id: number;
-					name: string | null;
+					name: string;
 				};
 				Insert: {
 					id?: number;
-					name?: string | null;
+					name: string;
 				};
 				Update: {
 					id?: number;
-					name?: string | null;
+					name?: string;
 				};
 			};
 			communityEvents: {
@@ -129,20 +143,6 @@ export interface Database {
 					createdAt?: string | null;
 					id?: number;
 					name?: string;
-				};
-			};
-			sites: {
-				Row: {
-					id: number;
-					name: string | null;
-				};
-				Insert: {
-					id?: number;
-					name?: string | null;
-				};
-				Update: {
-					id?: number;
-					name?: string | null;
 				};
 			};
 			users: {
