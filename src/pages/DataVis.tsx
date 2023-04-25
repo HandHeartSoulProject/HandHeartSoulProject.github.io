@@ -1,66 +1,77 @@
 import { useEffect, useState } from "react";
-import { VictoryBar, VictoryChart, VictoryLegend, VictoryTheme } from "victory";
+import { VictoryBar, VictoryChart, VictoryLegend } from "victory";
 
+import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
+import { customVictoryTheme } from "../styles/ChartStyles";
+import "../styles/DataVis.scss";
 import { supabase } from "../supabaseClient";
 import {
-	childrensFields,
-	communityFields,
+	childrensVisData,
+	communityVisData,
 	dropDownEventTypes,
 	eventType,
 	eventTypeOptions,
 	visField
 } from "../types/eventTypes";
-import { customVictoryTheme } from "../styles/ChartStyles";
-import "../styles/DataVis.scss";
+import { getMonthName } from "../util";
+import { ClipLoader } from "react-spinners";
+
+const startYear = 2022;
+const yearList = [...Array(new Date().getFullYear() - startYear + 1).keys()].map(x => x + startYear);
 
 function DataVis() {
 	const [currEventType, setCurrEventType] = useState<eventType>("communityEvent");
-	const [dataField, setDataField] = useState<visField>("numAdults");
-	// const [timePeriod, setTimePeriod] = useState();
-	// const [currentEventType, setCurrentEventType] = useState<eventType>(); // add new state variable
+	const [dataField, setDataField] = useState<visField>("totaladults");
+	const [year, setYear] = useState(yearList[yearList.length - 1]);
 
-	const [childrenData, setChildrenData] = useState<childrensFields[]>();
-	const [communityData, setCommunityData] = useState<communityFields[]>();
+	const [communityData, setCommunityData] = useState<communityVisData>();
+	const [childrenData, setChildrenData] = useState<childrensVisData>();
+
+	const [loading, setLoading] = useState(false);
 
 	useEffect(() => {
 		async function fetchEventData() {
-			let { data: childrenEvents, error: childrenError } = await supabase.from("childrenEvents").select("*"); // Change this to account for eventType
-			if (childrenError || !childrenEvents) {
-				console.error(childrenError);
+			setLoading(true);
+			if (currEventType === "communityEvent") {
+				const { data: communityData, error: communityError } = await supabase.rpc(
+					"aggregate_community_events_ytd",
+					{ year }
+				);
+				console.log(communityData);
+				if (communityError || !communityData) {
+					console.error(communityError);
+					setSnackBar({ toggle: true, severity: "error", message: "Failed to fetch community events data" });
+				} else {
+					setCommunityData(communityData.map(data => ({ ...data, month: getMonthName(data.month) })));
+				}
 			} else {
-				setChildrenData(childrenEvents);
-				console.log("Children's Events: ", childrenEvents);
+				const { data: childrenData, error: childrenError } = await supabase.rpc(
+					"aggregate_children_events_ytd",
+					{
+						year
+					}
+				);
+				console.log(childrenData);
+				if (childrenError || !childrenData) {
+					console.error(childrenError);
+					setSnackBar({ toggle: true, severity: "error", message: "Failed to fetch children events data" });
+				} else {
+					setChildrenData(childrenData.map(data => ({ ...data, month: getMonthName(data.month) })));
+				}
 			}
-
-			let { data: communityEvents, error: communityError } = await supabase
-				.from("communityEvents")
-				.select("*, type (name)");
-
-			if (communityError || !communityEvents) {
-				console.error(communityError);
-			} else {
-				setCommunityData(communityEvents);
-				console.log("Community Events: ", communityEvents);
-			}
+			setLoading(false);
 		}
 
-		// fetchEventData();
-	}, []);
+		fetchEventData();
+	}, [year, currEventType]);
 
-	const data: Record<eventType, { month: string; numAdults: number; numChildren: number; foodPounds?: number }[]> = {
-		communityEvent: [
-			{ month: "Jan", numAdults: 43, numChildren: 60, foodPounds: 204 },
-			{ month: "Feb", numAdults: 32, numChildren: 70, foodPounds: 150 },
-			{ month: "Mar", numAdults: 60, numChildren: 40, foodPounds: 110 },
-			{ month: "Apr", numAdults: 6, numChildren: 8, foodPounds: 23 }
-		],
-		childrenEvent: [
-			{ month: "Jan", numAdults: 78, numChildren: 80 },
-			{ month: "Feb", numAdults: 122, numChildren: 72 },
-			{ month: "Mar", numAdults: 111, numChildren: 133 },
-			{ month: "Apr", numAdults: 8, numChildren: 11 }
-		]
-	};
+	const currData = currEventType === "communityEvent" ? communityData : childrenData;
+
+	const [snackbar, setSnackBar] = useState<snackbarType>({
+		toggle: false,
+		severity: "error",
+		message: ""
+	});
 
 	return (
 		<div className="data-vis">
@@ -70,8 +81,26 @@ function DataVis() {
 				<select
 					onChange={e => {
 						e.preventDefault();
+						setYear(parseInt(e.target.value));
+					}}
+					value={year}
+				>
+					{yearList.map(year => (
+						<option key={year} value={year}>
+							{year}
+						</option>
+					))}
+				</select>
+				<select
+					onChange={e => {
+						e.preventDefault();
+						const newType = e.target.value as eventType;
+						if (newType === "childrenEvent" && dataField === "totalfoodpounds") {
+							setDataField("totalchildren");
+						}
 						setCurrEventType(e.target.value as eventType);
 					}}
+					value={currEventType}
 				>
 					{Object.entries(dropDownEventTypes).map(([value, label]) => (
 						<option key={value} value={value}>
@@ -83,6 +112,7 @@ function DataVis() {
 					onChange={e => {
 						setDataField(e.target.value as visField);
 					}}
+					value={dataField}
 				>
 					{Object.entries(eventTypeOptions[currEventType]).map(([value, label]) => (
 						<option key={value} value={value}>
@@ -93,13 +123,25 @@ function DataVis() {
 			</div>
 
 			<div className="chart-wrapper">
-				<VictoryChart theme={customVictoryTheme}>
-					<VictoryLegend
-						title={`${eventTypeOptions[currEventType][dataField]} in ${dropDownEventTypes[currEventType]}s`}
-					/>
-					<VictoryBar data={data[currEventType]} x="month" y={dataField} cornerRadius={2.5} />
-				</VictoryChart>
+				{!loading ? (
+					currData?.length ? (
+						<VictoryChart theme={customVictoryTheme}>
+							<VictoryLegend
+								title={`${eventTypeOptions[currEventType][dataField]} in ${dropDownEventTypes[currEventType]}s`}
+							/>
+							<VictoryBar data={currData} x="month" y={dataField} cornerRadius={2.5} />
+						</VictoryChart>
+					) : (
+						<div className="no-data">No data exists for the given parameters</div>
+					)
+				) : (
+					<div className="loading">
+						<ClipLoader color="var(--text)" />
+					</div>
+				)}
 			</div>
+
+			<CustomSnackbar snackbar={snackbar} setSnackbar={setSnackBar} />
 		</div>
 	);
 }

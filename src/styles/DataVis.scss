@@ -15,5 +15,13 @@
 		background-color: var(--low-alpha);
 		padding-top: 0.5rem;
 		border-radius: var(--border-radius);
+
+		.loading,
+		.no-data {
+			padding-bottom: 0.5rem;
+		}
+		.no-data {
+			font-size: 1.25rem;
+		}
 	}
 }

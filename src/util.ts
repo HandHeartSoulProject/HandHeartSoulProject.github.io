@@ -20,3 +20,27 @@ export function formatDateString(dateString: string): string {
 export function objectsEqual(obj1: any, obj2: any): boolean {
 	return JSON.stringify(obj1) === JSON.stringify(obj2);
 }
+
+/**
+ * @param month A month as an integer 1 - 12 (inclusive)
+ * @param long Whether to return the full month name or the abbreviated version. Defaults to false
+ * */
+export function getMonthName(month: number, long: boolean = false): string {
+	const months = long
+		? [
+				"January",
+				"Febuary",
+				"March",
+				"April",
+				"May",
+				"June",
+				"July",
+				"August",
+				"September",
+				"October",
+				"November",
+				"December"
+		  ]
+		: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+	return months[month - 1];
+}

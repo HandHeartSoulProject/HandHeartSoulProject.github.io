@@ -12,20 +12,27 @@ export const dropDownEventTypes: Record<eventType, string> = {
 	childrenEvent: "Children's Event"
 };
 
-type field =
-	| keyof Database["public"]["Tables"]["communityEvents"]["Row"]
-	| keyof Database["public"]["Tables"]["childrenEvents"]["Row"];
-export type visField = Extract<field, "numAdults" | "numChildren" | "foodPounds">;
-export type communityFields = Database["public"]["Tables"]["communityEvents"]["Row"];
-export type childrensFields = Database["public"]["Tables"]["childrenEvents"]["Row"];
-const communityEventOptions: Record<visField, string> = {
-	numAdults: "Number of Adults Served",
-	numChildren: "Number of Children Served",
-	foodPounds: "Amount of Food Served"
+type communityVisField = "totaladults" | "totalchildren" | "totalfoodpounds";
+type childrensVisField = "totaladults" | "totalchildren";
+export type visField = communityVisField | childrensVisField;
+export type communityVisData = Omit<
+	Database["public"]["Functions"]["aggregate_community_events_ytd"]["Returns"][number],
+	"month"
+>[] &
+	{ month: string }[];
+export type childrensVisData = Omit<
+	Database["public"]["Functions"]["aggregate_children_events_ytd"]["Returns"][number],
+	"month"
+>[] &
+	{ month: string }[];
+const communityEventOptions: Record<communityVisField, string> = {
+	totaladults: "Number of Adults Served",
+	totalchildren: "Number of Children Served",
+	totalfoodpounds: "Amount of Food Served"
 };
-const childrenEventOptions: Record<Exclude<visField, "foodPounds">, string> = {
-	numAdults: "Number of Adults Served",
-	numChildren: "Number of Children Served"
+const childrenEventOptions: Record<childrensVisField, string> = {
+	totaladults: "Number of Adults Served",
+	totalchildren: "Number of Children Served"
 };
 export const eventTypeOptions: Record<eventType, typeof communityEventOptions | typeof childrenEventOptions> = {
 	communityEvent: communityEventOptions,
