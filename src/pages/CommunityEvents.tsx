@@ -83,6 +83,7 @@ function CommunityEvents() {
 			title="Community Events"
 			links={links}
 			showExport
+			sortBy="date"
 		/>
 	);
 }

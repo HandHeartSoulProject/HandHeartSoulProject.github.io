@@ -15,7 +15,8 @@ function DataTable({
 	deleteConfirmMessageField,
 	title,
 	links = [],
-	showExport = false
+	showExport = false,
+	sortBy = "id"
 }: {
 	fields: dataField<any>[];
 	/**
@@ -46,6 +47,10 @@ function DataTable({
 	 * Whether or not to display the export button
 	 */
 	showExport?: boolean;
+	/**
+	 * The field to sort by
+	 */
+	sortBy?: "id" | "name" | "date";
 }) {
 	const [data, setData] = useState<any>();
 
@@ -96,17 +101,15 @@ function DataTable({
 					{data ? (
 						data
 							// TODO: Add dynamic sorting
-							// .sort((eventA, eventB) => eventB.date.localeCompare(eventA.date))
+							.sort((a, b) => {
+								if (sortBy === "date") {
+									return b.date.localeCompare(a.date);
+								} else if (sortBy === "name") {
+									return a.name.localeCompare(b.name);
+								}
+								return a.id - b.id;
+							})
 							.map(dataPoint => (
-								// <CommunityEventRow
-								// 	key={dataPoint.id}
-								// 	event={dataPoint}
-								// 	removeEvent={() => setData(data?.filter(dp => dp.id != dataPoint.id))}
-								// 	updateEvent={updatedDataPoint => {
-								// 		setData(data?.map(dp => (dp.id == dataPoint.id ? updatedDataPoint : dp)));
-								// 	}}
-								// 	setSnackBar={setSnackBar}
-								// />
 								<DataTableRow
 									key={dataPoint.id}
 									dataPoint={dataPoint}

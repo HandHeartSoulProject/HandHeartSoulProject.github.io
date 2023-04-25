@@ -70,6 +70,7 @@ function ChildrensEvents() {
 			title="Children's Events"
 			links={links}
 			showExport
+			sortBy="date"
 		/>
 	);
 }
