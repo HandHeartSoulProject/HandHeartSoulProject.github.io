@@ -10,15 +10,19 @@ function ExportCSVButton({ data }) {
 		if (Array.isArray(data) && data.length > 0) {
 			if ("presenter" in data[0]) setEventType("community");
 
+			// Make sure to keep header row (when i == 0)
+			// Replace nested objects with their name field
 			setWorkingData(
-				data.map((event: Object) => {
-					Object.keys(event).forEach(key => {
-						if (typeof event[key] === "object" && event[key] !== null) {
-							event[key] = event[key].name;
-						}
-					});
-					return event;
-				})
+				data.map((event: Object, i: number) =>
+					i
+						? Object.entries(event).map(([key, value]) => {
+								if (typeof event[key] === "object" && event[key] !== null) {
+									return event[key].name;
+								}
+								return event[key];
+						  })
+						: Object.keys(event)
+				)
 			);
 		}
 	}, [data]);
