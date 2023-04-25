@@ -4,21 +4,31 @@ import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
 import { supabase } from "../supabaseClient";
 import { dataField } from "../types/dataTableTypes";
 import DataTableRow from "./DataTableRow";
+import { Database } from "../types/supabase";
 
 function DataTable({
 	fields,
 	table,
-	tableSelection,
+	tableSelection = "*",
 	dataName,
 	deleteConfirmMessageField
 }: {
 	fields: dataField[];
-	table: string;
-	tableSelection: string;
+	/**
+	 * Name of the database table to fetch data from.
+	 */
+	table: keyof Database["public"]["Tables"];
+	/**
+	 * What to select from the table (what goes in the .select() function). Defaults to *
+	 */
+	tableSelection?: string;
 	/**
 	 * This should be the singular, lowercase form of the type of data being displayed. (e.g. "event", "event type", "user", etc.)
 	 */
 	dataName: string;
+	/**
+	 * The name of the field to display in the confirmation message when deleting a data point. (e.g. "name", "id", "email", etc.)
+	 */
 	deleteConfirmMessageField: string;
 }) {
 	const [data, setData] = useState<any>();

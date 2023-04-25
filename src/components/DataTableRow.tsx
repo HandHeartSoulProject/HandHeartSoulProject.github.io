@@ -113,7 +113,7 @@ function DataTableRow({
 					if (dpType == "number") {
 						content = (
 							<AdaptiveWidthNumericInput
-								value={content}
+								value={editedDataPoint[field.name]}
 								onChange={value => setEditedDataPoint({ ...editedDataPoint, [field.name]: value })}
 							/>
 						);
@@ -121,7 +121,7 @@ function DataTableRow({
 						content = (
 							<input
 								type="checkbox"
-								checked={content}
+								checked={editedDataPoint[field.name]}
 								onChange={e =>
 									setEditedDataPoint({ ...editedDataPoint, [field.name]: e.target.checked })
 								}
@@ -130,8 +130,8 @@ function DataTableRow({
 					} else {
 						content = (
 							<textarea
+								value={editedDataPoint[field.name]}
 								onChange={e => setEditedDataPoint({ ...editedDataPoint, [field.name]: e.target.value })}
-								value={content}
 							/>
 						);
 					}
