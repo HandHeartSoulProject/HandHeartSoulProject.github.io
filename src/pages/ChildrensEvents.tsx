@@ -1,91 +1,76 @@
-import { useEffect, useState } from "react";
-
-import ChildrensEventRow from "../components/ChildrensEventRow";
-import CustomSnackbar, { snackbarType } from "../components/CustomSnackbar";
-import ExportCSVButton from "../components/ExportCSVButton";
-import { supabase } from "../supabaseClient";
-import { childrenEventType } from "../types/eventTypes";
-import { Link } from "react-router-dom";
+import DataTable from "../components/DataTable";
+import { dataField, dataTable, dataTableLink } from "../types/dataTableTypes";
 
 function ChildrensEvents() {
-	const [events, setEvents] = useState<childrenEventType[]>();
-	useEffect(() => {
-		async function fetchEvents() {
-			let { data: events, error } = await supabase
-				.from("childrenEvents")
-				.select("*, type(id, name), site(id, name)");
-
-			if (error || !events) {
-				console.error(error);
-				setSnackBar({ toggle: true, severity: "error", message: "Failed to fetch events" });
-			} else setEvents(events as childrenEventType[]);
+	const table: dataTable = "childrenEvents";
+	const fields: dataField<typeof table>[] = [
+		{
+			header: "Name",
+			name: "name",
+			editable: true
+		},
+		{
+			header: "Type",
+			name: "type",
+			nestedField: "name"
+		},
+		{
+			header: "Site",
+			name: "site",
+			nestedField: "name"
+		},
+		{
+			header: "# Adults",
+			name: "numAdults",
+			editable: true
+		},
+		{
+			header: "# Children",
+			name: "numChildren",
+			editable: true
+		},
+		{
+			header: "Date",
+			name: "date",
+			isDate: true
+		},
+		{
+			header: "Start Time",
+			name: "startTime"
+		},
+		{
+			header: "End Time",
+			name: "endTime"
+		},
+		{
+			header: "Description",
+			name: "description",
+			editable: true
 		}
+	];
 
-		fetchEvents();
-	}, []);
-
-	const [snackbar, setSnackBar] = useState<snackbarType>({
-		toggle: false,
-		severity: "error",
-		message: ""
-	});
+	const links: dataTableLink[] = [
+		{
+			to: "/childrens-event-types",
+			text: "Types"
+		},
+		{
+			to: "/childrens-event-sites",
+			text: "Sites"
+		}
+	];
 
 	return (
-		<div className="table-layout">
-			<div className="title">
-				<h1>Children's Events</h1>
-				<div className="right">
-					<Link to="/childrens-event-types">
-						<button>Types</button>
-					</Link>
-					<Link to="/childrens-event-sites">
-						<button>Sites</button>
-					</Link>
-					<ExportCSVButton data={events} />
-				</div>
-			</div>
-			<table>
-				<thead>
-					<tr>
-						<th>Event</th>
-						<th>Type</th>
-						<th>Site</th>
-						<th># of Adults</th>
-						<th># of Children</th>
-						<th>Date</th>
-						<th>Start Time</th>
-						<th>End Time</th>
-						<th>Description</th>
-						<th>Action</th>
-					</tr>
-				</thead>
-				<tbody>
-					{events ? (
-						events
-							.sort((eventA, eventB) => eventB.date.localeCompare(eventA.date))
-							.map(event => (
-								<ChildrensEventRow
-									key={event.id}
-									event={event}
-									removeEvent={() => setEvents(events?.filter(e => e.id != event.id))}
-									updateEvent={updatedEvent => {
-										setEvents(events?.map(e => (e.id == event.id ? updatedEvent : e)));
-									}}
-									setSnackBar={setSnackBar}
-								/>
-							))
-					) : (
-						<tr>
-							<td colSpan={999} className="loading">
-								Loading...
-							</td>
-						</tr>
-					)}
-				</tbody>
-			</table>
-
-			<CustomSnackbar snackbar={snackbar} setSnackbar={setSnackBar} />
-		</div>
+		<DataTable
+			fields={fields}
+			table={table}
+			tableSelection="*, type(id, name), site(id, name)"
+			dataName="children's event"
+			deleteConfirmMessageField="name"
+			title="Children's Events"
+			links={links}
+			showExport
+		/>
 	);
 }
 
