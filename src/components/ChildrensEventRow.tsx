@@ -65,12 +65,18 @@ function ChildrensEventRow({
 	async function saveEvent() {
 		if (loadingSave) return;
 
+		const tempEvent = {
+			...editedEvent,
+			type: editedEvent.type.id,
+			site: editedEvent.site.id
+		};
+
 		setLoadingSave(true);
 		const { data, error } = await supabase
 			.from("childrenEvents")
-			.update(editedEvent)
+			.update(tempEvent)
 			.eq("id", event.id)
-			.select("*");
+			.select("*, type(id, name), site(id, name)");
 		if (error || !data || data.length == 0) {
 			console.error(error);
 			setSnackBar({ toggle: true, severity: "error", message: "Failed to save event changes" });
@@ -85,6 +91,8 @@ function ChildrensEventRow({
 	return !editing ? (
 		<tr key={event.id} onClick={detectClick}>
 			<td>{event.name}</td>
+			<td>{event.type.name}</td>
+			<td>{event.site.name}</td>
 			<td>{event.numAdults}</td>
 			<td>{event.numChildren}</td>
 			<td>{formatDateString(event.date)}</td>
@@ -111,6 +119,8 @@ function ChildrensEventRow({
 					onChange={e => setEditedEvent({ ...editedEvent, name: e.target.value })}
 				/>
 			</td>
+			<td>{event.type.name}</td>
+			<td>{event.site.name}</td>
 			<td>
 				<AdaptiveWidthNumericInput
 					value={editedEvent.numAdults}

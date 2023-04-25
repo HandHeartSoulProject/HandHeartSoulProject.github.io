@@ -10,7 +10,9 @@ function ChildrensEvents() {
 	const [events, setEvents] = useState<childrenEventType[]>();
 	useEffect(() => {
 		async function fetchEvents() {
-			let { data: events, error } = await supabase.from("childrenEvents").select("*");
+			let { data: events, error } = await supabase
+				.from("childrenEvents")
+				.select("*, type(id, name), site(id, name)");
 
 			if (error || !events) {
 				console.error(error);
@@ -37,6 +39,8 @@ function ChildrensEvents() {
 				<thead>
 					<tr>
 						<th>Event</th>
+						<th>Type</th>
+						<th>Site</th>
 						<th># of Adults</th>
 						<th># of Children</th>
 						<th>Date</th>

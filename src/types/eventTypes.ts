@@ -4,7 +4,10 @@ export type eventType = "communityEvent" | "childrenEvent";
 export type communityEventType = Database["public"]["Tables"]["communityEvents"]["Row"] & {
 	type: Database["public"]["Tables"]["communityEventTypes"]["Row"];
 };
-export type childrenEventType = Database["public"]["Tables"]["childrenEvents"]["Row"];
+export type childrenEventType = Database["public"]["Tables"]["childrenEvents"]["Row"] & {
+	type: Database["public"]["Tables"]["childrenEventTypes"]["Row"];
+	site: Database["public"]["Tables"]["childrenEventSites"]["Row"];
+};
 export type communityEventTypeType = Database["public"]["Tables"]["communityEventTypes"]["Row"];
 export const hhsDomain = "@handheartsoulproject.org";
 export const dropDownEventTypes: Record<eventType, string> = {
