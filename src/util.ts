@@ -44,3 +44,10 @@ export function getMonthName(month: number, long: boolean = false): string {
 		: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 	return months[month - 1];
 }
+
+/**
+ * Capitalizes the first letter of a string
+ */
+export function capitalize(str: string): string {
+	return str.charAt(0).toUpperCase() + str.slice(1);
+}
