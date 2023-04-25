@@ -27,6 +27,26 @@
  - When in doubt, try googling the error and there will often be a Stack Overflow post with the solution
 
 # Release Notes
+## Version 1.0.0
+### New Features
+ - Created login page
+ - Created pages to view community and children's events. These pages allow users to view, edit, and delete events
+ - Created pages to view, edit, create, and delete users
+ - Created page to visualize data by month given a year, user type, and data point
+ - Created pages to view, edit, and delete types of community and children's events and sites for children's events
+ - Added ability to export data as csv
+### Bug Fixes
+ - During development, many bugs were addressed:
+   - Typescript errors were fixed by increasing verbosity of type definitions
+   - Routing errors were fixed by standardizing the routing system
+   - Authentication errors were fixed with a combination of improvements to local checks and supabase checks
+### Known Issues
+ - Not all fields can be edited (such as event type & date)
+ - Events cannot be created in the admin portal
+ - The data visualization is not very customizable (the only major option is to change the year)
+ - There is not an easy way to create a new field for events
+ - Events cannot be filtered or sorted (right now it just displays all events in reverse chronological order)
+
 ## Version 0.4.0
 ### New Features
  - Added restrictions to the admin portal to only allow admins or employees to view all data
