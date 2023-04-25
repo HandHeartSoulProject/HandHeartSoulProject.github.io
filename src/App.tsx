@@ -2,6 +2,7 @@ import { createBrowserRouter, createRoutesFromElements, Route, RouterProvider } 
 
 import NavLayout from "./components/NavLayout";
 import ChildrensEvents from "./pages/ChildrensEvents";
+import ChildrensEventSites from "./pages/ChildrensEventSites";
 import ChildrensEventTypes from "./pages/ChildrensEventTypes";
 import CommunityEvents from "./pages/CommunityEvents";
 import CommunityEventTypes from "./pages/CommunityEventTypes";
@@ -21,6 +22,7 @@ function App() {
 					<Route path="childrens-events" element={<ChildrensEvents />} />
 					<Route path="community-event-types" element={<CommunityEventTypes />} />
 					<Route path="childrens-event-types" element={<ChildrensEventTypes />} />
+					<Route path="childrens-event-sites" element={<ChildrensEventSites />} />
 					<Route path="create-user" element={<CreateUsers />} />
 					<Route path="users" element={<Users />} />
 					<Route path="vis" element={<DataVis />} />

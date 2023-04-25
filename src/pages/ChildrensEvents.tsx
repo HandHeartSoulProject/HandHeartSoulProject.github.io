@@ -38,6 +38,9 @@ function ChildrensEvents() {
 					<Link to="/childrens-event-types">
 						<button>Types</button>
 					</Link>
+					<Link to="/childrens-event-sites">
+						<button>Sites</button>
+					</Link>
 					<ExportCSVButton data={events} />
 				</div>
 			</div>
