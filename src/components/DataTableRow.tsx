@@ -108,7 +108,7 @@ function DataTableRow({
 				let content = dataPoint[field.name];
 				if (field.isDate) content = formatDateString(content);
 				else if (field.nestedField) content = content[field.nestedField];
-				else if (editing && !field.editDisabled) {
+				else if (editing && field.editable) {
 					const dpType = typeof dataPoint[field.name];
 					if (dpType == "number") {
 						content = (

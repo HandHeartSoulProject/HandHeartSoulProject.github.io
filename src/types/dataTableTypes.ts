@@ -1,7 +1,7 @@
 export type dataField = {
 	header: string;
 	name: string;
-	editDisabled?: boolean;
+	editable?: boolean;
 	isDate?: boolean;
 	nestedField?: string;
 };

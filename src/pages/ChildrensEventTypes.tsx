@@ -5,18 +5,18 @@ function ChildrensEventTypes() {
 	const fields: dataField[] = [
 		{
 			header: "Event Type Name",
-			name: "name"
+			name: "name",
+			editable: true
 		},
 		{
 			header: "ID",
-			name: "id",
-			editDisabled: true
+			name: "id"
 		}
 	];
 
 	return (
 		<div className="table-layout">
-			<h1>Childrens Event Types</h1>
+			<h1>Children's Event Types</h1>
 			<DataTable
 				fields={fields}
 				table="childrenEventTypes"
