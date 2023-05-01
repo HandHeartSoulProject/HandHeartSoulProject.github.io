@@ -28,8 +28,7 @@ function App() {
 					<Route path="vis" element={<DataVis />} />
 				</Route>
 			</>
-		),
-		{ basename: "/Hand-Heart-and-Soul/" }
+		)
 	);
 
 	return <RouterProvider router={router} />;
